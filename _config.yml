@@ -1,0 +1,67 @@
+# Harmony Jekyll theme general configurations 
+
+# Base URL
+baseurl: null
+
+# Site live URL
+url: http://largebgpcommunities.net
+
+# Localhost 
+# url: http://127.0.0.1:4000  
+
+# Harmony theme configuration. Please change accordingly.
+harmony:
+  name: BGP Filter Guide
+  # Little description about your site
+  description:
+  # 'meta_description:' Write an awesome description for your new site here.
+  # It will appear in your document head meta (for Google search results) and 
+  # in your feed.xml site description.
+  meta_description: > # 
+      This repository serves to collect resources and provide guidance on common
+      BGP filtering considerations.
+  basetheme: theme-base-01 # pre defined thmes are darken, blue-water, redish.
+  author: # Author details
+    name: Job Snijders
+    email: job@ntt.net
+    url: http://twitter.com/JobSnijders
+
+  # Google Analytics key, leave blank to ignore
+  google_analytics_key: ""
+
+  # Profile links, leave blank to ignore
+  social: 
+    github: 
+    twitter: 
+    facebook: 
+    gplus: 
+    dribble: 
+    pinterest: 
+  # Toggle disclaimer in footer
+  show_disclaimer: false
+
+# Conversion / Build settings 
+markdown:    kramdown
+# This is how you put pygments config in jekyll 2.0 instead of pygments: true
+highlighter: pygments 
+
+# Permalinks
+permalink   : /:year/:title/
+
+disqus_shortname: "nlnog-bgp-filter-guide"
+
+contact: "mailto:job@ntt.net"
+
+exclude: 
+  - CNAME
+  - Gemfile
+  - Rakefile
+  - README.md
+  - .gitignore
+  - .sass-cache
+  - Gemfile.lock
+
+# Sass conversion configs
+sass:
+    sass_dir: assets/css/_sass
+    style: :compressed
