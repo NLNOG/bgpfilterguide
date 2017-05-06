@@ -4,6 +4,9 @@ title: Filtering Bogon ASNs
 permalink: /guides/bogon_asns/
 ---
 
+* TOC
+{:toc}
+
 # Bogon ASN filtering
 
 Original publication: [http://as2914.net/bogon_asns/configuration_examples.txt](http://as2914.net/bogon_asns/configuration_examples.txt)
@@ -19,9 +22,6 @@ a either a misconfiguration or software issue.
 
 Rejecting all EBGP routes which contain a Bogon ASN anywhere in the `AS_PATH` is
 a form of [Fail-fast](https://en.wikipedia.org/wiki/Fail-fast).
-
-* Configuration examples
-{:toc}
 
 ### Juniper
 
