@@ -1,0 +1,54 @@
+---
+layout: default
+---
+
+<div class="page-content wc-container">
+        <p>
+        <strong>BGP Large Communities</strong> are a novel way to signal
+        information between networks. Large BGP Communities are easy to use,
+        implement and deploy.
+        </p>
+        <p>
+        An example of <strong>Large Communities</strong> is:
+        <code>2914:65400:38016</code>. <strong>Large BGP Communities</strong>
+        are composed of three 4-byte integers, separated by a colon. This is
+        easy to remember and accommodates advanced routing policies in
+        relation to <a href="https://tools.ietf.org/html/rfc4893">4-Byte
+            ASNs</a>.
+        </p>
+        <p>This website brings together <a
+            href="/implementations">implementers</a> and end users of the
+        <strong>Large BGP Communities</strong>.</p>
+	<hr />
+	<h2>Recent News articles:</h2>
+
+	<div class="posts">
+  		{% for post in site.posts limit:10 %}
+  			<div class="post">
+    			<h3 class="post-title">
+			      <a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}">
+			        {{ post.title }}
+			      </a>
+    			</h3>
+
+          <p class="post-meta">
+            <span class="post-date">
+            {{ post.date | date: "%b %-d, %Y" }} 
+            </span>
+          </p>          
+    			    			
+  				<p>
+	  				{{ post.excerpt }}	
+  				</p>
+  				<p>
+  					<a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}" title="{{ post.title}}">
+  						Read More
+					</a>
+  				</p>
+  			</div>
+  		{% endfor %}
+	</div>
+	<div class="post-footer">
+		<div class="column-full"><a href="{{ '/news' | prepend: site.baseurl | prepend: site.url }}">News Archive</a></div>
+	</div>
+</div>
