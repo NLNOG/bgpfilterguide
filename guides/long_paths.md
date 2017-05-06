@@ -34,4 +34,4 @@ policy-options {
  as-path too-many-hops ".{100,}";
 ```
 
-Info about the original bug report : https://kb.juniper.net/InfoCenter/index?page=content&id=JSA10418
+Info about the original bug report : [Link to kb article](https://kb.juniper.net/InfoCenter/index?page=content&id=JSA10418)
