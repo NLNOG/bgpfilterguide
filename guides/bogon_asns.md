@@ -23,9 +23,9 @@ a either a misconfiguration or software issue.
 Rejecting all EBGP routes which contain a Bogon ASN anywhere in the `AS_PATH` is
 a form of [Fail-fast](https://en.wikipedia.org/wiki/Fail-fast).
 
-## Configuration Examples
+# Configuration Examples
 
-### Juniper
+## Juniper
 
 ```
 policy-options {
@@ -56,7 +56,7 @@ policy-options {
 }
 ```
 
-### Cisco IOS XR
+## Cisco IOS XR
 
 ```
 as-path-set bogon-asns
@@ -86,7 +86,7 @@ route-policy import_from_ebgp
 end-policy
 ```
 
-### BIRD
+## BIRD
 
 ```
 define BOGON_ASNS = [ 0,                      # RFC 7607
@@ -112,7 +112,7 @@ int set bogon_asns;
 }
 ```
 
-### Nokia SR OS
+## Nokia SR OS
 
 ```
 bgp
