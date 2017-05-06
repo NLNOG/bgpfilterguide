@@ -6,7 +6,7 @@
 name: BGP Filter Guide
 
 # Short bio or description (displayed in the header)
-description: Guidance on BGP Filtering Considerations
+description: Guidance on BGP Filtering
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
 avatar: https://raw.githubusercontent.com/nlnog/bgpfilterguide/master/images/nlnog.png
