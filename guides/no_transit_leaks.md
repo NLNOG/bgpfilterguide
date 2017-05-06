@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Filtering Known Transit Networks
-permalink: /guides/no_transit_leaks.md/
+permalink: /guides/no_transit_leaks/
 ---
 
 * TOC

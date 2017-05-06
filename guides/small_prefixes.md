@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Filtering Small Prefixes
-permalink: /guides/small_prefixes.md/
+permalink: /guides/small_prefixes/
 ---
 
 * TOC
