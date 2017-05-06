@@ -74,9 +74,9 @@ end-set
 
 route-policy import_from_ebgp
   if as-path in bogon-asns then
-	drop
+    drop
   else
-	......
+    ......
   endif
 end-policy
 ```
@@ -85,25 +85,25 @@ end-policy
 
 ```
 define BOGON_ASNS = [ 0,                      # RFC 7607
-					  23456,                  # RFC 4893 AS_TRANS
-					  64496..64511,           # RFC 5398 and documentation/example ASNs
-					  64512..65534,           # RFC 6996 Private ASNs
-					  65535,                  # RFC 6996 Last 16 bit ASN
-					  65536..65551,           # RFC 5398 and documentation/example ASNs
-					  65552..131071,          # RFC IANA reserved ASNs
-					  4200000000..4294967294, # RFC 6996 Private ASNs
-					  4294967295 ];           # RFC 6996 Last 32 bit ASN
+                      23456,                  # RFC 4893 AS_TRANS
+                      64496..64511,           # RFC 5398 and documentation/example ASNs
+                      64512..65534,           # RFC 6996 Private ASNs
+                      65535,                  # RFC 6996 Last 16 bit ASN
+                      65536..65551,           # RFC 5398 and documentation/example ASNs
+                      65552..131071,          # RFC IANA reserved ASNs
+                      4200000000..4294967294, # RFC 6996 Private ASNs
+                      4294967295 ];           # RFC 6996 Last 32 bit ASN
 
 function ebgp_import()
 int set bogon_asns;
 {
-	# ignore bogon AS_PATHs
-	bogon_asns = BOGON_ASNS;
-	if ( bgp_path ~ bogon_asns ) then {
-		print "Reject: bogon AS_PATH: ", net, " ", bgp_path;
-		reject;
-	}
-	.......
+    # ignore bogon AS_PATHs
+    bogon_asns = BOGON_ASNS;
+    if ( bgp_path ~ bogon_asns ) then {
+        print "Reject: bogon AS_PATH: ", net, " ", bgp_path;
+        reject;
+    }
+    .......
 }
 ```
 
@@ -111,37 +111,37 @@ int set bogon_asns;
 
 ```
 bgp
-	error-handling
-		# RFC 7607 AS 0
-		update-fault-tolerance
-	exit
+    error-handling
+        # RFC 7607 AS 0
+        update-fault-tolerance
+    exit
 exit
 
 policy-options
-	begin
-	as-path-group "bogon-asns"
-		# RFC 4893 AS_TRANS
-		entry 10 expression ".* 23456 .*"
-		# RFC 5398 and documentation/example ASNs
-		entry 15 expression ".* [64496-64511] .*"
-		entry 20 expression ".* [65536-65551] .*"
-		# RFC 6996 private ASNs
-		entry 25 expression ".* [64512-65534] .*"
-		entry 30 expression ".* [4200000000-4294967294] .*"
-		RFC 6996 last 16-bit and 32-bit ASNs
-		entry 35 expression ".* 65535 .*"
-		entry 40 expression ".* 4294967295 .*"
-		# IANA reserved ASNs
-		entry 45 expression ".* [65552-131071] .*"
-	exit
-	policy-statement "import_from_ebgp"
-		entry 10
-			from
-				as-path-group "bogon-asns"
-			exit
-			action reject
-		exit
-	exit
-	commit
+    begin
+    as-path-group "bogon-asns"
+        # RFC 4893 AS_TRANS
+        entry 10 expression ".* 23456 .*"
+        # RFC 5398 and documentation/example ASNs
+        entry 15 expression ".* [64496-64511] .*"
+        entry 20 expression ".* [65536-65551] .*"
+        # RFC 6996 private ASNs
+        entry 25 expression ".* [64512-65534] .*"
+        entry 30 expression ".* [4200000000-4294967294] .*"
+        RFC 6996 last 16-bit and 32-bit ASNs
+        entry 35 expression ".* 65535 .*"
+        entry 40 expression ".* 4294967295 .*"
+        # IANA reserved ASNs
+        entry 45 expression ".* [65552-131071] .*"
+    exit
+    policy-statement "import_from_ebgp"
+        entry 10
+            from
+                as-path-group "bogon-asns"
+            exit
+            action reject
+        exit
+    exit
+    commit
 exit
 ```
