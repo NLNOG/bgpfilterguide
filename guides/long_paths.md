@@ -21,6 +21,7 @@ A safe number on the filter would be on 100 AS's in the AS_PATH.
 
 ## Juniper
 
+```
 policy-options {
   policy-statement bgp-import-policy {
   term no-long-paths {
@@ -31,6 +32,6 @@ policy-options {
  }
 
  as-path too-many-hops ".{100,}";
-
+```
 
 Info about the original bug report : https://kb.juniper.net/InfoCenter/index?page=content&id=JSA10418

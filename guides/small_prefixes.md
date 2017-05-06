@@ -25,6 +25,7 @@ Routes smaller than a /24 should not be expected to have working global routing 
 
 ## Juniper
 
+```
 policy-options {
   policy-statement bgp-import-policy {
     term nosmallprefixes {
@@ -34,3 +35,4 @@ policy-options {
     }
   }
 }
+```

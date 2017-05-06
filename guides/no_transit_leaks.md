@@ -24,6 +24,7 @@ Target import policy :  customers and IXP peering
 
 ## Juniper
 
+```
 policy-options {
   policy-statement bgp-import-policy {
     term no-transit-leaks {
@@ -34,3 +35,4 @@ policy-options {
  }
 
  as-path no-transit-import-in ".* (174|209|701|702|1239|1299|2914|3257|3320|3356|3549|3561|4134|5511|6453|6461|6762|7018) .*";
+```
