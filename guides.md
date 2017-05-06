@@ -14,7 +14,7 @@ Rejecting routes which have small prefixes: [No Small Prefixes](/guides/small_pr
 
 ### Filter Long AS Paths
 
-Rejecting routes which have more than : [No Small Prefixes](/guides/small_prefixes/).
+Rejecting routes which have very long AS Paths: [No Long AS Paths](/guides/long_paths/).
 
 ### Filter Known Transit Networks in AS Paths
 
