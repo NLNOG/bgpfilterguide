@@ -23,6 +23,8 @@ a either a misconfiguration or software issue.
 Rejecting all EBGP routes which contain a Bogon ASN anywhere in the `AS_PATH` is
 a form of [Fail-fast](https://en.wikipedia.org/wiki/Fail-fast).
 
+## Configuration Examples
+
 ### Juniper
 
 ```
