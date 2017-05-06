@@ -19,3 +19,7 @@ Rejecting routes which have very long AS Paths: [No Long AS Paths](/guides/long_
 ### Filter Known Transit Networks in AS Paths
 
 Rejecting routes which contain known Transit Networks in the AS Path: [No Known Transit in AS_Path](/guides/no_transit_leaks/).
+
+### Default Accept term
+
+A default accept term with BGP communities and a local-preference: [Default accept term](/guides/default_accept/).

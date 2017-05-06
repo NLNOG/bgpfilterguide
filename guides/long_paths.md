@@ -1,3 +1,4 @@
+---
 layout: page
 title: Filtering Long Paths
 permalink: /guides/long_paths.md/
