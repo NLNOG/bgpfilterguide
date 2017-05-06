@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Filtering Long Paths
-permalink: /guides/long_paths.md/
+permalink: /guides/long_paths/
 ---
 
 * TOC
