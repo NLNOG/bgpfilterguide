@@ -39,4 +39,4 @@ Gert Doering's [ipv6-filters](https://www.space.net/~gert/RIPE/ipv6-filters.html
 
 ## YAML from Coloclue
 
-Coloclue's network management system [kees](https://github.com/coloclue/kees) considers these the IPv6 Bogons: https://github.com/coloclue/kees/blob/master/vars/generic.yml#L70-L156
+Coloclue's network management system [kees](https://github.com/coloclue/kees) considers these the IPv6 Bogons: [yaml file](https://github.com/coloclue/kees/blob/master/vars/generic.yml#L70-L156)
