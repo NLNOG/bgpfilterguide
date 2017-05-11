@@ -25,7 +25,7 @@ a form of [Fail-fast](https://en.wikipedia.org/wiki/Fail-fast).
 
 # Configuration Examples
 
-## Juniper
+## Junos
 
 ```
 policy-options {
@@ -56,7 +56,7 @@ policy-options {
 }
 ```
 
-## Cisco IOS XR
+## IOS-XR
 
 ```
 as-path-set bogon-asns

@@ -24,7 +24,7 @@ Target import policy : any bgp import policy
 
 # Configuration Examples
 
-## Juniper
+## Junos
 
 ```
 policy-options {

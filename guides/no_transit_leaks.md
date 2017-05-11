@@ -22,7 +22,7 @@ Target import policy :  customers and IXP peering
 
 # Configuration Examples
 
-## Juniper
+## Junos
 
 ```
 policy-options {
