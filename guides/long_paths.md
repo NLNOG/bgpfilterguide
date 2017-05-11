@@ -20,7 +20,7 @@ A safe number on the filter would be on 100 AS's in the AS_PATH.
 
 # Configuration Examples
 
-## Juniper
+## Junos
 
 ```
 policy-options {
@@ -36,3 +36,11 @@ policy-options {
 ```
 
 Info about the original bug report : [Link to kb article](https://kb.juniper.net/InfoCenter/index?page=content&id=JSA10418)
+
+## Bird
+```
+prefix set unwanted; {
+    if ( bgp_path.len > 100 ) then return false;
+    return true;
+}
+```
