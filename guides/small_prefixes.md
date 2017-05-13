@@ -24,7 +24,7 @@ Routes smaller than a /24 should not be expected to have working global routing 
 
 # Configuration Examples
 
-## Juniper
+## Junos
 
 ```
 policy-options {
@@ -35,5 +35,13 @@ policy-options {
         }
     }
   }
+}
+```
+
+## Bird
+```
+prefix set unwanted; {
+    if net.len >28 then return false;
+    return true;
 }
 ```
