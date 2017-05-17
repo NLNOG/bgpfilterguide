@@ -10,6 +10,6 @@ This website exists to collect resources regarding guidance on BGP filtering con
 
 NLNOG is a global community of network operators passionate about bgp filtering.
 
-### Contact me
+### Contact us
 
 [nlnog@nlnog.net](mailto:nlnog@nlnog.net)
