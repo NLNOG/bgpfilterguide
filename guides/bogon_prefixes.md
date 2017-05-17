@@ -1,20 +1,22 @@
 ---
 layout: page
-title: IPv6 Bogon Prefixes
-permalink: /guides/ipv6_bogons/
+title: Bogon Prefixes
+permalink: /guides/bogon_prefixes/
 ---
 
 * TOC
 {:toc}
 
-# Filter IPv6 Bogon prefixes
+# Filter Bogon prefixes
 
 ## Purpose
 
-These prefixes are not globally unique unicast prefixes. IETF didn't intend for
+These prefixes are not globally unique prefixes. IETF didn't intend for
 these to be routed on the public Internet.
 
-# Configuration Examples
+# Configuration Examples IPv4
+
+# Configuration Examples IPv6
 
 ## OpenBGPD
 
