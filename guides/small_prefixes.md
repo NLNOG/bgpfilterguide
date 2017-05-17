@@ -50,3 +50,24 @@ prefix set too_small; {
     return true;
 }
 ```
+
+## Cisco classic IOS and IOS XE
+```
+ip prefix-list peerfilter seq 5 deny 0.0.0.0/0
+ip prefix-list peerfilter seq 10 permit 0.0.0.0/0 ge 8 le 28
+
+#Use a template peer-policy that you configure for each neighbor like this:
+ !
+ template peer-policy ixe-v4
+  prefix-list peerfilter in
+  maximum-prefix <number>
+ exit-peer-policy
+ !
+router bgp <my ASN>
+ !
+ address-family ipv4
+neighbor 192.0.2.1 inherit peer-policy ixe-v4
+neighbor 192.0.2.1 activate
+!
+}
+```
