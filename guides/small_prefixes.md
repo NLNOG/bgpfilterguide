@@ -54,7 +54,7 @@ prefix set too_small; {
 ## Cisco classic IOS and IOS XE
 ```
 ip prefix-list peerfilter seq 5 deny 0.0.0.0/0
-ip prefix-list peerfilter seq 10 permit 0.0.0.0/0 ge 8 le 28
+ip prefix-list peerfilter seq 10 permit 0.0.0.0/0 ge 8 le 24
 
 #Use a template peer-policy that you configure for each neighbor like this:
  !
