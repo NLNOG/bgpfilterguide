@@ -1,13 +1,13 @@
 ---
 layout: page
-title: Default Accept term
-permalink: /guides/default_accept/
+title: Remainder Accept term
+permalink: /guides/remainder_accept/
 ---
 
 * TOC
 {:toc}
 
-# A default accept term
+# A remainder accept term
 
 ## Purpose
 
@@ -33,7 +33,7 @@ policy-options {
 ...
 ...
 
-  term default {
+  term remainder {
       then {
           local-preference add 15;
           community add ixp-import;
