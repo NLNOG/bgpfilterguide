@@ -8,9 +8,9 @@ permalink: /guides/
 
 Rejecting routes which have a Bogon ASN anywhere in the AS_PATH: [bogon_asn](/guides/bogon_asns/).
 
-### IPv6 Bogon Prefix filtering
+### Bogon Prefix filtering
 
-Rejecting IPv6 routes which are bogons: [ipv6_bogons](/guides/ipv6_bogons/).
+Rejecting routes which are bogons: [bogon_prefixes](/guides/bogon_prefixes/).
 
 
 ### No Small Prefix filtering
