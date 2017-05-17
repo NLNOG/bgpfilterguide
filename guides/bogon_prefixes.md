@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Bogon Prefixes
-permalink: /guides/bogons/
+permalink: /guides/bogon_prefixes/
 ---
 
 * TOC
