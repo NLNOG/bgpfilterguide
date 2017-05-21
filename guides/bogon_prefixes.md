@@ -35,7 +35,45 @@ deny from any prefix 203.0.113.0/24 prefixlen >= 24	# TEST-NET-3 [RFC5737]
 deny from any prefix 224.0.0.0/4 prefixlen >= 4 	# multicast
 deny from any prefix 240.0.0.0/4 prefixlen >= 4 # reserved
 ```
+## Junos
+```
+policy-options {
+    prefix-list BOGONS_v4 {
+        0.0.0.0/8;
+        10.0.0.0/8;
+        100.64.0.0/10;
+        127.0.0.0/8;
+        169.254.0.0/16;
+        172.16.0.0/12;
+        192.0.2.0/24;
+        192.168.0.0/16;
+        198.18.0.0/15;
+        198.51.100.0/24;
+        203.0.113.0/24;
+        224.0.0.0/4;
+        240.0.0.0/4;
+    }
+    policy-statement BGP_FILTER_IN {
+        term IPv4 {
+            from {
+                prefix-list BOGONS_v4;
+            }
+            then reject;
+        }
+    }
+}
+```
 
+## Bird
+```
+prefix set bogon; {
+        bogon = [ 0.0.0.0/8+, 10.0.0.0/8+, 100.64.0.0/10+, 127.0.0.0/8+, 169.254.0.0/16+,  172.16.0.0/12+, 192.0.2.0/24+, 192.168.0.0/16+, 198.18.0.0/15+, 198.51.100.0/24+, 203.0.113.0/24+, 224.0.0.0/4+, 240.0.0.0/4+ ];
+        if ( net ~ bogon ) then  {
+          return false;
+        }
+        return true;
+}
+```
 # Configuration Examples IPv6
 
 ## OpenBGPD
