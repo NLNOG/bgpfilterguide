@@ -44,3 +44,9 @@ prefix set unwanted; {
     return true;
 }
 ```
+
+
+## OpenBGPD
+```
+deny from any max-as-len 100
+```
