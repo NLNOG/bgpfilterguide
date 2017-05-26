@@ -44,3 +44,14 @@ policy-options {
 
 community ixp-import members <your ASN>:<peer ASN>;
 ```
+
+## OpenBGPD
+
+```
+neighbor $Peer {
+...
+        set community <your ASN>:<peer ASN>
+}
+
+match from any community <your ASN>:<peer ASN> set localpref 115
+```
