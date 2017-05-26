@@ -71,3 +71,9 @@ neighbor 192.0.2.1 activate
 !
 }
 ```
+
+## OpenBGPD
+```
+deny from any inet prefixlen > 24
+deny from any inet6 prefixlen > 48
+```
