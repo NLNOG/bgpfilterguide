@@ -53,5 +53,5 @@ neighbor $Peer {
         set community <your ASN>:<peer ASN>
 }
 
-match from any community <your ASN>:<peer ASN> set localpref 115
+match from any community <your ASN>:<peer ASN> set localpref +15
 ```
