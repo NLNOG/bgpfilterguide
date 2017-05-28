@@ -45,6 +45,19 @@ policy-options {
 community ixp-import members <your ASN>:<peer ASN>;
 ```
 
+## IOS-XR
+
+```
+route-policy BGP_FILTER_IN
+  ...
+    ...
+  endif
+  set community ixp-import
+  set local-preference +15
+  done
+end-policy
+```
+
 ## OpenBGPD
 
 ```
