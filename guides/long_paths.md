@@ -37,6 +37,16 @@ policy-options {
 
 Info about the original bug report : [Link to kb article](https://kb.juniper.net/InfoCenter/index?page=content&id=JSA10418)
 
+## IOS-XR
+
+```
+route-policy BGP_FILTER_IN
+  if as-path length ge 100 then
+    drop
+  endif
+end-policy
+```
+
 ## Bird
 ```
 prefix set unwanted; {
