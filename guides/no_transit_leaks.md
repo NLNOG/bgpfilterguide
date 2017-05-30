@@ -37,6 +37,20 @@ policy-options {
  as-path no-transit-import-in ".* (174|209|701|702|1239|1299|2914|3257|3320|3356|3549|3561|4134|5511|6453|6461|6762|7018) .*";
 ```
 
+## IOS-XR
+
+```
+as-path-set TRANSIT_AS
+  ios-regex '.* (174|209|701|702|1239|1299|2914|3257|3320|3356|3549|3561|4134|5511|6453|6461|6762|7018) .*'
+end-set
+!
+route-policy BGP_FILTER_IN
+  if as-path in TRANSIT_AS then
+    drop
+  endif
+end-policy
+```
+
 ## OpenBGPD
 
 ```
