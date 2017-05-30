@@ -63,7 +63,30 @@ policy-options {
     }
 }
 ```
-
+## IOS-XR
+```
+prefix-set BOGONS_V4
+  0.0.0.0/8 le 32,
+  10.0.0.0/8 le 32,
+  100.64.0.0/10 le 32,
+  127.0.0.0/8 le 32,
+  169.254.0.0/16 le 32,
+  172.16.0.0/12 le 32,
+  192.0.2.0/24 le 32,
+  192.168.0.0/16 le 32,
+  198.18.0.0/15 le 32,
+  198.51.100.0/24 le 32,
+  203.0.113.0/24 le 32,
+  224.0.0.0/4 le 32,
+  240.0.0.0/4 le 32
+end-set
+!
+route-policy BGP_FILTER_IN
+  if destination in BOGONS_V4 then
+    drop
+  endif
+end-policy
+```
 ## Bird
 ```
 prefix set bogon; {
