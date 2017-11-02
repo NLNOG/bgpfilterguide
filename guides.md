@@ -12,7 +12,6 @@ Rejecting routes which have a Bogon ASN anywhere in the AS_PATH: [bogon_asn](/gu
 
 Rejecting routes which are bogons: [bogon_prefixes](/guides/bogon_prefixes/).
 
-
 ### No Small Prefix filtering
 
 Rejecting routes which have small prefixes: [No Small Prefixes](/guides/small_prefixes/).
@@ -28,3 +27,7 @@ Rejecting routes which contain known Transit Networks in the AS Path: [No Known 
 ### Remainder Accept term
 
 A Remainder accept term with BGP communities and a local-preference: [Remainder accept term](/guides/remainder_accept/).
+
+### Supporting GRACEFUL_SHUTDOWN
+
+How to facilitate the graceful shutdown of BGP sessions: [graceful_shutdown](/guides/graceful_shutdown/).
