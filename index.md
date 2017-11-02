@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Guides
-permalink: /guides/
+title: BGP Filter Guides
+permalink: /
 ---
 
 ### Bogon ASN filtering
@@ -30,4 +30,4 @@ A Remainder accept term with BGP communities and a local-preference: [Remainder 
 
 ### Supporting GRACEFUL_SHUTDOWN
 
-How to facilitate the graceful shutdown of BGP sessions: [graceful_shutdown](/guides/graceful_shutdown/).
+How to facilitate the graceful shutdown of BGP sessions: [Graceful Shutdown](/guides/graceful_shutdown/).
