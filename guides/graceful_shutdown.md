@@ -110,6 +110,19 @@ protocol bgp peer_64497_1 {
 }
 ```
 
+## Arista / Brocade / Cisco IOS / Quagga / FRR
+
+```
+!
+ip community-list standard gshut 65535:0
+!
+route-map ebgp-in permit 10
+  match community gshut
+  set local-preference 0
+  continue
+!
+```
+
 # List of networks known to accept & honor GRACEFUL_SHUTDOWN
 
 * NTT Communications / AS 2914
