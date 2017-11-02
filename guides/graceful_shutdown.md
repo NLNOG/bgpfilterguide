@@ -22,9 +22,9 @@ The IETF document that defines GRACEFUL_SHUTDOWN: [RFC-to-Be draft-ietf-grow-bgp
 
 The requirements document which led to the development of GRACEFUL_SHUTDOWN: [RFC 6198](https://tools.ietf.org/html/rfc6198).
 
-European Peering Forum 12 (2017, Lisbon) presentation by Job Snijders (NTT) on Graceful Shutdown: [pdf](https://www.peering-forum.eu/system/documents/173/original/Job_Snijders_BGP_graceful_shutdown.pdf).
+European Peering Forum 12 (2017, Lisbon) presentation by Job Snijders on Graceful Shutdown: [pdf](https://www.peering-forum.eu/system/documents/173/original/Job_Snijders_BGP_graceful_shutdown.pdf).
 
-15 minute video presentation on GRACEFUL_SHUTDOWN by Job Snijders at the NLNOG day 2017: [youtube video](https://www.youtube.com/watch?v=HGGRsJ-gjI4).
+**Recommended viewing**: 15 minute video presentation on GRACEFUL_SHUTDOWN by Job Snijders at the [NLNOG day 2017](https://nlnog.net/nlnog-day-2017/): [youtube video](https://www.youtube.com/watch?v=HGGRsJ-gjI4).
 
 # Configuration Examples
 
