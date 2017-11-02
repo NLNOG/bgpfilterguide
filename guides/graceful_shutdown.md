@@ -68,19 +68,21 @@ match from any community GRACEFUL_SHUTDOWN set { localpref 0 }
 
 ## Junos
 
-Put `allow-graceful-shutdown` in every import EBGP policy chain.
+Put `allow-graceful-shutdown` in every import EBGP policy chain. Ensure this is placed in a location after you've decided to accept a route, and the `local-preference 0` is not overwriten later on in the chain.
 
 ```
 community graceful_shutdown members 65535:0;
 
 policy-statement allow-graceful-shutdown {
-    from {
-        protocol bgp;
-        community graceful_shutdown;
-    }
-    then {
-        local-preference 0;
-        next policy;
+    term 1 {
+        from {
+            protocol bgp;
+            community graceful_shutdown;
+        }
+        then {
+            local-preference 0;
+            next policy;
+        }
     }
 }
 ```
