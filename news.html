@@ -1,5 +1,7 @@
 ---
 layout: default
+title: News
+permalink: /news/
 ---
 
 <div class="posts">
