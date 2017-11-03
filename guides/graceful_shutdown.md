@@ -123,6 +123,22 @@ route-map ebgp-in permit 10
 !
 ```
 
+## Nokia SR-OS
+```
+community "gshut" members "65535:0"
+
+policy-statement "ebgp-in"
+    entry 10
+        from
+            community "gshut"
+        exit
+        action accept
+            local-preference 0
+        exit
+    exit
+exit
+```
+
 # List of networks known to accept & honor GRACEFUL_SHUTDOWN
 
 * NTT Communications / AS 2914
