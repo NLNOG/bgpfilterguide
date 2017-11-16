@@ -156,3 +156,5 @@ exit
 * DGC Systems / AS 21195
 * ComHem / AS 39651
 * Digital Telecommunication Services S.r.l. / AS49605
+* Job Snijders / AS 15562
+* Thomas King / AS 31451
