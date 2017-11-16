@@ -155,3 +155,4 @@ exit
 * Bahnhof / AS 8473
 * DGC Systems / AS 21195
 * ComHem / AS 39651
+* Digital Telecommunication Services S.r.l. / AS49605
