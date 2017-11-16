@@ -158,3 +158,4 @@ exit
 * Digital Telecommunication Services S.r.l. / AS49605
 * Job Snijders / AS 15562
 * Thomas King / AS 31451
+* KPN Eurorings (International) / AS286
