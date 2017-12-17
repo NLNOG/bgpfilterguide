@@ -21,19 +21,19 @@ these to be routed on the public Internet.
 Copied from [openbsd examples](https://github.com/openbsd/src/blob/master/etc/examples/bgpd.conf#L97-L109)
 
 ```
-deny from any prefix 0.0.0.0/8 prefixlen >= 8		# 'this' network [RFC1122]
-deny from any prefix 10.0.0.0/8 prefixlen >= 8		# private space [RFC1918]
-deny from any prefix 100.64.0.0/10 prefixlen >= 10	# CGN Shared [RFC6598]
-deny from any prefix 127.0.0.0/8 prefixlen >= 8 	# localhost [RFC1122]
-deny from any prefix 169.254.0.0/16 prefixlen >= 16	# link local [RFC3927]
-deny from any prefix 172.16.0.0/12 prefixlen >= 12	# private space [RFC1918]
-deny from any prefix 192.0.2.0/24 prefixlen >= 24	# TEST-NET-1 [RFC5737]
-deny from any prefix 192.168.0.0/16 prefixlen >= 16	# private space [RFC1918]
-deny from any prefix 198.18.0.0/15 prefixlen >= 15	# benchmarking [RFC2544]
-deny from any prefix 198.51.100.0/24 prefixlen >= 24	# TEST-NET-2 [RFC5737]
-deny from any prefix 203.0.113.0/24 prefixlen >= 24	# TEST-NET-3 [RFC5737]
-deny from any prefix 224.0.0.0/4 prefixlen >= 4 	# multicast
-deny from any prefix 240.0.0.0/4 prefixlen >= 4 # reserved
+deny from any prefix 0.0.0.0/8 prefixlen >= 8           # 'this' network [RFC1122]
+deny from any prefix 10.0.0.0/8 prefixlen >= 8          # private space [RFC1918]
+deny from any prefix 100.64.0.0/10 prefixlen >= 10      # CGN Shared [RFC6598]
+deny from any prefix 127.0.0.0/8 prefixlen >= 8         # localhost [RFC1122]
+deny from any prefix 169.254.0.0/16 prefixlen >= 16     # link local [RFC3927]
+deny from any prefix 172.16.0.0/12 prefixlen >= 12      # private space [RFC1918]
+deny from any prefix 192.0.2.0/24 prefixlen >= 24       # TEST-NET-1 [RFC5737]
+deny from any prefix 192.168.0.0/16 prefixlen >= 16     # private space [RFC1918]
+deny from any prefix 198.18.0.0/15 prefixlen >= 15      # benchmarking [RFC2544]
+deny from any prefix 198.51.100.0/24 prefixlen >= 24    # TEST-NET-2 [RFC5737]
+deny from any prefix 203.0.113.0/24 prefixlen >= 24     # TEST-NET-3 [RFC5737]
+deny from any prefix 224.0.0.0/4 prefixlen >= 4         # multicast
+deny from any prefix 240.0.0.0/4 prefixlen >= 4         # reserved for future use
 ```
 ## Junos
 ```
