@@ -21,7 +21,7 @@ about to be shut down deliberately, e.g. for planned maintenance.
 **Recommended viewing**: 15 minute presentation available as [youtube video](https://www.youtube.com/watch?v=HGGRsJ-gjI4) on GRACEFUL_SHUTDOWN by
 Job Snijders, recorded at the [NLNOG day 2017](https://nlnog.net/nlnog-day-2017/).
 
-The IETF document that defines GRACEFUL_SHUTDOWN: [RFC-to-Be draft-ietf-grow-bgp-gshut](https://tools.ietf.org/html/draft-ietf-grow-bgp-gshut-12).
+The IETF document that defines GRACEFUL_SHUTDOWN: [RFC 8326](https://tools.ietf.org/html/rfc8326).
 
 The requirements document which led to the development of GRACEFUL_SHUTDOWN: [RFC 6198](https://tools.ietf.org/html/rfc6198).
 
