@@ -49,7 +49,7 @@ router bgp 64496
   address-family ipv6 unicast
    send-community-ebgp
    route-policy AS64497-ebgp-inbound in
-
+   ! outbound policy & other stuff omitted in this example
   !
  !
 !
