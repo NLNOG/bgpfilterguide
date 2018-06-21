@@ -28,6 +28,7 @@ deny from any prefix 127.0.0.0/8 prefixlen >= 8         # localhost [RFC1122]
 deny from any prefix 169.254.0.0/16 prefixlen >= 16     # link local [RFC3927]
 deny from any prefix 172.16.0.0/12 prefixlen >= 12      # private space [RFC1918]
 deny from any prefix 192.0.2.0/24 prefixlen >= 24       # TEST-NET-1 [RFC5737]
+deny from any prefix 192.88.99.0/24 prefixlen >= 24     # 6to4 anycast relay [RFC7526]
 deny from any prefix 192.168.0.0/16 prefixlen >= 16     # private space [RFC1918]
 deny from any prefix 198.18.0.0/15 prefixlen >= 15      # benchmarking [RFC2544]
 deny from any prefix 198.51.100.0/24 prefixlen >= 24    # TEST-NET-2 [RFC5737]
@@ -46,6 +47,7 @@ policy-options {
         169.254.0.0/16;
         172.16.0.0/12;
         192.0.2.0/24;
+        192.88.99.0/24;
         192.168.0.0/16;
         198.18.0.0/15;
         198.51.100.0/24;
@@ -73,6 +75,7 @@ prefix-set BOGONS_V4
   169.254.0.0/16 le 32,
   172.16.0.0/12 le 32,
   192.0.2.0/24 le 32,
+  192.88.99.0/24 le 32,
   192.168.0.0/16 le 32,
   198.18.0.0/15 le 32,
   198.51.100.0/24 le 32,
@@ -90,7 +93,7 @@ end-policy
 ## Bird
 ```
 prefix set bogon; {
-        bogon = [ 0.0.0.0/8+, 10.0.0.0/8+, 100.64.0.0/10+, 127.0.0.0/8+, 169.254.0.0/16+,  172.16.0.0/12+, 192.0.2.0/24+, 192.168.0.0/16+, 198.18.0.0/15+, 198.51.100.0/24+, 203.0.113.0/24+, 224.0.0.0/4+, 240.0.0.0/4+ ];
+        bogon = [ 0.0.0.0/8+, 10.0.0.0/8+, 100.64.0.0/10+, 127.0.0.0/8+, 169.254.0.0/16+,  172.16.0.0/12+, 192.0.2.0/24+, 192.88.99.0/24+, 192.168.0.0/16+, 198.18.0.0/15+, 198.51.100.0/24+, 203.0.113.0/24+, 224.0.0.0/4+, 240.0.0.0/4+ ];
         if ( net ~ bogon ) then  {
           return false;
         }
@@ -109,6 +112,7 @@ deny from any prefix 0100::/64 prefixlen >= 64          # Discard-Only [RFC6666]
 deny from any prefix 2001:2::/48 prefixlen >= 48        # BMWG [RFC5180]
 deny from any prefix 2001:10::/28 prefixlen >= 28       # ORCHID [RFC4843]
 deny from any prefix 2001:db8::/32 prefixlen >= 32      # docu range [RFC3849]
+deny from any prefix 2002::/16 prefixlen >= 16          # 6to4 anycast relay [RFC7526]
 deny from any prefix 3ffe::/16 prefixlen >= 16          # old 6bone
 deny from any prefix fc00::/7 prefixlen >= 7            # unique local unicast
 deny from any prefix fe80::/10 prefixlen >= 10          # link local unicast
