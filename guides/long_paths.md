@@ -20,6 +20,17 @@ A safe number on the filter would be on 100 AS's in the AS_PATH.
 
 # Configuration Examples
 
+## BIRD
+```
+function reject_long_aspaths()
+{
+    if ( bgp_path.len > 100 ) then {
+        print "Reject: Too long AS path: ", net, " ", bgp_path;
+        reject;
+    }
+}
+```
+
 ## Junos
 
 ```
@@ -47,13 +58,6 @@ route-policy BGP_FILTER_IN
 end-policy
 ```
 
-## Bird
-```
-prefix set unwanted; {
-    if ( bgp_path.len > 100 ) then return false;
-    return true;
-}
-```
 
 
 ## OpenBGPD

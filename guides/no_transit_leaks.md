@@ -22,6 +22,68 @@ Target import policy :  customers and IXP peering
 
 # Configuration Examples
 
+## BIRD
+```
+define TRANSIT_ASNS = [ 174,                  # Cogent
+                        209,                  # Qwest (HE carries this on IXPs IPv6 (Jul 12 2018))
+                        701,                  # UUNET
+                        702,                  # UUNET
+                        1239,                 # Sprint
+                        1299,                 # Telia
+                        2914,                 # NTT Communications
+                        3257,                 # GTT Backbone
+                        3320,                 # Deutsche Telekom AG (DTAG)
+                        3356,                 # Level3
+                        3549,                 # Level3
+                        3561,                 # Savvis / CenturyLink
+                        4134,                 # Chinanet
+                        5511,                 # Orange opentransit
+                        6453,                 # Tata Communications
+                        6461,                 # Zayo Bandwidth
+                        6762,                 # Seabone / Telecom Italia
+                        7018 ];               # AT&T
+function reject_transit_paths()
+int set transit_asns;
+{
+        transit_asns = TRANSIT_ASNS;
+        if (bgp_path ~ transit_asns) then {
+                print "Reject: Transit ASNs found on IXP: ", net, " ", bgp_path;
+                reject;
+        }
+}
+
+
+...
+
+filter transit_in {
+        reject_bogon_asns();
+        reject_bogon_prefixes();
+        reject_long_aspaths();
+        reject_small_prefixes();
+        reject_default_route();
+
+...
+
+        honor_graceful_shutdown();
+        accept;
+}
+
+filter ixp_in {
+        reject_bogon_asns();
+        reject_bogon_prefixes();
+        reject_long_aspaths();
+        reject_transit_paths();
+        reject_small_prefixes();
+        reject_default_route();
+
+...
+
+        honor_graceful_shutdown();
+        accept;
+}
+
+```
+
 ## Junos
 
 ```
