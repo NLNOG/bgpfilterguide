@@ -16,6 +16,63 @@ these to be routed on the public Internet.
 
 # Configuration Examples IPv4
 
+## BIRD
+```
+define BOGON_PREFIXES = [ 0.0.0.0/8+,         # RFC 1122 'this' network
+                          10.0.0.0/8+,        # RFC 1918 private space
+                          100.64.0.0/10+,     # RFC 6598 Carrier grade nat space
+                          127.0.0.0/8+,       # RFC 1122 localhost
+                          169.254.0.0/16+,    # RFC 3927 link local
+                          172.16.0.0/12+,     # RFC 1918 private space 
+                          192.0.2.0/24+,      # RFC 5737 TEST-NET-1
+                          192.88.99.0/24+,    # RFC 7526 6to4 anycast relay
+                          192.168.0.0/16+,    # RFC 1918 private space
+                          198.18.0.0/15+,     # RFC 2544 benchmarking
+                          198.51.100.0/24+,   # RFC 5737 TEST-NET-2
+                          203.0.113.0/24+,    # RFC 5737 TEST-NET-3
+                          224.0.0.0/4+,       # multicast
+                          240.0.0.0/4+ ];     # reserved
+
+function reject_bogon_prefixes()
+prefix set bogon_prefixes;
+{
+    bogon_prefixes = BOGON_PREFIXES;
+    if (net ~ bogon_prefixes) then {
+        print "Reject: Bogon prefix: ", net, " ", bgp_path;
+        reject;
+    }
+}
+
+...
+
+filter transit_in {
+        reject_bogon_asns();
+        reject_bogon_prefixes();
+        reject_long_aspaths();
+        reject_small_prefixes();
+        reject_default_route();
+
+...
+
+        honor_graceful_shutdown();
+        accept;
+}
+
+filter ixp_in {
+        reject_bogon_asns();
+        reject_bogon_prefixes();
+        reject_long_aspaths();
+        reject_transit_paths();
+        reject_small_prefixes();
+        reject_default_route();
+
+...
+
+        honor_graceful_shutdown();
+        accept;
+}
+
+```
 ## OpenBGPD
 
 Copied from [openbsd examples](https://github.com/openbsd/src/blob/master/etc/examples/bgpd.conf#L97-L109)
@@ -90,17 +147,59 @@ route-policy BGP_FILTER_IN
   endif
 end-policy
 ```
-## Bird
-```
-prefix set bogon; {
-        bogon = [ 0.0.0.0/8+, 10.0.0.0/8+, 100.64.0.0/10+, 127.0.0.0/8+, 169.254.0.0/16+,  172.16.0.0/12+, 192.0.2.0/24+, 192.88.99.0/24+, 192.168.0.0/16+, 198.18.0.0/15+, 198.51.100.0/24+, 203.0.113.0/24+, 224.0.0.0/4+, 240.0.0.0/4+ ];
-        if ( net ~ bogon ) then  {
-          return false;
-        }
-        return true;
-}
-```
 # Configuration Examples IPv6
+
+## BIRD
+```
+define BOGON_PREFIXES = [ ::/8+,                         # RFC 4291 IPv4-compatible, loopback, et al 
+                          0100::/64+,                    # RFC 6666 Discard-Only
+                          2001:2::/48+,                  # RFC 5180 BMWG
+                          2001:10::/28+,                 # RFC 4843 ORCHID
+                          2001:db8::/32+,                # RFC 3849 documentation
+                          2002::/16+,                    # RFC 7526 6to4 anycast relay
+                          3ffe::/16+,                    # RFC 3701 old 6bone
+                          fc00::/7+,                     # RFC 4193 unique local unicast
+                          fe80::/10+,                    # RFC 4291 link local unicast
+                          fec0::/10+,                    # RFC 3879 old site local unicast
+                          ff00::/8+                      # RFC 4291 multicast
+ ];
+
+function reject_bogon_prefixes()
+prefix set bogon_prefixes;
+{
+    bogon_prefixes = BOGON_PREFIXES;
+    if (net ~ bogon_prefixes) then {
+        print "Reject: Bogon prefix: ", net, " ", bgp_path;
+        reject;
+    }
+}
+
+...
+
+filter transit_in {
+        reject_bogon_asns();
+        reject_bogon_prefixes();
+        reject_long_aspaths();
+        reject_small_prefixes();
+        reject_default_route();
+
+        honor_graceful_shutdown();
+        accept;
+}
+
+filter ixp_in {
+        reject_bogon_asns();
+        reject_bogon_prefixes();
+        reject_long_aspaths();
+        reject_transit_paths();
+        reject_small_prefixes();
+        reject_default_route();
+
+        honor_graceful_shutdown();
+        accept;
+}
+
+```
 
 ## OpenBGPD
 

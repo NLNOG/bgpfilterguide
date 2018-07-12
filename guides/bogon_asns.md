@@ -99,17 +99,46 @@ define BOGON_ASNS = [ 0,                      # RFC 7607
                       4200000000..4294967294, # RFC 6996 Private ASNs
                       4294967295 ];           # RFC 6996 Last 32 bit ASN
 
-function ebgp_import()
+function reject_bogon_asns()
 int set bogon_asns;
 {
-    # ignore bogon AS_PATHs
     bogon_asns = BOGON_ASNS;
     if ( bgp_path ~ bogon_asns ) then {
         print "Reject: bogon AS_PATH: ", net, " ", bgp_path;
         reject;
     }
-    .......
 }
+
+...
+
+filter transit_in {
+        reject_bogon_asns();
+        reject_bogon_prefixes();
+        reject_long_aspaths();
+        reject_small_prefixes();
+        reject_default_route();
+
+...
+
+        honor_graceful_shutdown();
+        accept;
+}
+
+filter ixp_in {
+        reject_bogon_asns();
+        reject_bogon_prefixes();
+        reject_long_aspaths();
+        reject_transit_paths();
+        reject_small_prefixes();
+        reject_default_route();
+
+...
+
+        honor_graceful_shutdown();
+        accept;
+}
+
+
 ```
 
 ## Nokia SR OS

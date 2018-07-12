@@ -26,6 +26,17 @@ Routes smaller than a `/24` (IPv4) or `/48` (IPv6) should not be expected to hav
 
 # Configuration Examples
 
+## BIRD
+```
+function reject_small_prefixes()
+{
+        if (net.len > 24) then {
+                print "Reject: Too small prefix: ", net, " ", bgp_path;
+                reject;
+        }
+}
+```
+
 ## Junos
 
 ```
@@ -43,13 +54,6 @@ policy-options {
 }
 ```
 
-## Bird
-```
-prefix set too_small; {
-    if net.len >24 then return false;
-    return true;
-}
-```
 
 ## Cisco classic IOS and IOS XE
 ```
