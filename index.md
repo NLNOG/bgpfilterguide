@@ -4,6 +4,10 @@ title: BGP Filter Guides
 permalink: /
 ---
 
+### RPKI
+
+[RPKI FAQ](https://github.com/NLnetLabs/rpki-faq/blob/master/faq.rst) at NLNetLabs
+
 ### Bogon ASN filtering
 
 Rejecting routes which have a Bogon ASN anywhere in the AS_PATH: [bogon_asn](/guides/bogon_asns/).
