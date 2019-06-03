@@ -6,7 +6,7 @@ permalink: /
 
 ### RPKI
 
-[RPKI FAQ](https://github.com/NLnetLabs/rpki-faq/blob/master/faq.rst) at NLNetLabs
+[RPKI FAQ](https://rpki.readthedocs.io/en/latest/about/faq.html) at the RPKI Documentation project
 
 ### Bogon ASN filtering
 
