@@ -58,9 +58,70 @@ route-policy BGP_FILTER_IN
 end-policy
 ```
 
-
-
 ## OpenBGPD
 ```
 deny from any max-as-len 100
+```
+
+## Nokia SR OS
+```
+#
+# Classic CLI
+#
+#--------------------------------------------------
+echo "Policy Configuration"
+#--------------------------------------------------
+        policy-options
+            begin
+            policy-statement "BGP_FILTER_IN"
+                entry 40
+                    from
+                        as-path-length 100 or-higher
+                    exit
+                    action drop
+                    exit
+                exit
+            exit
+            commit
+        exit
+----------------------------------------------
+
+#
+# Paste-friendly Classic CLI blob
+#
+/configure router policy-options begin
+/configure router policy-options policy-statement "BGP_FILTER_IN" entry 40 from as-path-length 100 or-higher
+/configure router policy-options policy-statement "BGP_FILTER_IN" entry 40 action drop
+/configure router policy-options commit
+
+#
+# MD-CLI
+#
+[gl:configure policy-options]
+policy-statement "BGP_FILTER_IN" {
+    entry 40 {
+        from {
+            as-path {
+                length {
+                    value 100
+                    qualifier or-higher
+                }
+            }
+        }
+        action {
+            action-type reject
+        }
+    }
+}
+
+#
+# Paste-friendly MD-CLI blob
+#
+/configure policy-options policy-statement "BGP_FILTER_IN" { }
+/configure policy-options policy-statement "BGP_FILTER_IN" { entry 40 }
+/configure policy-options policy-statement "BGP_FILTER_IN" { entry 40 from }
+/configure policy-options policy-statement "BGP_FILTER_IN" { entry 40 from as-path }
+/configure policy-options policy-statement "BGP_FILTER_IN" entry 40 from as-path length value 100
+/configure policy-options policy-statement "BGP_FILTER_IN" entry 40 from as-path length qualifier or-higher
+/configure policy-options policy-statement "BGP_FILTER_IN" entry 40 action action-type reject
 ```
