@@ -81,3 +81,77 @@ neighbor 192.0.2.1 activate
 deny from any inet prefixlen > 24
 deny from any inet6 prefixlen > 48
 ```
+
+## Nokia SR OS
+```
+#
+# Classic CLI
+#
+#--------------------------------------------------
+echo "Policy Configuration"
+#--------------------------------------------------
+        policy-options
+            begin
+            prefix-list "TOO_SMALL_PREFIXES"
+                prefix 0.0.0.0/0 prefix-length-range 25-32
+                prefix ::/0 prefix-length-range 49-128
+            exit
+            policy-statement "BGP_FILTER_IN"
+                entry 30
+                    from
+                        prefix-list "TOO_SMALL_PREFIXES"
+                    exit
+                    action drop
+                    exit
+                exit
+            exit
+            commit
+
+#
+# Paste-friendly Classic CLI blob
+#
+/configure router policy-options begin
+/configure router policy-options prefix-list "TOO_SMALL_PREFIXES" prefix 0.0.0.0/0 prefix-length-range 25-32
+/configure router policy-options prefix-list "TOO_SMALL_PREFIXES" prefix ::/0 prefix-length-range 49-128
+/configure router policy-options policy-statement "BGP_FILTER_IN" entry 30 from prefix-list "TOO_SMALL_PREFIXES"
+/configure router policy-options policy-statement "BGP_FILTER_IN" entry 30 action drop
+/configure router policy-options commit
+
+#
+# MD-CLI
+#
+[gl:configure policy-options]
+    prefix-list "TOO_SMALL_PREFIXES" {
+        prefix 0.0.0.0/0 type range {
+            start-length 25
+            end-length 32
+        }
+        prefix ::/0 type range {
+            start-length 49
+            end-length 128
+        }
+    }
+    policy-statement "BGP_FILTER_IN" {
+        entry 30 {
+            from {
+                prefix-list ["TOO_SMALL_PREFIXES"]
+            }
+            action {
+                action-type reject
+            }
+        }
+    }
+
+#
+# Paste-friendly MD-CLI blob
+#
+/configure policy-options prefix-list "TOO_SMALL_PREFIXES" { }
+/configure policy-options prefix-list "TOO_SMALL_PREFIXES" prefix 0.0.0.0/0 type range start-length 25
+/configure policy-options prefix-list "TOO_SMALL_PREFIXES" prefix 0.0.0.0/0 type range end-length 32
+/configure policy-options prefix-list "TOO_SMALL_PREFIXES" prefix ::/0 type range start-length 49
+/configure policy-options prefix-list "TOO_SMALL_PREFIXES" prefix ::/0 type range end-length 128
+/configure policy-options policy-statement "BGP_FILTER_IN" { }
+/configure policy-options policy-statement "BGP_FILTER_IN" { entry 30 }
+/configure policy-options policy-statement "BGP_FILTER_IN" entry 30 from prefix-list ["TOO_SMALL_PREFIXES"]
+/configure policy-options policy-statement "BGP_FILTER_IN" entry 30 action action-type reject
+```
