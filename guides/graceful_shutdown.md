@@ -123,20 +123,52 @@ route-map ebgp-in permit 10
 !
 ```
 
-## Nokia SR-OS
+## Nokia SR OS
 ```
-community "gshut" members "65535:0"
-
-policy-statement "ebgp-in"
-    entry 10
-        from
+#
+# Classic CLI
+#
+#--------------------------------------------------
+echo "Policy Configuration"
+#--------------------------------------------------
+        policy-options
+            begin
             community "gshut"
+                members "65535:0"
+            exit
+            policy-statement "BGP_FILTER_IN"
+                entry 60
+                    from
+                        community "gshut"
+                    exit
+                    action accept
+                        local-preference 0
+                    exit
+                exit
+            exit
+            commit
         exit
-        action accept
+
+#
+# MD-CLI
+#
+[gl:configure policy-options]
+community "gshut" {
+    member "65535:0" { }
+}
+policy-statement "BGP_FILTER_IN" {
+    entry 60 {
+        from {
+            community {
+                name "gshut"
+            }
+        }
+        action {
+            action-type accept
             local-preference 0
-        exit
-    exit
-exit
+        }
+    }
+}
 ```
 
 # List of networks known to accept & honor GRACEFUL_SHUTDOWN
