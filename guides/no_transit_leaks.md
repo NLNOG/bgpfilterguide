@@ -120,3 +120,67 @@ deny from $IXP transit-as {174,209,701,702,1239,1299,2914,3257,3320,3356,3549,35
 ```
 
 (*$IXP* represents a list of IXP peers or Route Servers)
+
+## Nokia SR OS
+```
+#
+# Classic CLI
+#
+#--------------------------------------------------
+echo "Policy Configuration"
+#--------------------------------------------------
+        policy-options
+            begin
+            as-path "TRANSIT_AS"
+                expression ".* (174|209|701|702|1239|1299|2914|3257|3320|3356|3549|3561|4134|5511|6453|6461|6762|7018) .*"
+            exit
+            policy-statement "BGP_FILTER_IN"
+                entry 50
+                    from
+                        as-path "TRANSIT_AS"
+                    exit
+                    action drop
+                    exit
+                exit
+            exit
+            commit
+        exit
+
+#
+# Paste-friendly Classic CLI blob
+#
+/configure router policy-options begin
+/configure router policy-options as-path "TRANSIT_AS" expression ".* (174|209|701|702|1239|1299|2914|3257|3320|3356|3549|3561|4134|5511|6453|6461|6762|7018) .*"
+/configure router policy-options policy-statement "BGP_FILTER_IN" entry 50 from as-path "TRANSIT_AS"
+/configure router policy-options policy-statement "BGP_FILTER_IN" entry 50 action drop
+/configure router policy-options commit
+
+#
+# MD-CLI
+#
+[gl:configure policy-options]
+as-path "TRANSIT_AS" {
+    expression ".* (174|209|701|702|1239|1299|2914|3257|3320|3356|3549|3561|4134|5511|6453|6461|6762|7018) .*"
+}
+policy-statement "BGP_FILTER_IN" {
+    entry 50 {
+        from {
+            as-path {
+                name "TRANSIT_AS"
+            }
+        }
+        action {
+            action-type reject
+        }
+    }
+}
+
+#
+# Paste-friendly MD-CLI blob
+#
+/configure policy-options as-path "TRANSIT_AS" expression ".* (174|209|701|702|1239|1299|2914|3257|3320|3356|3549|3561|4134|5511|6453|6461|6762|7018) .*"
+/configure policy-options policy-statement "BGP_FILTER_IN" { }
+/configure policy-options policy-statement "BGP_FILTER_IN" { entry 50 }
+/configure policy-options policy-statement "BGP_FILTER_IN" { entry 50 from }
+/configure policy-options policy-statement "BGP_FILTER_IN" entry 50 from as-path name "TRANSIT_AS"
+/configure policy-options policy-statement "BGP_FILTER_IN" entry 50 action action-type reject
