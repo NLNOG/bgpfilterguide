@@ -68,3 +68,45 @@ neighbor $Peer {
 
 match from any community <your ASN>:<peer ASN> set localpref +15
 ```
+
+## Nokia SR OS
+```
+#
+# Classic CLI
+#
+#--------------------------------------------------
+echo "Policy Configuration"
+#--------------------------------------------------
+        policy-options
+            begin
+            community "IXP-IMPORT"
+                members "<your ASN>:<peer ASN>"
+            exit
+            policy-statement "BGP_FILTER_IN"
+                <policy entries omitted>
+                default-action accept
+                    community add "IXP-IMPORT"
+                    local-preference 115
+                exit
+            exit
+            commit
+        exit
+
+#
+# MD-CLI
+#
+[gl:configure policy-options]
+community "IXP-IMPORT" {
+    member "<your ASN>:<peer ASN>" { }
+}
+policy-statement "BGP_FILTER_IN" {
+        <policy entries omitted>
+        default-action {
+            action-type accept
+            local-preference 115
+            community {
+                add ["IXP-IMPORT"]
+            }
+        }
+    }
+```
