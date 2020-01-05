@@ -195,3 +195,4 @@ policy-statement "BGP_FILTER_IN" {
 * DigitalOcean / AS14061
 * Atom86 / AS8455
 * Sky Italia / AS210278
+* Fiber Telecom S.p.A. / AS41327
