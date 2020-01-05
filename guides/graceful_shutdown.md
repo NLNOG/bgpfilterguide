@@ -173,7 +173,7 @@ policy-statement "BGP_FILTER_IN" {
 
 # List of networks known to accept & honor GRACEFUL_SHUTDOWN
 
-* NTT Communications / AS 2914
+* NTT Ltd (Global IP Network) / AS 2914
 * GTT Communications / AS 3257
 * Github.com / AS 36459
 * Nordunet / AS 2603
@@ -187,12 +187,12 @@ policy-statement "BGP_FILTER_IN" {
 * Bahnhof / AS 8473
 * DGC Systems / AS 21195
 * ComHem / AS 39651
-* Digital Telecommunication Services S.r.l. / AS49605
+* Digital Telecommunication Services S.r.l. / AS 49605
 * Job Snijders / AS 15562
 * Thomas King / AS 31451
-* KPN Eurorings (International) / AS286
-* The Wikimedia Foundation / AS14907
-* DigitalOcean / AS14061
-* Atom86 / AS8455
-* Sky Italia / AS210278
-* Fiber Telecom S.p.A. / AS41327
+* KPN Eurorings (International) / AS 286
+* The Wikimedia Foundation / AS 14907
+* DigitalOcean / AS 14061
+* Atom86 / AS 8455
+* Sky Italia / AS 210278
+* Fiber Telecom S.p.A. / AS 41327
