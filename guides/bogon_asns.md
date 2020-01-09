@@ -194,3 +194,23 @@ deny from any AS 65552 - 131071                 # Reserved
 deny from any AS 4200000000 - 4294967294        # Reserved for Private Use RFC6996
 deny from any AS 4294967295                     # Reserved RFC7300
 ```
+## Arista
+
+```
+ip as-path regex-mode asn
+
+ip as-path access-list bogon-asns permit _0_ any
+ip as-path access-list bogon-asns permit _23456_ any
+ip as-path access-list bogon-asns permit _64496-64511_ any
+ip as-path access-list bogon-asns permit _[64496-64511]_ any
+ip as-path access-list bogon-asns permit _[65536-65551]_ any
+ip as-path access-list bogon-asns permit _[64512-65534]_ any
+ip as-path access-list bogon-asns permit _[4200000000-4294967294]_ any
+ip as-path access-list bogon-asns permit _65535_ any
+ip as-path access-list bogon-asns permit _4294967295_ any
+ip as-path access-list bogon-asns permit _[65552-131071]_ any
+
+route-map Import-Peer deny 7
+   match as-path bogon-asns
+!
+```
