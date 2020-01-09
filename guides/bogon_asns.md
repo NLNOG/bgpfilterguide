@@ -201,7 +201,6 @@ ip as-path regex-mode asn
 
 ip as-path access-list bogon-asns permit _0_ any
 ip as-path access-list bogon-asns permit _23456_ any
-ip as-path access-list bogon-asns permit _64496-64511_ any
 ip as-path access-list bogon-asns permit _[64496-64511]_ any
 ip as-path access-list bogon-asns permit _[65536-65551]_ any
 ip as-path access-list bogon-asns permit _[64512-65534]_ any
