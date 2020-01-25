@@ -23,6 +23,7 @@ Target import policy :  customers and IXP peering
 # Configuration Examples
 
 ## BIRD
+
 ```
 define TRANSIT_ASNS = [ 174,                  # Cogent
                         209,                  # Qwest (HE carries this on IXPs IPv6 (Jul 12 2018))
@@ -122,6 +123,7 @@ deny from $IXP transit-as {174,209,701,702,1239,1299,2914,3257,3320,3356,3549,35
 (*$IXP* represents a list of IXP peers or Route Servers)
 
 ## Nokia SR OS
+
 ```
 #
 # Classic CLI
@@ -184,3 +186,4 @@ policy-statement "BGP_FILTER_IN" {
 /configure policy-options policy-statement "BGP_FILTER_IN" { entry 50 from }
 /configure policy-options policy-statement "BGP_FILTER_IN" entry 50 from as-path name "TRANSIT_AS"
 /configure policy-options policy-statement "BGP_FILTER_IN" entry 50 action action-type reject
+```
