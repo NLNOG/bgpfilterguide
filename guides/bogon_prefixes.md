@@ -275,6 +275,28 @@ echo "Policy Configuration"
 /configure policy-options policy-statement "BGP_FILTER_IN" entry 10 from prefix-list ["BOGONS_V4"]
 /configure policy-options policy-statement "BGP_FILTER_IN" entry 10 action action-type reject
 ```
+## Arista
+```
+ip prefix-list BOGONS_v4
+   seq 1 permit 0.0.0.0/8 le 32
+   seq 2 permit 10.0.0.0/8 le 32
+   seq 3 permit 100.64.0.0/10 le 32
+   seq 4 permit 127.0.0.0/8 le 32
+   seq 5 permit 169.254.0.0/16 le 32
+   seq 6 permit 172.16.0.0/12 le 32
+   seq 7 permit 192.0.2.0/24 le 32
+   seq 8 permit 192.88.99.0/24 le 32
+   seq 9 permit 192.168.0.0/16 le 32
+   seq 10 permit 198.18.0.0/15 le 32
+   seq 11 permit 198.51.100.0/24 le 32
+   seq 12 permit 203.0.113.0/24 le 32
+   seq 13 permit 224.0.0.0/4 le 32
+   seq 14 permit 240.0.0.0/4 le 32
+!
+route-map Import-Peer deny 20
+   match ip address prefix-list BOGONS_v4
+!
+```
 # Configuration Examples IPv6
 
 ## BIRD
