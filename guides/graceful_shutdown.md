@@ -196,3 +196,4 @@ policy-statement "BGP_FILTER_IN" {
 * Atom86 / AS 8455
 * Sky Italia / AS 210278
 * Fiber Telecom S.p.A. / AS 41327
+* PCCW / AS 3491
