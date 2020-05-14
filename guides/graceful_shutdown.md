@@ -197,3 +197,4 @@ policy-statement "BGP_FILTER_IN" {
 * Sky Italia / AS 210278
 * Fiber Telecom S.p.A. / AS 41327
 * PCCW / AS 3491
+* TDC / AS 3292
