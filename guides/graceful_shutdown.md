@@ -110,7 +110,10 @@ protocol bgp peer_64497_1 {
 }
 ```
 
-## Arista / Brocade / Cisco IOS / Quagga / FRR
+## Arista
+Arista supports the well-known BGP community GRACEFUL_SHUTDOWN by default (even when the switch is not in maintenance mode), and sets the Local Preference to 0 for routes received with the GRACEFUL_SHUTDOWN community.
+
+## Brocade / Cisco IOS / Quagga / FRR
 
 ```
 !
@@ -198,3 +201,4 @@ policy-statement "BGP_FILTER_IN" {
 * Fiber Telecom S.p.A. / AS 41327
 * PCCW / AS 3491
 * TDC / AS 3292
+* HOPUS / AS 44530
