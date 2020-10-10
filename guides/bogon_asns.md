@@ -189,11 +189,20 @@ deny from any AS 23456                          # AS_TRANS
 deny from any AS 64496 - 64511                  # Reserved for use in docs and code RFC5398
 deny from any AS 64512 - 65534                  # Reserved for Private Use RFC6996
 deny from any AS 65535                          # Reserved RFC7300
-deny from any AS 65536 - 65551                  # Reserved for use in docs and code RFC5398 
+deny from any AS 65536 - 65551                  # Reserved for use in docs and code RFC5398
 deny from any AS 65552 - 131071                 # Reserved
 deny from any AS 4200000000 - 4294967294        # Reserved for Private Use RFC6996
 deny from any AS 4294967295                     # Reserved RFC7300
 ```
+
+## FRR (vtysh)
+```
+bgp as-path access-list public deny 23456
+bgp as-path access-list public deny 64496-131071
+bgp as-path access-list public deny 4200000000-4294967295
+```
+
+
 ## Arista
 
 ```
