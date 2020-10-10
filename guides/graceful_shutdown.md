@@ -67,6 +67,14 @@ neighbor 2001:db8:1:2::1 {
 match from any community GRACEFUL_SHUTDOWN set { localpref 0 }
 ```
 
+## FRR (vtysh)
+
+Will enable on global level
+```
+router bgp <own_ASN>
+  bgp graceful-restart
+```
+
 ## Junos
 
 Put `allow-graceful-shutdown` in every import EBGP policy chain. Ensure this is placed in a location after you've decided to accept a route, and the `local-preference 0` is not overwriten later on in the chain.

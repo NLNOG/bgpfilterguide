@@ -122,7 +122,12 @@ end-policy
 deny from $IXP transit-as {174,209,701,702,1239,1299,2914,3257,3320,3356,3491,3549,3561,4134,5511,6453,6461,6762,6830,7018}
 ```
 
-(*$IXP* represents a list of IXP peers or Route Servers)
+(*$IXP* represents a list of IXP peers or Route Servers
+
+## FRR (vtysh)
+```
+bgp as-path access-list peerings deny .* (174|209|701|702|1239|1299|2914|3257|3320|3356|3491|3549|3561|4134|5511|6453|6461|6762|6830|7018) .*
+```
 
 ## Nokia SR OS
 

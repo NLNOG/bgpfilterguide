@@ -69,6 +69,17 @@ neighbor $Peer {
 match from any community <your ASN>:<peer ASN> set localpref +15
 ```
 
+## FRR (vtysh)
+```
+neighbor <remote_IP> remote-as <remote_ASN>
+neighbor <remote_IP> sender-as-path-loop-detection
+address-family <IP_version> unicast
+  neighbor <remote_IP> prefix-list BOGONS_v4 in
+  neighbor <remote_IP> remove-private-AS
+  neighbor <remote_IP> soft-reconfiguration inbound
+  neighbor <remote_IP> activate
+```
+
 ## Nokia SR OS
 ```
 #

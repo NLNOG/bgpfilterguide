@@ -23,7 +23,7 @@ define BOGON_PREFIXES = [ 0.0.0.0/8+,         # RFC 1122 'this' network
                           100.64.0.0/10+,     # RFC 6598 Carrier grade nat space
                           127.0.0.0/8+,       # RFC 1122 localhost
                           169.254.0.0/16+,    # RFC 3927 link local
-                          172.16.0.0/12+,     # RFC 1918 private space 
+                          172.16.0.0/12+,     # RFC 1918 private space
                           192.0.2.0/24+,      # RFC 5737 TEST-NET-1
                           192.88.99.0/24+,    # RFC 7526 6to4 anycast relay
                           192.168.0.0/16+,    # RFC 1918 private space
@@ -92,6 +92,24 @@ deny from any prefix 198.51.100.0/24 prefixlen >= 24    # TEST-NET-2 [RFC5737]
 deny from any prefix 203.0.113.0/24 prefixlen >= 24     # TEST-NET-3 [RFC5737]
 deny from any prefix 224.0.0.0/4 prefixlen >= 4         # multicast
 deny from any prefix 240.0.0.0/4 prefixlen >= 4         # reserved for future use
+```
+
+## FRR (vtysh)
+```
+ip prefix-list BOGONS_v4 deny 0.0.0.0/8 le 32
+ip prefix-list BOGONS_v4 deny 10.0.0.0/8 le 32
+ip prefix-list BOGONS_v4 deny 10.64.0.0/10 le 32
+ip prefix-list BOGONS_v4 deny 127.0.0.0/8 le 32
+ip prefix-list BOGONS_v4 deny 169.254.0.0/16 le 32
+ip prefix-list BOGONS_v4 deny 172.16.0.0/12 le 32
+ip prefix-list BOGONS_v4 deny 192.0.2.0/24 le 32
+ip prefix-list BOGONS_v4 deny 192.88.99.0/24 le 32
+ip prefix-list BOGONS_v4 deny 192.168.0.0/16 le 32
+ip prefix-list BOGONS_v4 deny 198.18.0.0/15 le 32
+ip prefix-list BOGONS_v4 deny 198.51.100.0/24 le 32
+ip prefix-list BOGONS_v4 deny 203.0.113.0/24 le 32
+ip prefix-list BOGONS_v4 deny 224.0.0.0/4 le 32
+ip prefix-list BOGONS_v4 deny 240.0.0.0/4 le 32
 ```
 ## Junos
 ```
@@ -301,7 +319,7 @@ route-map Import-Peer deny 20
 
 ## BIRD
 ```
-define BOGON_PREFIXES = [ ::/8+,                         # RFC 4291 IPv4-compatible, loopback, et al 
+define BOGON_PREFIXES = [ ::/8+,                         # RFC 4291 IPv4-compatible, loopback, et al
                           0100::/64+,                    # RFC 6666 Discard-Only
                           2001:2::/48+,                  # RFC 5180 BMWG
                           2001:10::/28+,                 # RFC 4843 ORCHID
@@ -367,6 +385,21 @@ deny from any prefix fc00::/7 prefixlen >= 7            # unique local unicast
 deny from any prefix fe80::/10 prefixlen >= 10          # link local unicast
 deny from any prefix fec0::/10 prefixlen >= 10          # old site local unicast
 deny from any prefix ff00::/8 prefixlen >= 8            # multicast
+```
+
+# FRR (vtysh)
+```
+ipv6 prefix-list BOGONS_v6 deny ::/8 le 128
+ipv6 prefix-list BOGONS_v6 deny 100::/64 le 128
+ipv6 prefix-list BOGONS_v6 deny 2001:2::/48 le 128
+ipv6 prefix-list BOGONS_v6 deny 2001:10::/28 le 128
+ipv6 prefix-list BOGONS_v6 deny 2001:db8::/32 le 128
+ipv6 prefix-list BOGONS_v6 deny 2002::/16 le 128
+ipv6 prefix-list BOGONS_v6 deny 3ffe::/16 le 128
+ipv6 prefix-list BOGONS_v6 deny fc00::/7 le 128
+ipv6 prefix-list BOGONS_v6 deny fe80::/10 le 128
+ipv6 prefix-list BOGONS_v6 deny fec0::/10 le 128
+ipv6 prefix-list BOGONS_v6 deny ff00::/8 le 128
 ```
 
 ## Juniper and Cisco
