@@ -197,9 +197,9 @@ deny from any AS 4294967295                     # Reserved RFC7300
 
 ## FRR (vtysh)
 ```
-bgp as-path access-list public deny 23456
-bgp as-path access-list public deny 64496-131071
-bgp as-path access-list public deny 4200000000-4294967295
+bgp as-path access-list bogon-asns deny 23456
+bgp as-path access-list bogon-asns deny 64496-131071
+bgp as-path access-list bogon-asns deny 4200000000-4294967295
 ```
 
 
