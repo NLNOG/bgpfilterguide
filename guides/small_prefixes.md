@@ -82,6 +82,12 @@ deny from any inet prefixlen > 24
 deny from any inet6 prefixlen > 48
 ```
 
+## FRR (vtysh)
+```
+ip prefix-list BOGONS_v4 deny 0.0.0.0/0 ge 25 le 32
+ipv6 prefix-list BOGONS_v6 deny ::/0 ge 49 le 128
+```
+
 ## Nokia SR OS
 ```
 #
