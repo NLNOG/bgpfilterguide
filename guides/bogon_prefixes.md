@@ -387,6 +387,21 @@ deny from any prefix fec0::/10 prefixlen >= 10          # old site local unicast
 deny from any prefix ff00::/8 prefixlen >= 8            # multicast
 ```
 
+# FRR (vtysh)
+```
+ipv6 prefix-list BOGONS_v6 deny ::/8 le 128
+ipv6 prefix-list BOGONS_v6 deny 100::/64 le 128
+ipv6 prefix-list BOGONS_v6 deny 2001:2::/48 le 128
+ipv6 prefix-list BOGONS_v6 deny 2001:10::/28 le 128
+ipv6 prefix-list BOGONS_v6 deny 2001:db8::/32 le 128
+ipv6 prefix-list BOGONS_v6 deny 2002::/16 le 128
+ipv6 prefix-list BOGONS_v6 deny 3ffe::/16 le 128
+ipv6 prefix-list BOGONS_v6 deny fc00::/7 le 128
+ipv6 prefix-list BOGONS_v6 deny fe80::/10 le 128
+ipv6 prefix-list BOGONS_v6 deny fec0::/10 le 128
+ipv6 prefix-list BOGONS_v6 deny ff00::/8 le 128
+```
+
 ## Juniper and Cisco
 
 Gert Doering's [ipv6-filters](https://www.space.net/~gert/RIPE/ipv6-filters.html)
