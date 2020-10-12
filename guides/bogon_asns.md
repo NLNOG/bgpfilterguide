@@ -202,6 +202,21 @@ bgp as-path access-list bogon-asns deny 64496-131071
 bgp as-path access-list bogon-asns deny 4200000000-4294967295
 ```
 
+## Mikrotik
+```
+/routing filter add chain=GENERIC_PREFIX_LIST bgp-as-path="_0_" protocol=bgp action=discard comment="RFC 7607"
+/routing filter add chain=GENERIC_PREFIX_LIST bgp-as-path="_23456_" protocol=bgp action=discard comment="RFC 4893 AS_TRANS"
+/routing filter add chain=GENERIC_PREFIX_LIST bgp-as-path="_(6449[6-9])_|_(6450[0-9])_|_(6451[0-1])_|_(6553[6-9])_|_(6554[0-9])_|_(6555[0-1])_" protocol=bgp action=discard comment="RFC 5398 and documentation/example ASNs"
+/routing filter add chain=GENERIC_PREFIX_LIST bgp-as-path="_6(4(5(1[2-9]|[2-9][0-9])|[6-9][0-9][0-9])|5([0-4][0-9][0-9]|5([0-2][0-9]|3[0-5])))_" protocol=bgp action=discard comment="RFC 6996 Private ASNs"
+/routing filter add chain=GENERIC_PREFIX_LIST bgp-as-path="_6555[2-9]_|_655[6-9][0-9]_|_65[6-9][0-9][0-9]_|_6[6-9][0-9][0-9][0-9]_" protocol=bgp action=discard comment="RFC IANA reserved ASNs"
+/routing filter add chain=GENERIC_PREFIX_LIST bgp-as-path="_[7-9][0-9][0-9][0-9][0-9]_|_1[0-2][0-9][0-9][0-9][0-9]_|_130[0-9][0-9][0-9]_" protocol=bgp action=discard comment="RFC IANA reserved ASNs"
+/routing filter add chain=GENERIC_PREFIX_LIST bgp-as-path="_1310[0-6][0-9]_|_13107[0-1]_" protocol=bgp action=discard comment="RFC IANA reserved ASNs"
+/routing filter add chain=GENERIC_PREFIX_LIST bgp-as-path="_42[0-8][0-9][0-9][0-9][0-9][0-9][0-9][0-9]_" protocol=bgp action=discard comment="RFC 6996 Private ASNs"
+/routing filter add chain=GENERIC_PREFIX_LIST bgp-as-path="_(429[0-3][0-9][0-9][0-9][0-9][0-9][0-9])_|_(4294[0-8][0-9][0-9][0-9][0-9][0-9])_" protocol=bgp action=discard comment="RFC 6996 Private ASNs"
+/routing filter add chain=GENERIC_PREFIX_LIST bgp-as-path="_(42949[0-5][0-9][0-9][0-9][0-9])_|_(429496[0-6][0-9][0-9][0-9])_" protocol=bgp action=discard comment="RFC 6996 Private ASNs"
+/routing filter add chain=GENERIC_PREFIX_LIST bgp-as-path="_(4294967[0-1][0-9][0-9])_|_(42949672[0-8][0-9])_|_(429496729[0-4])_" protocol=bgp action=discard comment="RFC 6996 Private ASNs"
+```
+
 
 ## Arista
 
