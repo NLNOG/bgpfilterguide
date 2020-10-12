@@ -88,6 +88,14 @@ ip prefix-list BOGONS_v4 deny 0.0.0.0/0 ge 25 le 32
 ipv6 prefix-list BOGONS_v6 deny ::/0 ge 49 le 128
 ```
 
+## Mikrotik
+```
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv4 prefix-length=0-7 protocol=bgp action=discard comment=""
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv4 prefix-length=25-32 protocol=bgp action=discard comment=""
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix-length=0-15 protocol=bgp action=discard comment=""
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix-length=49-128 protocol=bgp action=discard comment=""
+```
+
 ## Nokia SR OS
 ```
 #
