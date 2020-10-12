@@ -113,6 +113,7 @@ ip prefix-list BOGONS_v4 deny 240.0.0.0/4 le 32
 ```
 
 ## Mikrotik
+This is not recommanded. Mikrotik will take a very very long time to process all those routes and has some issues with BGP.
 ```
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ip prefix=0.0.0.0/8 prefix-length=8-32 protocol=bgp action=discard comment="RFC 1122 'this' network"
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ip prefix=10.0.0.0/8 prefix-length=8-32 protocol=bgp action=discard comment="RFC 1918 private space"
@@ -422,6 +423,7 @@ ipv6 prefix-list BOGONS_v6 deny ff00::/8 le 128
 ```
 
 ## Mikrotik
+This is not recommanded. Mikrotik will take a very very long time to process all those routes and has some issues with BGP.
 ```
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=::/8 prefix-length=8-128 protocol=bgp action=discard comment="RFC 4291 IPv4-compatible, loopback, et al"
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=0100::/64 prefix-length=64-128 protocol=bgp action=discard comment="RFC 6666 Discard-Only"

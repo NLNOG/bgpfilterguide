@@ -89,6 +89,7 @@ ipv6 prefix-list BOGONS_v6 deny ::/0 ge 49 le 128
 ```
 
 ## Mikrotik
+This is not recommanded. Mikrotik will take a very very long time to process all those routes and has some issues with BGP.
 ```
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv4 prefix-length=0-7 protocol=bgp action=discard comment=""
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv4 prefix-length=25-32 protocol=bgp action=discard comment=""

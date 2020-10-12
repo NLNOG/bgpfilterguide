@@ -203,6 +203,7 @@ bgp as-path access-list bogon-asns deny 4200000000-4294967295
 ```
 
 ## Mikrotik
+This is not recommanded. Mikrotik will take a very very long time to process all those routes and has some issues with BGP.
 ```
 /routing filter add chain=GENERIC_PREFIX_LIST bgp-as-path="_0_" protocol=bgp action=discard comment="RFC 7607"
 /routing filter add chain=GENERIC_PREFIX_LIST bgp-as-path="_23456_" protocol=bgp action=discard comment="RFC 4893 AS_TRANS"

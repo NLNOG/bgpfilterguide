@@ -64,6 +64,7 @@ deny from any max-as-len 100
 ```
 
 ## Mikrotik
+This is not recommanded. Mikrotik will take a very very long time to process all those routes and has some issues with BGP.
 ```
 /routing filter add chain=GENERIC_PREFIX_LIST bgp-as-path-length="65-4294967295" protocol=bgp action=discard comment=""
 ```
