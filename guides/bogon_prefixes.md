@@ -111,6 +111,25 @@ ip prefix-list BOGONS_v4 deny 203.0.113.0/24 le 32
 ip prefix-list BOGONS_v4 deny 224.0.0.0/4 le 32
 ip prefix-list BOGONS_v4 deny 240.0.0.0/4 le 32
 ```
+
+## Mikrotik
+```
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ip prefix=0.0.0.0/8 prefix-length=8-32 protocol=bgp action=discard comment="RFC 1122 'this' network"
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ip prefix=10.0.0.0/8 prefix-length=8-32 protocol=bgp action=discard comment="RFC 1918 private space"
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ip prefix=100.64.0.0/10 prefix-length=10-32 protocol=bgp action=discard comment="RFC 6598 Carrier grade nat space"
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ip prefix=127.0.0.0/8 prefix-length=8-32 protocol=bgp action=discard comment="RFC 1122 localhost"
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ip prefix=169.254.0.0/16 prefix-length=16-32 protocol=bgp action=discard comment="RFC 3927 link local"
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ip prefix=172.16.0.0/12 prefix-length=12-32 protocol=bgp action=discard comment="RFC 1918 private space"
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ip prefix=192.0.2.0/24 prefix-length=24-32 protocol=bgp action=discard comment="RFC 5737 TEST-NET-1"
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ip prefix=192.88.99.0/24 prefix-length=24-32 protocol=bgp action=discard comment="RFC 7526 6to4 anycast relay"
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ip prefix=192.168.0.0/16 prefix-length=16-32 protocol=bgp action=discard comment="RFC 1918 private space"
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ip prefix=198.18.0.0/15 prefix-length=15-32 protocol=bgp action=discard comment="RFC 2544 benchmarking"
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ip prefix=198.51.100.0/24 prefix-length=24-32 protocol=bgp action=discard comment="RFC 5737 TEST-NET-2"
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ip prefix=203.0.113.0/24 prefix-length=24-32 protocol=bgp action=discard comment="RFC 5737 TEST-NET-3"
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ip prefix=224.0.0.0/4 prefix-length=4-32 protocol=bgp action=discard comment="multicast"
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ip prefix=240.0.0.0/4 prefix-length=4-32 protocol=bgp action=discard comment="multicast"
+```
+
 ## Junos
 ```
 policy-options {
@@ -400,6 +419,21 @@ ipv6 prefix-list BOGONS_v6 deny fc00::/7 le 128
 ipv6 prefix-list BOGONS_v6 deny fe80::/10 le 128
 ipv6 prefix-list BOGONS_v6 deny fec0::/10 le 128
 ipv6 prefix-list BOGONS_v6 deny ff00::/8 le 128
+```
+
+## Mikrotik
+```
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=::/8 prefix-length=8-128 protocol=bgp action=discard comment="RFC 4291 IPv4-compatible, loopback, et al"
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=0100::/64 prefix-length=64-128 protocol=bgp action=discard comment="RFC 6666 Discard-Only"
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=2001:2::/48 prefix-length=48-128 protocol=bgp action=discard comment="RFC 5180 BMWG"
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=2001:10::/28 prefix-length=28-128 protocol=bgp action=discard comment="RFC 4843 ORCHID"
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=2001:db8::/32 prefix-length=32-128 protocol=bgp action=discard comment="RFC 3849 documentation"
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=2002::/16 prefix-length=16-128 protocol=bgp action=discard comment="RFC 7526 6to4 anycast relay"
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=3ffe::/16 prefix-length=16-128 protocol=bgp action=discard comment="RFC 3701 old 6bone"
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=fc00::/7 prefix-length=7-128 protocol=bgp action=discard comment="RFC 4193 unique local unicast"
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=fe80::/10 prefix-length=10-128 protocol=bgp action=discard comment="RFC 4291 link local unicast"
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=fec0::/10 prefix-length=10-128 protocol=bgp action=discard comment="RFC 3879 old site local unicast"
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=ff00::/8 prefix-length=8-128 protocol=bgp action=discard comment="RFC 4291 multicast"
 ```
 
 ## Juniper and Cisco
