@@ -131,3 +131,9 @@ policy-statement "BGP_FILTER_IN" {
 /configure policy-options policy-statement "BGP_FILTER_IN" entry 40 from as-path length qualifier or-higher
 /configure policy-options policy-statement "BGP_FILTER_IN" entry 40 action action-type reject
 ```
+
+## Arista
+```
+route-map BGP_FILTER_IN deny 10
+   match as-path length >= 100
+```
