@@ -18,7 +18,7 @@ You should do this as a good practice for all your bgp-import-policies. Customer
 
 If you tag all customer prefixes with BGP communities, it will also allow you to use those same communities in export policies towards your transits and bgp peers.
 
-The local preference line it to give peering prefixes a better priority towards transit learned prefixes.
+The local preference line is to give peering prefixes a better priority towards transit learned prefixes.
 
 Target import policy : any bgp import policy
 
