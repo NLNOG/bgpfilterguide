@@ -24,11 +24,14 @@ repository to correct them may not be easily accessed by others.
 
 # Solution
 
-Operators can use the following JSON data in their SLURM file to
-attempt to avoid a myriad of types of outages, by pinning the
-following prefixes to specific ASNs.
+Operators can use the following JSON data in their
+[SLURM](https://tools.ietf.org/html/rfc8416) file to attempt to avoid a
+myriad of types of outages, by pinning the following prefixes to
+specific ASNs.
 
-`
+Each of these attestations also exists as a ROA in the RPKI system.
+
+```
 {
   "slurmVersion": 1,
   "validationOutputFilters": {
@@ -108,4 +111,4 @@ following prefixes to specific ASNs.
     }
   }
 }
-`
+```
