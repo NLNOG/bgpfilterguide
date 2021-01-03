@@ -13,16 +13,17 @@ permalink: /guides/slurm_ta/
 
 [RFC 7115](https://tools.ietf.org/html/rfc7115) Section 5 says:
 
-`
-Operators should be aware that there is a trade-off in placement of
-an RPKI repository in address space for which the repository's
-content is authoritative.  On one hand, an operator will wish to
-maximize control over the repository.  On the other hand, if there
-are reachability problems to the address space, changes in the
-repository to correct them may not be easily accessed by others.
-`
+```
+Operators should be aware that there is a trade-off in
+placement of an RPKI repository in address space for which
+the repository's content is authoritative.  On one hand, an
+operator will wish to maximize control over the repository.
+On the other hand, if there are reachability problems to the
+address space, changes in the repository to correct them may not
+be easily accessed by others.
+```
 
-# Solution
+## Solution
 
 Operators can use the following JSON data in their
 [SLURM](https://tools.ietf.org/html/rfc8416) file to attempt to avoid a
