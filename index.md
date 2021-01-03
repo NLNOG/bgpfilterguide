@@ -8,6 +8,8 @@ permalink: /
 
 [RPKI FAQ](https://rpki.readthedocs.io/en/latest/about/faq.html) at the RPKI Documentation project
 
+Locally attest well-known Trust Anchor publication point prefixes [slurm_ta](/guides/slurm_ta/).
+
 ### Bogon ASN filtering
 
 Rejecting routes which have a Bogon ASN anywhere in the AS_PATH: [bogon_asn](/guides/bogon_asns/).
