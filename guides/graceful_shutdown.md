@@ -77,6 +77,8 @@ router bgp <own_ASN>
 
 ## Junos
 
+Junos supports graceful shutdown by default [as of version 19.1](https://www.juniper.net/documentation/en_US/junos/topics/reference/configuration-statement/graceful-shutdown-edit-protocols-bgp.html). Local preference can be set to any value. For previous versions, or if one does not want to use the provided feature, it still possible to configure it with a policy.
+
 Put `allow-graceful-shutdown` in every import EBGP policy chain. Ensure this is placed in a location after you've decided to accept a route, and the `local-preference 0` is not overwriten later on in the chain.
 
 ```
