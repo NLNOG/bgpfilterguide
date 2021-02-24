@@ -173,7 +173,7 @@ function check_rpki_rov()
 }
 
 # Filter applied to EBGP session definde in protocol
-filter eBGP_INBOUND
+filter ebgp_inbound
 {
  if check_rpki_rov() then {
    reject;
@@ -187,10 +187,10 @@ protocol bgp PEER1 from PEERS_TEMPLATE {
   local 10.0.0.1 as 64500;
   neighbor 10.0.0.2 as 64500;
   ipv4 {
-    import filter eBGP_INBOUND;
+    filter filter ebgp_inbound;
   };
   ipv6 {
-    filter eBGP_INBOUND;
+    filter filter ebgp_inbound;
   };
 }
 ```
