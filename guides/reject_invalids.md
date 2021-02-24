@@ -20,9 +20,11 @@ Making BGP Path Attributes dependent on RPKI Validation states introduces needle
 Additionally, the use of [RFC 8097](https://tools.ietf.org/html/rfc8097) is STRONGLY ABSOLUTELY NOT RECOMMENDED.
 RFC 8097 has caused issues for multi-vendor network operators.
 
+The RPKI documentation project lists various [Relaying Party software](https://rpki.readthedocs.io/en/latest/tools.html) packages.
+
 # Configuration Examples
 
-## OpenBGPD
+## OpenBGPD on OpenBSD
 
 This is an example how to do Origin Validation without the RPKI-To-Router protocol.
 Ensure the `rpki-client` root crontab entry is not commented out, and runs every hour.
