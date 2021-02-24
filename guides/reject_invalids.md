@@ -68,7 +68,7 @@ routing-options {
 ```
 
 Instruct the router to reject RPKI invalid routes, and mark `not-found` and `valid` routes with a non-transitive state.
-*note*: BGP communities or other BGP Path Attributes are *not* modified based on the validation state!
+*note*: BGP communities or other BGP Path Attributes *MUST NOT* modified based on the validation state!
 
 ```
 policy-statement rpki {
