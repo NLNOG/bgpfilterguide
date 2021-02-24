@@ -85,38 +85,38 @@ Put `allow-graceful-shutdown` in every import EBGP policy chain. Ensure this is 
 community graceful_shutdown members 65535:0;
 
 policy-statement allow-graceful-shutdown {
-    term 1 {
-        from {
-            protocol bgp;
-            community graceful_shutdown;
-        }
-        then {
-            local-preference 0;
-            next policy;
-        }
+  term 1 {
+    from {
+      protocol bgp;
+      community graceful_shutdown;
     }
+    then {
+      local-preference 0;
+      next policy;
+    }
+  }
 }
 ```
 
 ## BIRD
 ```
 function honor_graceful_shutdown() {
-	if (65535, 0) ~ bgp_community then {
-		bgp_local_pref = 0;
-	}
+  if (65535, 0) ~ bgp_community then {
+    bgp_local_pref = 0;
+  }
 }
 
 filter AS64497_ebgp_inbound
 {
-    # normally this policy would contain much more
-	honor_graceful_shutdown();
+  # normally this policy would contain much more
+  honor_graceful_shutdown();
 }
 
 protocol bgp peer_64497_1 {
-	neighbor 2001:db8:1:2::1 as 64497;
-	local as 64496;
-	import keep filtered;
-	import filter AS64497_ebgp_inbound;
+  neighbor 2001:db8:1:2::1 as 64497;
+  local as 64496;
+  import keep filtered;
+  import filter AS64497_ebgp_inbound;
 }
 ```
 
