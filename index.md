@@ -6,6 +6,8 @@ permalink: /
 
 ### RPKI
 
+Rejecting RPKI invalid BGP Routes: [reject_invalids](/guides/reject_invalids).
+
 [RPKI FAQ](https://rpki.readthedocs.io/en/latest/about/faq.html) at the RPKI Documentation project
 
 Locally attest well-known Trust Anchor publication point prefixes [slurm_ta](/guides/slurm_ta/).
