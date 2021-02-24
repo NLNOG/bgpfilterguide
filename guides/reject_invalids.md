@@ -168,8 +168,8 @@ protocol rpki {
 
 Define a function which returns `false` when a BGP route is RPKI invalid.
 
-*Note:* REALLY DONT store the validation state inside a `bgp_community` or bgp_large_community` variable.
-It can causes performance issues.
+*Note:* REALLY DONT store the validation state inside a `bgp_community` or `bgp_large_community` or `bgp_ext_community` variables.
+It can cause CPU & memory overload resulting in convergence performance issues.
 
 ```
 function check_rpki_rov()
