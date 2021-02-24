@@ -178,7 +178,7 @@ A:SR-OS>config>router#
 
 Dropping invalid prefixes can be done by policy or configuration:
 
-Match and drop based on RPKI validation state based on policy
+Match and drop based on RPKI invalids based on policy
 ```
 policy-statement "rpki-rov"
     entry 100
@@ -196,15 +196,15 @@ Match and drop based on RPKI validation state based configuration statements on 
 VPRN:
 ```
 A:SR-OS>edit-cfg# /configure service vprn <X> bgp group <group-name> enable-origin-validation ipv4 ipv6
-A:SR-OS>edit-cfg# /configure service vprn <X> bgp group <group-name> neighbor <ipv4-address>  enable-origin-validation ipv4
-A:SR-OS>edit-cfg# /configure service vprn <X> bgp group <group-name> neighbor <ipv6-address>  enable-origin-validation ipv6
+A:SR-OS>edit-cfg# /configure service vprn <X> bgp group <group-name> neighbor <ipv4-address> enable-origin-validation ipv4
+A:SR-OS>edit-cfg# /configure service vprn <X> bgp group <group-name> neighbor <ipv6-address> enable-origin-validation ipv6
 A:SR-OS>edit-cfg# /configure service vprn <X> bgp best-path-selection origin-invalid-unusable
 ```
 
 Base:
 ```
 A:SR-OS>edit-cfg# /configure router bgp group <group-name> enable-origin-validation ipv4 ipv6 
-A:SR-OS>edit-cfg# /configure router bgp group <group-name> neighbor <ipv4-address>  enable-origin-validation ipv4
-A:SR-OS>edit-cfg# /configure router bgp group <group-name> neighbor <ipv6-address>  enable-origin-validation ipv6
+A:SR-OS>edit-cfg# /configure router bgp group <group-name> neighbor <ipv4-address> enable-origin-validation ipv4
+A:SR-OS>edit-cfg# /configure router bgp group <group-name> neighbor <ipv6-address> enable-origin-validation ipv6
 A:SR-OS>edit-cfg# /configure router bgp best-path-selection origin-invalid-unusable
 ```
