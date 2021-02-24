@@ -143,6 +143,8 @@ route-policy ebgp-in
   <rest of policy>
 ```
 
+Don't forget to enable `soft-reconfiguration inbound always` for each EBGP neighbor for each address-family! It is too bad this does not happen by default.
+
 ## BIRD
 
 BIRD 2.0 supports RTR.
