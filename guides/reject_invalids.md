@@ -149,3 +149,57 @@ route-policy ebgp-in
   apply rpki-validate
   <rest of policy>
 ```
+
+## Nokia SR-OS
+
+RPKI validator can be configured within the:
+* Base router
+* VPRN (requires SR-OS 19.7 or higher)
+* Via OOB (example below)
+
+Configure RTR to the RPKI validator(s) via OOB: 
+```
+A:SR-OS# /configure router "management" 
+A:SR-OS>config>router# info 
+----------------------------------------------
+#--------------------------------------------------
+echo "Origin Validation Configuration"
+#--------------------------------------------------
+        origin-validation
+            rpki-session <ip-address>
+                description "rv01"
+                port <tcp port>
+                no shutdown
+            exit
+        exit
+----------------------------------------------
+A:SR-OS>config>router# 
+```
+
+Dropping invalid prefixes can be done by policy or configuration:
+
+Match and drop based on RPKI validation state based on policy
+```
+policy-statement "rpki-rov"
+    entry 100
+        description "Drop RPKI invalid prefixes"
+        from
+            origin-validation-state invalid
+        exit
+        action drop
+        exit
+    exit
+```
+
+Match and drop based on RPKI validation state based configuration statements
+* VPRN:
+```
+A:SR-OS>edit-cfg# /configure service vprn <X> bgp group <group-name> enable-origin-validation ipv4 ipv6
+A:SR-OS>edit-cfg# /configure service vprn <X> bgp best-path-selection origin-invalid-unusable
+```
+
+* Base:
+```
+A:SR-OS>edit-cfg# /configure router bgp group <group-name> enable-origin-validation ipv4 ipv6 
+A:SR-OS>edit-cfg# /configure router bgp best-path-selection origin-invalid-unusable
+```
