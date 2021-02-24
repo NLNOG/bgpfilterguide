@@ -40,22 +40,6 @@ deny quick from ebgp ovs invalid       # dont import invalids
 deny quick to ebgp ovs invalid         # dont export invalids
 ```
 
-## BIRD
-
-The [rtrsub](https://github.com/job/rtrsub) utility can be used to generate static ROA tables for BIRD 1.6.
-
-Then the next step is to reference a `reject_invalids()` function in all EBGP import and export filters.
-
-```
-function reject_invalids()
-{
-  if (roa_check(roas, net, bgp_path.last) == ROA_INVALID) then {
-    print "Reject: RPKI Invalid: ", net, " ", bgp_path;
-    reject;
-  }
-}
-```
-
 ## Junos
 
 Configure RTR
@@ -150,4 +134,63 @@ Apply policy in policy chain where needed
 route-policy ebgp-in
   apply rpki-validate
   <rest of policy>
+```
+
+## BIRD
+
+BIRD 2.0 supports RTR.
+
+The [rtrsub](https://github.com/job/rtrsub) utility can be used to generate static ROA tables for BIRD 1.6.
+
+Set up RTR as following:
+
+```
+roa4 table r4;
+roa6 table r6;
+
+protocol rpki {
+  roa4 {
+    table r4;
+  };
+  roa6 {
+    table r6;
+  };
+  remote "10.1.1.6" port 323;
+}
+```
+
+Define a function which returns `false` when a BGP route is RPKI invalid.
+
+```
+function check_rpki_rov()
+{
+  if (roa_check(r4, net, bgp_path.last) = ROA_INVALID ||
+      roa_check(r6, net, bgp_path.last) = ROA_INVALID) then {
+        return false;
+  };
+
+  return true;
+}
+
+# Filter applied to EBGP session definde in protocol
+filter eBGP_INBOUND
+{
+ if check_rpki_rov() then {
+   reject;
+ }
+ accept;
+}
+
+# example protocol definition with filter applied
+protocol bgp PEER1 from PEERS_TEMPLATE {
+  description "PEER DESCRIPTION";
+  local 10.0.0.1 as 64500;
+  neighbor 10.0.0.2 as 64500;
+  ipv4 {
+    import filter eBGP_INBOUND;
+  };
+  ipv6 {
+    filter eBGP_INBOUND;
+  };
+}
 ```
