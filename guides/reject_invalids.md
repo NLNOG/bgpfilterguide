@@ -13,8 +13,7 @@ permalink: /guides/reject_invalids/
 
 A complete filter for any BGP configuration should reject RPKI invalid BGP routes.
 
-Whether a route is RPKI *invalid* or not is determined following the
-[RFC 6811](https://tools.ietf.org/html/rfc6811) procedure.
+Whether a route is RPKI *invalid* or not is determined following [RFC 6811](https://tools.ietf.org/html/rfc6811) and [RFC 8893](https://tools.ietf.org/html/rfc8893).
 
 It is considered *harmfull* to manipulate BGP Path Attributes (for example LOCAL_PREF or COMMUNITY) based on the RPKI Origin Validation state.
 Making BGP Path Attributes dependent on RPKI Validation states introduces needless brittleness in the global routing system as explained [here](https://mailarchive.ietf.org/arch/msg/sidrops/dwQi9lgYKRVctdlMAHhtgYkzhSM/).
@@ -35,8 +34,8 @@ Import the `rpki-client` generated config and instruct `bgpd` to reject RPKI inv
 
 ```
 include "/var/db/rpki-client/openbgpd" # consume VRPs from rpki-client
-deny quick from ebgp ovs invalid       # RFC 6811, dont import invalids
-deny quick to ebgp ovs invalid         # RFC 8893, dont export invalids
+deny quick from ebgp ovs invalid       # dont import invalids
+deny quick to ebgp ovs invalid         # dont export invalids
 ```
 
 ## BIRD
