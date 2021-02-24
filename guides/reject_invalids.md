@@ -23,14 +23,15 @@ Making BGP Path Attributes dependent on RPKI Validation states introduces needle
 
 ## OpenBGPD
 
-Make sure the `rpki-client` root crontab entry is not commented out and runs every hour.
+This is an example how to do Origin Validation without the RPKI-To-Router protocol.
+Ensure the `rpki-client` root crontab entry is not commented out, and runs every hour.
 
 ```
-# crontab -l | grep rpki-client
+# crontab -l | grep rpki
 ~   *   *   *   *   -ns   rpki-client && bgpctl reload
 ```
 
-Configure `bgpd` to reject RPKI invalid routes
+Import the `rpki-client` generated config and instruct `bgpd` to reject RPKI invalid routes
 
 ```
 include "/var/db/rpki-client/openbgpd" # include rpki-client generated VRPs
