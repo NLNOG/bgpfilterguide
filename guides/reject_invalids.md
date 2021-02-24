@@ -191,15 +191,20 @@ policy-statement "rpki-rov"
     exit
 ```
 
-Match and drop based on RPKI validation state based configuration statements
-* VPRN:
+Match and drop based on RPKI validation state based configuration statements on the BGP group or per neighbor
+
+VPRN:
 ```
 A:SR-OS>edit-cfg# /configure service vprn <X> bgp group <group-name> enable-origin-validation ipv4 ipv6
+A:SR-OS>edit-cfg# /configure service vprn <X> bgp group <group-name> neighbor <ipv4-address>  enable-origin-validation ipv4
+A:SR-OS>edit-cfg# /configure service vprn <X> bgp group <group-name> neighbor <ipv6-address>  enable-origin-validation ipv6
 A:SR-OS>edit-cfg# /configure service vprn <X> bgp best-path-selection origin-invalid-unusable
 ```
 
-* Base:
+Base:
 ```
 A:SR-OS>edit-cfg# /configure router bgp group <group-name> enable-origin-validation ipv4 ipv6 
+A:SR-OS>edit-cfg# /configure router bgp group <group-name> neighbor <ipv4-address>  enable-origin-validation ipv4
+A:SR-OS>edit-cfg# /configure router bgp group <group-name> neighbor <ipv6-address>  enable-origin-validation ipv6
 A:SR-OS>edit-cfg# /configure router bgp best-path-selection origin-invalid-unusable
 ```
