@@ -23,9 +23,19 @@ Making BGP Path Attributes dependent on RPKI Validation states introduces needle
 
 ## OpenBGPD
 
+Make sure the `rpki-client` root crontab entry is not commented out and runs every hour.
+
 ```
-deny quick from ebgp ovs invalid    # RFC 6811 - dont import invalids
-deny quick to ebgp ovs invalid      # RFC 8893 - dont export invalids
+# crontab -l | grep rpki-client
+~   *   *   *   *   -ns   rpki-client && bgpctl reload
+```
+
+Configure `bgpd` to reject RPKI invalid routes
+
+```
+include "/var/db/rpki-client/openbgpd" # include rpki-client generated VRPs
+deny quick from ebgp ovs invalid       # RFC 6811 - dont import invalids
+deny quick to ebgp ovs invalid         # RFC 8893 - dont export invalids
 ```
 
 ## BIRD
