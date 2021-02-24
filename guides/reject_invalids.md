@@ -85,7 +85,7 @@ policy-statement rpki {
   term valid {
     from {
       protocol bgp;
-        validation-database valid;
+      validation-database valid;
     }
     then {
       validation-state valid;
@@ -94,7 +94,7 @@ policy-statement rpki {
   term unknown {
     from {
       protocol bgp;
-        validation-database unknown;
+      validation-database unknown;
     }
     then {
       validation-state unknown;
