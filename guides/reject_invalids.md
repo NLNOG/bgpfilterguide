@@ -268,3 +268,30 @@ A:SR-OS>edit-cfg# /configure service vprn <X> bgp group <group-name> neighbor 19
 A:SR-OS>edit-cfg# /configure service vprn <X> bgp group <group-name> neighbor 2001:db8:ffff::2 enable-origin-validation ipv6
 A:SR-OS>edit-cfg# /configure service vprn <X> bgp best-path-selection origin-invalid-unusable
 ```
+
+## Huawei VRP
+
+
+Configure RTR and enable RPKI for each address family
+```
+rpki
+ #
+ session 192.168.210.26
+  tcp port 3323
+#
+bgp 65535
+  ipv4-family unicast
+   prefix origin-validation enable
+   bestroute origin-as-validation [ allow-invalid ]
+  ipv6-family unicast
+   prefix origin-validation enable
+   bestroute origin-as-validation [ allow-invalid ]
+```
+If allow-invalid is not specified in the command, BGP ignores the routes with validation result Invalid during route selection.
+
+Match and deny based on RPKI validation state (if allow-invalid is configured)
+```
+route-policy PEER-IN deny node 10
+ description Deny Invalid RPKI
+ if-match rpki origin-as-validation invalid
+```
