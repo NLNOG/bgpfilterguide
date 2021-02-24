@@ -72,7 +72,7 @@ Instruct the router to reject RPKI invalid routes, and mark `not-found` and `val
 
 ```
 policy-statement rpki {
-  term invalid {
+  term reject_invalid {
     from {
       protocol bgp;
         validation-database invalid;
@@ -82,7 +82,7 @@ policy-statement rpki {
       reject;
     }
   }
-  term valid {
+  term mark_valid {
     from {
       protocol bgp;
       validation-database valid;
@@ -92,15 +92,9 @@ policy-statement rpki {
       next policy;
     }
   }
-  term unknown {
-    from {
-      protocol bgp;
-      validation-database unknown;
-    }
-    then {
-      validation-state unknown;
-      next policy;
-    }
+  then {
+    validation-state unknown;
+    next policy;
   }
 }
 ```
