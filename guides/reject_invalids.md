@@ -126,7 +126,7 @@ router bgp 1
    bgp origin-as validation enable
  address-family ipv6 unicast
    bgp origin-as validation enable
- rpki server 192.1.0.2
+ rpki server 10.1.1.6
 ```
 Match and deny based on RPKI validation state
 ```
@@ -196,8 +196,8 @@ filter ebgp_inbound
 # example protocol definition with filter applied
 protocol bgp PEER1 from PEERS_TEMPLATE {
   description "PEER DESCRIPTION";
-  local 10.0.0.1 as 64500;
-  neighbor 10.0.0.2 as 64500;
+  local 192.0.2.1 as 64500;
+  neighbor 192.0.2.2 as 64500;
   ipv4 {
     filter filter ebgp_inbound;
   };
@@ -223,9 +223,9 @@ A:SR-OS>config>router# info
 echo "Origin Validation Configuration"
 #--------------------------------------------------
         origin-validation
-            rpki-session <ip-address>
-                description "rv01"
-                port <tcp port>
+            rpki-session 10.1.1.6
+                description "rtr server"
+                port 323
                 no shutdown
             exit
         exit
@@ -253,15 +253,15 @@ Match and drop based on RPKI invalids based on standard configuration statements
 Base:
 ```
 A:SR-OS>edit-cfg# /configure router bgp group <group-name> enable-origin-validation ipv4 ipv6
-A:SR-OS>edit-cfg# /configure router bgp group <group-name> neighbor <ipv4-address> enable-origin-validation ipv4
-A:SR-OS>edit-cfg# /configure router bgp group <group-name> neighbor <ipv6-address> enable-origin-validation ipv6
+A:SR-OS>edit-cfg# /configure router bgp group <group-name> neighbor 192.0.2.2 enable-origin-validation ipv4
+A:SR-OS>edit-cfg# /configure router bgp group <group-name> neighbor 2001:db8:ffff::2 enable-origin-validation ipv6
 A:SR-OS>edit-cfg# /configure router bgp best-path-selection origin-invalid-unusable
 ```
 
 VPRN:
 ```
 A:SR-OS>edit-cfg# /configure service vprn <X> bgp group <group-name> enable-origin-validation ipv4 ipv6
-A:SR-OS>edit-cfg# /configure service vprn <X> bgp group <group-name> neighbor <ipv4-address> enable-origin-validation ipv4
-A:SR-OS>edit-cfg# /configure service vprn <X> bgp group <group-name> neighbor <ipv6-address> enable-origin-validation ipv6
+A:SR-OS>edit-cfg# /configure service vprn <X> bgp group <group-name> neighbor 192.0.2.2 enable-origin-validation ipv4
+A:SR-OS>edit-cfg# /configure service vprn <X> bgp group <group-name> neighbor 2001:db8:ffff::2 enable-origin-validation ipv6
 A:SR-OS>edit-cfg# /configure service vprn <X> bgp best-path-selection origin-invalid-unusable
 ```
