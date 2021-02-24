@@ -17,6 +17,8 @@ Whether a route is RPKI *invalid* or not is determined following [RFC 6811](http
 
 It is considered *harmful* to manipulate BGP Path Attributes (for example LOCAL_PREF or COMMUNITY) based on the RPKI Origin Validation state.
 Making BGP Path Attributes dependent on RPKI Validation states introduces needless brittleness in the global routing system as explained [here](https://mailarchive.ietf.org/arch/msg/sidrops/dwQi9lgYKRVctdlMAHhtgYkzhSM/).
+Additionally, the use of [RFC 8097](https://tools.ietf.org/html/rfc8097) is STRONGLY ABSOLUTELY NOT RECOMMENDED.
+RFC 8097 has caused issues for multi-vendor network operators.
 
 # Configuration Examples
 
