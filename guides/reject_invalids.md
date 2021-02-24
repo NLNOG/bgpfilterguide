@@ -34,9 +34,9 @@ Ensure the `rpki-client` root crontab entry is not commented out, and runs every
 Import the `rpki-client` generated config and instruct `bgpd` to reject RPKI invalid routes
 
 ```
-include "/var/db/rpki-client/openbgpd" # include rpki-client generated VRPs
-deny quick from ebgp ovs invalid       # RFC 6811 - dont import invalids
-deny quick to ebgp ovs invalid         # RFC 8893 - dont export invalids
+include "/var/db/rpki-client/openbgpd" # consume VRPs from rpki-client
+deny quick from ebgp ovs invalid       # RFC 6811, dont import invalids
+deny quick to ebgp ovs invalid         # RFC 8893, dont export invalids
 ```
 
 ## BIRD
