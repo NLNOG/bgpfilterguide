@@ -89,6 +89,7 @@ policy-statement rpki {
     }
     then {
       validation-state valid;
+      next policy;
     }
   }
   term unknown {
@@ -98,6 +99,7 @@ policy-statement rpki {
     }
     then {
       validation-state unknown;
+      next policy;
     }
   }
 }
