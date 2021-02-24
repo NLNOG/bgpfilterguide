@@ -167,7 +167,7 @@ function check_rpki_rov()
   if (roa_check(r4, net, bgp_path.last) = ROA_INVALID ||
       roa_check(r6, net, bgp_path.last) = ROA_INVALID) then {
         return false;
-  };
+  }
 
   return true;
 }
