@@ -111,6 +111,9 @@ route-map ebgp-in deny 1
 
 ## Cisco IOS-XR
 
+*note:* ABSOLUTELY DO NOT configure `bgp origin-as validation signal ibgp` (see above note above about RFC8097).
+Enabling validation signaling causes unnecesary BGP protocol chatter in the routing system.
+
 Configure RTR and enable RPKI for each address family
 ```
 router bgp 1
