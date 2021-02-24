@@ -51,8 +51,27 @@ function reject_invalids()
 ```
 
 ## Junos
+
+Configure RTR
+
 ```
-policy-statement reject_invalids {
+routing-options {
+  autonomous-system 64511;
+  validation {
+    group rpki-validator {
+      session 10.1.1.6 {
+        local-address 10.1.1.5;
+      }
+    }
+  }
+}
+```
+
+Instruct the router to reject RPKI invalid routes, and mark `not-found` and `valid` routes with a non-transitive state.
+*note*: BGP communities or other BGP Path Attributes are *not* modified based on the validation state!
+
+```
+policy-statement rpki {
   term invalid {
     from {
       protocol bgp;
@@ -61,6 +80,24 @@ policy-statement reject_invalids {
     then {
       validation-state invalid;
       reject;
+    }
+  }
+  term valid {
+    from {
+      protocol bgp;
+        validation-database valid;
+    }
+    then {
+      validation-state valid;
+    }
+  }
+  term unknown {
+    from {
+      protocol bgp;
+        validation-database unknown;
+    }
+    then {
+      validation-state unknown;
     }
   }
 }
