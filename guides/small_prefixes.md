@@ -30,10 +30,10 @@ Routes smaller than a `/24` (IPv4) or `/48` (IPv6) should not be expected to hav
 ```
 function reject_small_prefixes()
 {
-        if (net.len > 24) then {
-                print "Reject: Too small prefix: ", net, " ", bgp_path;
-                reject;
-        }
+  if (net.len > 24) then {
+    print "Reject: Too small prefix: ", net, " ", bgp_path;
+    reject;
+  }
 }
 ```
 
