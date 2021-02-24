@@ -122,3 +122,30 @@ route-map ebgp-in deny 1
  match rpki invalid
 !
 ```
+
+## Cisco IOS-XR
+
+Configure RTR and enable RPKI for each address family
+```
+router bgp 1
+ bgp bestpath origin-as allow invalid
+ address-family ipv4 unicast
+   bgp origin-as validation enable
+ address-family ipv6 unicast
+   bgp origin-as validation enable
+ rpki server 192.1.0.2
+```
+Match and deny based on RPKI validation state
+```
+route-policy rpki-validate
+  if validation-state is invalid then
+    drop
+  endif
+end-policy
+```
+Apply policy in policy chain where needed
+```
+route-policy ebgp-in
+  apply rpki-validate
+  <rest of policy>
+```
