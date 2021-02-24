@@ -147,7 +147,10 @@ Don't forget to enable `soft-reconfiguration inbound always` for each EBGP neigh
 
 ## BIRD
 
-BIRD 2.0 supports RTR.
+BIRD 2.0 supports RTR. However, the current implementation does not perform an automatic revalidation of routes upon receipt of new ROAs.
+
+> The RPKI-RTR protocol receives and maintains a set of ROAs from a cache server (also called validator). You can validate routes (RFC 6483) using function `roa_check()` in filter and set it as import filter at the BGP protocol. BIRD should re-validate all of affected routes after RPKI update by RFC 6811, but we don't support it yet! You can use a BIRD's client command `reload in bgp_protocol_name` for manual call of revalidation of all routes.
+(https://bird.network.cz/?get_doc&v=20&f=bird-6.html#ss6.13)
 
 The [rtrsub](https://github.com/job/rtrsub) utility can be used to generate static ROA tables for BIRD 1.6.
 
