@@ -27,7 +27,7 @@ The RPKI documentation project lists various [Relaying Party software](https://r
 ## OpenBGPD on OpenBSD
 
 This is an example how to do Origin Validation without the RPKI-To-Router protocol.
-Ensure the `rpki-client` root crontab entry is not commented out, and runs every hour.
+Ensure the `rpki-client` root crontab entry is enabled and runs every hour.
 
 ```
 # crontab -l | grep rpki
