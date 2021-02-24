@@ -42,6 +42,8 @@ deny quick from ebgp ovs invalid       # dont import invalids
 deny quick to ebgp ovs invalid         # dont export invalids
 ```
 
+It is REALLY NOT recommended to make set or modify any BGP Path Attributes based on the Origin Validation state (keyword: `ovs`).
+
 ## Junos
 
 Configure RTR
@@ -165,6 +167,9 @@ protocol rpki {
 ```
 
 Define a function which returns `false` when a BGP route is RPKI invalid.
+
+*Note:* REALLY DONT store the validation state inside a `bgp_community` or bgp_large_community` variable.
+It can causes performance issues.
 
 ```
 function check_rpki_rov()
