@@ -100,6 +100,18 @@ policy-statement rpki {
 
 ## Cisco classic IOS and IOS XE
 
+Configure RTR
+
+```
+# show running-config | begin bgp
+
+router bgp 64500
+ bgp log-neighbor-changes
+ bgp rpki server tcp 10.1.1.6
+```
+
+Match and deny based on RPKI validation state.
+
 ```
 route-map ebgp-in deny 1
  match rpki invalid
