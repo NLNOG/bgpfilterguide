@@ -39,6 +39,11 @@ deny quick to ebgp ovs invalid         # dont export invalids
 ```
 
 ## BIRD
+
+The [rtrsub](https://github.com/job/rtrsub) utility can be used to generate static ROA tables for BIRD 1.6.
+
+Then the next step is to reference a `reject_invalids()` function in all EBGP import and export filters.
+
 ```
 function reject_invalids()
 {
