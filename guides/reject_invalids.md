@@ -271,20 +271,16 @@ A:SR-OS>edit-cfg# /configure service vprn <X> bgp best-path-selection origin-inv
 
 ## Huawei VRP
 
-Configure RTR and enable RPKI for each address family
+Configure RTR and enable RPKI.
 
 ```
 rpki
- session 10.1.1.6
+  session 10.1.1.6
   tcp port 323
 #
 bgp 65535
-  ipv4-family unicast
-   prefix origin-validation enable
-   bestroute origin-as-validation
-  ipv6-family unicast
-   prefix origin-validation enable
-   bestroute origin-as-validation
+  prefix origin-validation enable
+  bestroute origin-as-validation
 ```
 
 The BGP best path selection process now ignores the routes with validation result Invalid during route selection.
