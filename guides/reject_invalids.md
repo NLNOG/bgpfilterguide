@@ -284,3 +284,28 @@ bgp 65535
 ```
 
 The BGP best path selection process now ignores the routes with validation result Invalid during route selection.
+
+## Arista EOS
+
+Set up RTR to RPKI Validator Cache:
+
+```
+router bgp 64500
+  # configure RTR
+  rpki cache 10.1.1.6
+    host 10.1.1.6
+    local-interface Loopback0
+  !
+  # enable origin validation
+  rpki origin-validation
+    ebgp local
+!
+```
+
+Now match in EBGP ingress policy and reject RPKI invalid BGP routes:
+
+```
+route-map ebgp-in deny 1
+   match origin-as validity invalid
+!
+```
