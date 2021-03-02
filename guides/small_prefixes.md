@@ -41,10 +41,18 @@ function reject_small_prefixes()
 
 ```
 policy-options {
-  policy-statement bgp-import-policy {
-    term reject_too_small_prefixes_v4 {
+  policy-statement reject_small_prefixes {
+    term reject_small_prefixes_v4 {
         from {
             route-filter 0.0.0.0/0 prefix-length-range /25-/32;
+        }
+        then {
+            reject;
+        }
+    }
+    term reject_small_prefixes_v6 {
+        from {
+            route-filter ::0/0 prefix-length-range /49-/128;
         }
         then {
             reject;
