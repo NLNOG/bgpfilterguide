@@ -95,14 +95,16 @@ policy-statement rpki {
 
 ## Cisco classic IOS and IOS XE
 
-Configure RTR
+In all IOS and IOS-XE releases, [Route Origin Validation will intervene in BGP best path selection](https://www.mail-archive.com/cisco-nsp@puck.nether.net/msg68472.html), which will result in routing loops. You should use the command `bgp bestpath prefix-validate disable` to disable the integrated Route Origin Validation and do it manually in a route-map instead:
 
 ```
-# show running-config | begin bgp
-
 router bgp 64500
  bgp log-neighbor-changes
  bgp rpki server tcp 10.1.1.6
+ address-family ipv4
+  bgp bestpath prefix-validate disable
+ address-family ipv6
+  bgp bestpath prefix-validate disable
 ```
 
 Match and deny based on RPKI validation state.
@@ -112,6 +114,10 @@ route-map ebgp-in deny 1
  match rpki invalid
 !
 ```
+
+An alternative and strongly discouraged way to avoid those routing loops is to use IBGP signalling (`send-community extended` and `announce rpki state` neighbor configurations). This will lead to unecessary control plane load and interdependencies.
+
+`soft-reconfiguration inbound` should be enabled on EBGP sessions to avoid periodic BGP Router Refreshes (when VRP tables are updated).
 
 ## Cisco IOS-XR
 
