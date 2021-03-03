@@ -137,30 +137,41 @@ This is not recommanded. Mikrotik will take a very very long time to process all
 
 ## Junos
 ```
-policy-options {
-    prefix-list BOGONS_v4 {
-        0.0.0.0/8;
-        10.0.0.0/8;
-        100.64.0.0/10;
-        127.0.0.0/8;
-        169.254.0.0/16;
-        172.16.0.0/12;
-        192.0.2.0/24;
-        192.88.99.0/24;
-        192.168.0.0/16;
-        198.18.0.0/15;
-        198.51.100.0/24;
-        203.0.113.0/24;
-        224.0.0.0/4;
-        240.0.0.0/4;
-    }
-    policy-statement BGP_FILTER_IN {
-        term IPv4 {
-            from {
-                prefix-list BOGONS_v4;
-            }
-            then reject;
+policy-statement reject-bogon-prefixes {
+    term reject-bogon-prefixes-v4 {
+        from {
+            route-filter 0.0.0.0/8 orlonger;
+            route-filter 10.0.0.0/8 orlonger;
+            route-filter 100.64.0.0/10 orlonger;
+            route-filter 127.0.0.0/8 orlonger;
+            route-filter 169.254.0.0/16 orlonger;
+            route-filter 172.16.0.0/12 orlonger;
+            route-filter 192.0.2.0/24 orlonger;
+            route-filter 192.88.99.0/24 orlonger;
+            route-filter 192.168.0.0/16 orlonger;
+            route-filter 198.18.0.0/15 orlonger;
+            route-filter 198.51.100.0/24 orlonger;
+            route-filter 203.0.113.0/24 orlonger;
+            route-filter 224.0.0.0/4 orlonger;
+            route-filter 240.0.0.0/4 orlonger;
         }
+        then reject;
+    }
+    term reject-bogon-prefixes-v6 {
+        from {
+            route-filter ::/8 orlonger;
+            route-filter 100::/64 orlonger;
+            route-filter 2001:2::/48 orlonger;
+            route-filter 2001:10::/28 orlonger;
+            route-filter 2001:db8::/32 orlonger;
+            route-filter 2002::/16 orlonger;
+            route-filter 3ffe::/16 orlonger;
+            route-filter fc00::/7 orlonger;
+            route-filter fe80::/10 orlonger;
+            route-filter fec0::/10 orlonger;
+            route-filter ff00::/8 orlonger;
+        }
+        then reject;
     }
 }
 ```
