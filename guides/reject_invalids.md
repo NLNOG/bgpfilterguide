@@ -266,7 +266,7 @@ A:SR-OS>edit-cfg# /configure router bgp group <group-name> neighbor 2001:db8:fff
 A:SR-OS>edit-cfg# /configure router bgp best-path-selection origin-invalid-unusable
 ```
 
-VPRN:
+VPRN (requires SR-OS 19.7 or higher):
 ```
 A:SR-OS>edit-cfg# /configure service vprn <X> bgp group <group-name> enable-origin-validation ipv4 ipv6
 A:SR-OS>edit-cfg# /configure service vprn <X> bgp group <group-name> neighbor 192.0.2.2 enable-origin-validation ipv4
