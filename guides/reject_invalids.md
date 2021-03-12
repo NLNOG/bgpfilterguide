@@ -220,7 +220,6 @@ protocol bgp PEER1 from PEERS_TEMPLATE {
 
 RPKI validator can be configured within the:
 * Base router
-* VPRN (requires SR-OS 19.7 or higher)
 * Via OOB (example below)
 
 Configure RTR to the RPKI validator(s) via OOB: 
