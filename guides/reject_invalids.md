@@ -339,7 +339,42 @@ A:admin@br1-nyc# info
         }
     }
  ```
+ 
 Origin validation in a VPRN instance requires SR OS 19.7.R1 or higher.
+
+Classic CLI VPRN BGP configuration (group or neighbor specific):
+```
+A:br1-nyc>config>service>vprn>bgp# info
+                best-path-selection
+                    compare-origin-validation-state
+                    origin-invalid-unusable
+                exit
+                group "VPRN_PEERING"
+                    import "ORIGIN_POLICY"
+                    enable-origin-validation ipv4 ipv6
+                exit
+                no shutdown
+```
+
+MD-CLI VPRN BGP configuration (group or neighbor specific):
+```
+[ex:configure service vprn "100" bgp]
+A:admin@br1-nyc# info
+    best-path-selection {
+        compare-origin-validation-state true
+        origin-invalid-unusable true
+    }
+    group "VPRN_PEERING" {
+        origin-validation {
+            ipv4 true
+            ipv6 true
+        }
+        import {
+            policy ["ORIGIN_POLICY"]
+        }
+    }
+
+ ```
 
 ## Huawei VRP
 
