@@ -228,7 +228,7 @@ Classic CLI configuration:
 ```
 A:br1-nyc>config>router>origin-validation# info detail
             rpki-session 192.168.1.1
-                description "Routinator RPKI Server"
+                description "RPKI Server"
                 no shutdown
             exit
 ```
@@ -239,7 +239,7 @@ MD-CLI configuration:
 A:admin@br1-nyc# info
     rpki-session 192.168.1.1 {
         admin-state enable
-        description "Routinator RPKI Server"
+        description "RPKI Server"
     }
 ```
 
