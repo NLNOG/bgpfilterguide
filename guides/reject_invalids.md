@@ -216,63 +216,165 @@ protocol bgp PEER1 from PEERS_TEMPLATE {
 }
 ```
 
-## Nokia SR-OS
+## Nokia SR OS
 
-RPKI validator can be configured within the:
-* Base router
-* Via OOB (example below)
+RPKI validator can be configured via:
+* The Base routing instance (example below)
+* The management routing instance on OOB Ethernet port
 
-Configure RTR to the RPKI validator(s) via OOB: 
+#### Configure RTR to the RPKI validator(s)
+
+Classic CLI configuration:
 ```
-A:SR-OS# /configure router "management" 
-A:SR-OS>config>router# info 
-----------------------------------------------
-#--------------------------------------------------
-echo "Origin Validation Configuration"
-#--------------------------------------------------
-        origin-validation
-            rpki-session 10.1.1.6
-                description "rtr server"
-                port 323
+A:br1-nyc>config>router>origin-validation# info detail
+            rpki-session 192.168.1.1
+                description "RPKI Server"
                 no shutdown
             exit
-        exit
-----------------------------------------------
-A:SR-OS>config>router# 
 ```
 
-Dropping invalid prefixes can be done by policy or configuration:
-
-Match and drop based on RPKI invalids based on policy
+MD-CLI configuration:
 ```
-policy-statement "rpki-rov"
-    entry 100
-        description "Drop RPKI invalid prefixes"
-        from
-            origin-validation-state invalid
-        exit
-        action drop
-        exit
-    exit
+[ex:configure router "Base" origin-validation]
+A:admin@br1-nyc# info
+    rpki-session 192.168.1.1 {
+        admin-state enable
+        description "RPKI Server"
+    }
 ```
 
-Match and drop based on RPKI invalids based on standard configuration statements (BGP group or neighbor specific) 
+#### Drop invalid prefixes 
 
-Base:
+Dropping invalid prefixes can be done using a routing policy or in the BGP configuration.
+
+Classic CLI routing policy configuration:
 ```
-A:SR-OS>edit-cfg# /configure router bgp group <group-name> enable-origin-validation ipv4 ipv6
-A:SR-OS>edit-cfg# /configure router bgp group <group-name> neighbor 192.0.2.2 enable-origin-validation ipv4
-A:SR-OS>edit-cfg# /configure router bgp group <group-name> neighbor 2001:db8:ffff::2 enable-origin-validation ipv6
-A:SR-OS>edit-cfg# /configure router bgp best-path-selection origin-invalid-unusable
+A:br1-nyc>config>router>policy-options# info
+            policy-statement "ORIGIN_POLICY"
+                entry 10
+                    from
+                        origin-validation-state invalid
+                    exit
+                    action drop
+                    exit
+                exit
+                entry 20
+                    from
+                        origin-validation-state notFound
+                    exit
+                    action accept
+                    exit
+                exit                 
+                entry 30
+                    from
+                        origin-validation-state valid
+                    exit
+                    action accept
+                    exit
+                exit
+            exit
 ```
 
-VPRN (requires SR-OS 19.7 or higher):
+MD-CLI routing policy configuration:
 ```
-A:SR-OS>edit-cfg# /configure service vprn <X> bgp group <group-name> enable-origin-validation ipv4 ipv6
-A:SR-OS>edit-cfg# /configure service vprn <X> bgp group <group-name> neighbor 192.0.2.2 enable-origin-validation ipv4
-A:SR-OS>edit-cfg# /configure service vprn <X> bgp group <group-name> neighbor 2001:db8:ffff::2 enable-origin-validation ipv6
-A:SR-OS>edit-cfg# /configure service vprn <X> bgp best-path-selection origin-invalid-unusable
+[ex:configure policy-options]
+A:admin@br1-nyc# info
+    policy-statement "ORIGIN_POLICY" {
+        entry 10 {
+            from {
+                origin-validation-state invalid
+            }
+            action {
+                action-type reject
+            }
+        }
+        entry 20 {
+            from {
+                origin-validation-state not-found
+            }
+            action {
+                action-type accept
+            }
+        }
+        entry 30 {
+            from {
+                origin-validation-state valid
+            }
+            action {
+                action-type accept
+            }
+        }
+    }
 ```
+
+Classic CLI BGP configuration (group or neighbor specific):
+```
+A:br1-nyc>config>router>bgp# info
+            best-path-selection
+                compare-origin-validation-state
+                origin-invalid-unusable
+            exit
+            group "EBGP_PEERING”
+                import "ORIGIN_POLICY"
+                enable-origin-validation ipv4 ipv6
+            exit
+            no shutdown
+```
+MD-CLI BGP configuration (group or neighbor specific):
+```
+[ex:configure router "Base" bgp]
+A:admin@br1-nyc# info
+    peer-ip-tracking true
+    best-path-selection {
+        compare-origin-validation-state true
+        origin-invalid-unusable true
+    }
+    group "EBGP_PEERING" {
+        origin-validation {
+            ipv4 true
+            ipv6 true
+        }
+        import {
+            policy ["ORIGIN_POLICY"]
+        }
+    }
+ ```
+ 
+Origin validation in a VPRN instance requires SR OS 19.7.R1 or higher.
+
+Classic CLI VPRN BGP configuration (group or neighbor specific):
+```
+A:br1-nyc>config>service>vprn>bgp# info
+                best-path-selection
+                    compare-origin-validation-state
+                    origin-invalid-unusable
+                exit
+                group "VPRN_PEERING"
+                    import "ORIGIN_POLICY"
+                    enable-origin-validation ipv4 ipv6
+                exit
+                no shutdown
+```
+
+MD-CLI VPRN BGP configuration (group or neighbor specific):
+```
+[ex:configure service vprn "100" bgp]
+A:admin@br1-nyc# info
+    best-path-selection {
+        compare-origin-validation-state true
+        origin-invalid-unusable true
+    }
+    group "VPRN_PEERING" {
+        origin-validation {
+            ipv4 true
+            ipv6 true
+        }
+        import {
+            policy ["ORIGIN_POLICY"]
+        }
+    }
+
+ ```
 
 ## Huawei VRP
 
