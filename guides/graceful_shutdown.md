@@ -212,3 +212,4 @@ policy-statement "BGP_FILTER_IN" {
 * PCCW / AS 3491
 * TDC / AS 3292
 * HOPUS / AS 44530
+* Fastly / AS 54113
