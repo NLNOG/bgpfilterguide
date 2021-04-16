@@ -213,3 +213,4 @@ policy-statement "BGP_FILTER_IN" {
 * TDC / AS 3292
 * HOPUS / AS 44530
 * Fastly / AS 54113
+* Interconnect Services BV / AS 9150
