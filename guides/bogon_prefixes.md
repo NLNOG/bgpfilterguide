@@ -102,7 +102,7 @@ deny from any prefix 240.0.0.0/4 prefixlen >= 4         # reserved for future us
 ```
 ip prefix-list BOGONS_v4 deny 0.0.0.0/8 le 32
 ip prefix-list BOGONS_v4 deny 10.0.0.0/8 le 32
-ip prefix-list BOGONS_v4 deny 10.64.0.0/10 le 32
+ip prefix-list BOGONS_v4 deny 100.64.0.0/10 le 32
 ip prefix-list BOGONS_v4 deny 127.0.0.0/8 le 32
 ip prefix-list BOGONS_v4 deny 169.254.0.0/16 le 32
 ip prefix-list BOGONS_v4 deny 172.16.0.0/12 le 32
