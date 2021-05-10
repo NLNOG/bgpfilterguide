@@ -26,18 +26,13 @@ Target import policy :  customers and IXP peering
 
 ```
 define TRANSIT_ASNS = [ 174,                  # Cogent
-                        209,                  # Qwest (HE carries this on IXPs IPv6 (Jul 12 2018))
                         701,                  # UUNET
-                        702,                  # UUNET
-                        1239,                 # Sprint
                         1299,                 # Telia
-                        2914,                 # NTT Communications
+                        2914,                 # NTT Ltd.
                         3257,                 # GTT Backbone
                         3320,                 # Deutsche Telekom AG (DTAG)
                         3356,                 # Level3
                         3491,                 # PCCW
-                        3549,                 # Level3
-                        3561,                 # Savvis / CenturyLink
                         4134,                 # Chinanet
                         5511,                 # Orange opentransit
                         6453,                 # Tata Communications
@@ -99,14 +94,14 @@ policy-options {
    }
  }
 
- as-path no-transit-import-in ".* (174|209|701|702|1239|1299|2914|3257|3320|3356|3491|3549|3561|4134|5511|6453|6461|6762|6830|7018) .*";
+ as-path no-transit-import-in ".* (174|701|1299|2914|3257|3320|3356|3491|4134|5511|6453|6461|6762|6830|7018) .*";
 ```
 
 ## IOS-XR
 
 ```
 as-path-set TRANSIT_AS
-  ios-regex '.* (174|209|701|702|1239|1299|2914|3257|3320|3356|3491|3549|3561|4134|5511|6453|6461|6762|6830|7018) .*'
+  ios-regex '.* (174|701|1299|2914|3257|3320|3356|3491|4134|5511|6453|6461|6762|6830|7018) .*'
 end-set
 !
 route-policy BGP_FILTER_IN
@@ -119,14 +114,14 @@ end-policy
 ## OpenBGPD
 
 ```
-deny from $IXP transit-as {174,209,701,702,1239,1299,2914,3257,3320,3356,3491,3549,3561,4134,5511,6453,6461,6762,6830,7018}
+deny from $IXP transit-as {174,701,1299,2914,3257,3320,3356,3491,4134,5511,6453,6461,6762,6830,7018}
 ```
 
 (*$IXP* represents a list of IXP peers or Route Servers
 
 ## FRR (vtysh)
 ```
-bgp as-path access-list peerings deny .* (174|209|701|702|1239|1299|2914|3257|3320|3356|3491|3549|3561|4134|5511|6453|6461|6762|6830|7018) .*
+bgp as-path access-list peerings deny .* (174|701|1299|2914|3257|3320|3356|3491|4134|5511|6453|6461|6762|6830|7018) .*
 ```
 
 ## Nokia SR OS
@@ -141,7 +136,7 @@ echo "Policy Configuration"
         policy-options
             begin
             as-path "TRANSIT_AS"
-                expression ".* (174|209|701|702|1239|1299|2914|3257|3320|3356|3491|3549|3561|4134|5511|6453|6461|6762|6830|7018) .*"
+                expression ".* (174|701|1299|2914|3257|3320|3356|3491|4134|5511|6453|6461|6762|6830|7018) .*"
             exit
             policy-statement "BGP_FILTER_IN"
                 entry 50
@@ -159,7 +154,7 @@ echo "Policy Configuration"
 # Paste-friendly Classic CLI blob
 #
 /configure router policy-options begin
-/configure router policy-options as-path "TRANSIT_AS" expression ".* (174|209|701|702|1239|1299|2914|3257|3320|3356|3491|3549|3561|4134|5511|6453|6461|6762|6830|7018) .*"
+/configure router policy-options as-path "TRANSIT_AS" expression ".* (174|701|1299|2914|3257|3320|3356|3491|4134|5511|6453|6461|6762|6830|7018) .*"
 /configure router policy-options policy-statement "BGP_FILTER_IN" entry 50 from as-path "TRANSIT_AS"
 /configure router policy-options policy-statement "BGP_FILTER_IN" entry 50 action drop
 /configure router policy-options commit
@@ -169,7 +164,7 @@ echo "Policy Configuration"
 #
 [gl:configure policy-options]
 as-path "TRANSIT_AS" {
-    expression ".* (174|209|701|702|1239|1299|2914|3257|3320|3356|3491|3549|3561|4134|5511|6453|6461|6762|6830|7018) .*"
+    expression ".* (174|701|1299|2914|3257|3320|3356|3491|4134|5511|6453|6461|6762|6830|7018) .*"
 }
 policy-statement "BGP_FILTER_IN" {
     entry 50 {
@@ -187,7 +182,7 @@ policy-statement "BGP_FILTER_IN" {
 #
 # Paste-friendly MD-CLI blob
 #
-/configure policy-options as-path "TRANSIT_AS" expression ".* (174|209|701|702|1239|1299|2914|3257|3320|3356|3491|3549|3561|4134|5511|6453|6461|6762|6830|7018) .*"
+/configure policy-options as-path "TRANSIT_AS" expression ".* (174|701|1299|2914|3257|3320|3356|3491|4134|5511|6453|6461|6762|6830|7018) .*"
 /configure policy-options policy-statement "BGP_FILTER_IN" { }
 /configure policy-options policy-statement "BGP_FILTER_IN" { entry 50 }
 /configure policy-options policy-statement "BGP_FILTER_IN" { entry 50 from }
