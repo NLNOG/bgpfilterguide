@@ -43,7 +43,7 @@ policy-options {
         /* RFC7300 Last 16 and 32 bit ASNs */
         as-path last16 ".* 65535 .*";
         as-path last32 ".* 4294967295 .*";
-        /* RFC IANA reserved ASNs */
+        /* IANA reserved ASNs */
         as-path iana-reserved ".* [65552-131071] .*";
     }
     policy-statement import_from_ebgp {
@@ -158,15 +158,15 @@ exit
 policy-options
     begin
     as-path-group "bogon-asns"
-        # RFC 4893 AS_TRANS
+        # RFC4893 AS_TRANS
         entry 10 expression ".* 23456 .*"
-        # RFC 5398 and documentation/example ASNs
+        # RFC5398 and documentation/example ASNs
         entry 15 expression ".* [64496-64511] .*"
         entry 20 expression ".* [65536-65551] .*"
-        # RFC 6996 private ASNs
+        # RFC6996 private ASNs
         entry 25 expression ".* [64512-65534] .*"
         entry 30 expression ".* [4200000000-4294967294] .*"
-        RFC 6996 last 16-bit and 32-bit ASNs
+        # RFC7300 last 16-bit and 32-bit ASNs
         entry 35 expression ".* 65535 .*"
         entry 40 expression ".* 4294967295 .*"
         # IANA reserved ASNs
