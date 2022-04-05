@@ -214,3 +214,4 @@ policy-statement "BGP_FILTER_IN" {
 * HOPUS / AS 44530
 * Fastly / AS 54113
 * Interconnect Services BV / AS 9150
+* Fusix Networks / AS 57866
