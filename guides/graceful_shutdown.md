@@ -183,6 +183,33 @@ policy-statement "BGP_FILTER_IN" {
     }
 }
 ```
+## FortiOS
+```
+config router community-list
+    edit "gshut"
+        set type standard
+        config rule
+            edit 1
+                set action permit
+                set match "65535:0"
+            next
+        end
+    next
+end
+
+config router route-map
+    edit "BGP_FILTER_IN"
+        config rule
+            edit 1
+                set action permit
+                set match-community "gshut"
+		set set-local-preference 0
+            next
+        end
+    next
+end
+```
+
 
 # List of networks known to accept & honor GRACEFUL_SHUTDOWN
 
