@@ -40,7 +40,7 @@ function reject_small_prefixes()
 ## FortiOS
 ```
 config router prefix-list
-    edit "IPv4_SMALL_PREFIX"
+    edit "IPv4_SMALL_PREFIXES"
         config rule
             edit 1
                 set prefix 0.0.0.0 0.0.0.0
