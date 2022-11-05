@@ -69,11 +69,11 @@ match from any community GRACEFUL_SHUTDOWN set { localpref 0 }
 
 ## FRR (vtysh)
 
-Will enable on global level
 ```
 router bgp <own_ASN>
-  bgp graceful-restart
+  bgp graceful-shutdown
 ```
+This will enable sending of the graceful shutdown community on all prefixes to all peers.
 
 ## Junos
 
