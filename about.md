@@ -12,4 +12,4 @@ NLNOG is a global community of network operators passionate about bgp filtering.
 
 ### Contact us
 
-[nlnog@nlnog.net](mailto:nlnog@nlnog.net)
+[stichting@nlnog.net](mailto:stichting@nlnog.net)

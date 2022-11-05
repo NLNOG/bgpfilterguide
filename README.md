@@ -8,4 +8,4 @@ Anyone can contribute configuration examples and guides through github [pull req
 
 # Contact
 
-nlnog@nlnog.net
+stichting@nlnog.net
