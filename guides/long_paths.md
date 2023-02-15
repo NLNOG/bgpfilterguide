@@ -132,14 +132,15 @@ policy-statement "BGP_FILTER_IN" {
 /configure policy-options policy-statement "BGP_FILTER_IN" entry 40 action action-type reject
 ```
 
+## Huawei VRP
+```
+route-policy TRANSIT-V4-IN deny node 120
+ if-match as-path length greater-equal 100 less-equal 2047
+ ```
+
 ## Arista
 ```
 route-map BGP_FILTER_IN deny 10
    match as-path length >= 100
 ```
 
-## Huawei Versatile Routing Platform (VRP)
-```
-route-policy TRANSIT-V4-IN deny node 120
- if-match as-path length greater-equal 100 less-equal 2047
- ```

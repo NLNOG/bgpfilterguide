@@ -184,7 +184,7 @@ policy-statement "BGP_FILTER_IN" {
 }
 ```
 
-## Huawei Versatile Routing Platform (VRP)
+## Huawei VRP
 ```
 ip community-filter basic GRACEFUL-SHUTDOWN index 10 permit 65535:0
 

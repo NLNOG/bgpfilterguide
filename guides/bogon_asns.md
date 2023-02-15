@@ -222,6 +222,25 @@ This is not recommanded. Mikrotik will take a very very long time to process all
 /routing filter add chain=GENERIC_PREFIX_LIST bgp-as-path="_(4294967[0-1][0-9][0-9])_|_(42949672[0-8][0-9])_|_(429496729[0-4])_" protocol=bgp action=discard comment="RFC 6996 Private ASNs"
 ```
 
+## Huawei VRP
+```
+route-policy TRANSIT-IN deny node 100
+ if-match as-path-filter filter_Denied_AS_Path
+
+ip as-path-filter filter_Denied_AS_Path index 100 permit _0_
+ip as-path-filter filter_Denied_AS_Path index 110 permit _23456_
+ip as-path-filter filter_Denied_AS_Path index 120 permit _((6449[6-9])|(64[5-9][0-9][0-9]))_
+ip as-path-filter filter_Denied_AS_Path index 130 permit _(6[5-9][0-9][0-9][0-9])_
+ip as-path-filter filter_Denied_AS_Path index 140 permit _([7-9][0-9][0-9][0-9][0-9])_
+ip as-path-filter filter_Denied_AS_Path index 150 permit _((1[0-2][0-9][0-9][0-9][0-9])|(130[0-9][0-9][0-9]))_
+ip as-path-filter filter_Denied_AS_Path index 160 permit _((1310[0-6][0-9])|(13107[0-1]))_
+ip as-path-filter filter_Denied_AS_Path index 170 permit _(42[0-8][0-9][0-9][0-9][0-9][0-9][0-9][0-9])_
+ip as-path-filter filter_Denied_AS_Path index 180 permit _(429[0-3][0-9][0-9][0-9][0-9][0-9][0-9])_
+ip as-path-filter filter_Denied_AS_Path index 190 permit _(4294[0-8][0-9][0-9][0-9][0-9][0-9])_
+ip as-path-filter filter_Denied_AS_Path index 200 permit _((42949[0-5][0-9][0-9][0-9][0-9])|(429496[0-6][0-9][0-9][0-9]))_
+ip as-path-filter filter_Denied_AS_Path index 210 permit _((4294967[0-1][0-9][0-9])|(42949672[0-8][0-9])|(429496729[0-5]))_
+```
+
 
 ## Arista
 
@@ -241,24 +260,4 @@ ip as-path access-list bogon-asns permit _[65552-131071]_ any
 route-map Import-Peer deny 7
    match as-path bogon-asns
 !
-```
-
-
-## Huawei Versatile Routing Platform (VRP)
-```
-route-policy TRANSIT-IN deny node 100
- if-match as-path-filter filter_Denied_AS_Path
-
-ip as-path-filter filter_Denied_AS_Path index 100 permit _0_
-ip as-path-filter filter_Denied_AS_Path index 110 permit _23456_
-ip as-path-filter filter_Denied_AS_Path index 120 permit _((6449[6-9])|(64[5-9][0-9][0-9]))_
-ip as-path-filter filter_Denied_AS_Path index 130 permit _(6[5-9][0-9][0-9][0-9])_
-ip as-path-filter filter_Denied_AS_Path index 140 permit _([7-9][0-9][0-9][0-9][0-9])_
-ip as-path-filter filter_Denied_AS_Path index 150 permit _((1[0-2][0-9][0-9][0-9][0-9])|(130[0-9][0-9][0-9]))_
-ip as-path-filter filter_Denied_AS_Path index 160 permit _((1310[0-6][0-9])|(13107[0-1]))_
-ip as-path-filter filter_Denied_AS_Path index 170 permit _(42[0-8][0-9][0-9][0-9][0-9][0-9][0-9][0-9])_
-ip as-path-filter filter_Denied_AS_Path index 180 permit _(429[0-3][0-9][0-9][0-9][0-9][0-9][0-9])_
-ip as-path-filter filter_Denied_AS_Path index 190 permit _(4294[0-8][0-9][0-9][0-9][0-9][0-9])_
-ip as-path-filter filter_Denied_AS_Path index 200 permit _((42949[0-5][0-9][0-9][0-9][0-9])|(429496[0-6][0-9][0-9][0-9]))_
-ip as-path-filter filter_Denied_AS_Path index 210 permit _((4294967[0-1][0-9][0-9])|(42949672[0-8][0-9])|(429496729[0-5]))_
 ```
