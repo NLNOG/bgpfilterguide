@@ -178,3 +178,10 @@ echo "Policy Configuration"
 /configure policy-options policy-statement "BGP_FILTER_IN" entry 30 from prefix-list ["TOO_SMALL_PREFIXES"]
 /configure policy-options policy-statement "BGP_FILTER_IN" entry 30 action action-type reject
 ```
+
+## Huawei Versatile Routing Platform (VRP)
+```
+ip ip-prefix default_ipv4_24 index 10 permit 0.0.0.0 0 greater-equal 8 less-equal 24
+
+ip ipv6-prefix default_ipv6_48 index 10 permit :: 0 greater-equal 18 less-equal 48
+```

@@ -137,3 +137,9 @@ policy-statement "BGP_FILTER_IN" {
 route-map BGP_FILTER_IN deny 10
    match as-path length >= 100
 ```
+
+## Huawei Versatile Routing Platform (VRP)
+```
+route-policy TRANSIT-V4-IN deny node 120
+ if-match as-path length greater-equal 100 less-equal 2047
+ ```

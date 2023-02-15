@@ -184,6 +184,15 @@ policy-statement "BGP_FILTER_IN" {
 }
 ```
 
+## Huawei Versatile Routing Platform (VRP)
+```
+ip community-filter basic GRACEFUL-SHUTDOWN index 10 permit 65535:0
+
+route-policy TRANSIT-IN permit node 350
+ if-match community-filter GRACEFUL-SHUTDOWN
+ apply local-preference 0
+ ```
+
 # List of networks known to accept & honor GRACEFUL_SHUTDOWN
 
 * NTT Ltd (Global IP Network) / AS 2914
@@ -215,3 +224,4 @@ policy-statement "BGP_FILTER_IN" {
 * Fastly / AS 54113
 * Interconnect Services BV / AS 9150
 * Fusix Networks / AS 57866
+
