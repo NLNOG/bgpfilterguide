@@ -350,6 +350,28 @@ route-map Import-Peer deny 20
    match ip address prefix-list BOGONS_v4
 !
 ```
+
+## Huawei VRP
+```
+ip ip-prefix prefix_Denied_Bogons_ipv4 index 20 permit 0.0.0.0 8 match-network greater-equal 8 less-equal 32
+ip ip-prefix prefix_Denied_Bogons_ipv4 index 30 permit 10.0.0.0 8 greater-equal 8 less-equal 32
+ip ip-prefix prefix_Denied_Bogons_ipv4 index 40 permit 100.64.0.0 10 greater-equal 10 less-equal 32
+ip ip-prefix prefix_Denied_Bogons_ipv4 index 50 permit 127.0.0.0 8 greater-equal 8 less-equal 32
+ip ip-prefix prefix_Denied_Bogons_ipv4 index 60 permit 169.254.0.0 16 greater-equal 16 less-equal 32
+ip ip-prefix prefix_Denied_Bogons_ipv4 index 70 permit 172.16.0.0 12 greater-equal 12 less-equal 32
+ip ip-prefix prefix_Denied_Bogons_ipv4 index 80 permit 192.0.2.0 24 greater-equal 24 less-equal 32
+ip ip-prefix prefix_Denied_Bogons_ipv4 index 90 permit 192.88.99.0 24 greater-equal 24 less-equal 32
+ip ip-prefix prefix_Denied_Bogons_ipv4 index 100 permit 192.168.0.0 16 greater-equal 16 less-equal 32
+ip ip-prefix prefix_Denied_Bogons_ipv4 index 110 permit 198.18.0.0 15 greater-equal 15 less-equal 32
+ip ip-prefix prefix_Denied_Bogons_ipv4 index 120 permit 198.51.100.0 24 greater-equal 24 less-equal 32
+ip ip-prefix prefix_Denied_Bogons_ipv4 index 130 permit 203.0.113.0 24 greater-equal 24 less-equal 32
+ip ip-prefix prefix_Denied_Bogons_ipv4 index 140 permit 224.0.0.0 4 greater-equal 4 less-equal 32
+ip ip-prefix prefix_Denied_Bogons_ipv4 index 150 permit 240.0.0.0 4 greater-equal 4 less-equal 32
+
+route-policy TRANSIT-V4-IN deny node 100
+ if-match ip-prefix prefix_Denied_Bogons_ipv4
+````
+
 # Configuration Examples IPv6
 
 ## BIRD
@@ -572,4 +594,21 @@ echo "Policy Configuration"
 /configure policy-options policy-statement "BGP_FILTER_IN" { entry 20 }
 /configure policy-options policy-statement "BGP_FILTER_IN" entry 20 from prefix-list ["BOGONS_V6"]
 /configure policy-options policy-statement "BGP_FILTER_IN" entry 20 action action-type reject
+```
+
+## Huawei VRP
+```
+ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 20 permit 100:: 64 greater-equal 64 less-equal 128
+ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 30 permit 2001:2:: 48 greater-equal 48 less-equal 128
+ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 40 permit 2001:10:: 28 greater-equal 28 less-equal 128
+ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 50 permit 2001:DB8:: 32 greater-equal 32 less-equal 128
+ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 60 permit 2002:: 16 greater-equal 16 less-equal 128
+ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 70 permit 3FFE:: 16 greater-equal 16 less-equal 128
+ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 80 permit FC00:: 7 greater-equal 7 less-equal 128
+ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 90 permit FE80:: 10 greater-equal 10 less-equal 128
+ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 100 permit FEC0:: 10 greater-equal 10 less-equal 128
+ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 110 permit FF00:: 8 greater-equal 8 less-equal 128
+
+route-policy TRANSIT-V6-IN deny node 100
+ if-match ipv6 address prefix-list prefix_Denied_Bogons_ipv6
 ```

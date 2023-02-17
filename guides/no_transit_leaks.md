@@ -189,3 +189,13 @@ policy-statement "BGP_FILTER_IN" {
 /configure policy-options policy-statement "BGP_FILTER_IN" entry 50 from as-path name "TRANSIT_AS"
 /configure policy-options policy-statement "BGP_FILTER_IN" entry 50 action action-type reject
 ```
+
+## Huawei VRP
+
+```
+ip as-path-filter filter_IX_AS_Path index 10 permit _(174|701|702|703|1299|2914|3257|3320)_
+ip as-path-filter filter_IX_AS_Path index 20 permit _(3356|3491|4134|5511|6453|6461|6762|6830|7018)_
+
+route-policy IX-V4-IN deny node 130
+ if-match as-path-filter filter_IX_AS_Path
+```
