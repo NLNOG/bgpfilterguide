@@ -39,3 +39,7 @@ A Remainder accept term with BGP communities and a local-preference: [Remainder 
 ### Supporting GRACEFUL_SHUTDOWN
 
 How to facilitate the graceful shutdown of BGP sessions: [Graceful Shutdown](/guides/graceful_shutdown/).
+
+### Blackhole an address
+
+How to announce an address or prefix to be blackholed using the RFC7999 BLACKHOLE community: [BLACKHOLE BGP Community](/guides/blackhole_bgp_community/).
