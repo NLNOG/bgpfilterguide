@@ -28,12 +28,16 @@ Routes smaller than a `/24` (IPv4) or `/48` (IPv6) should not be expected to hav
 
 ## BIRD
 ```
-function reject_small_prefixes_v4()
+function filter_import_v4()
 {
+  # do not accept too short prefixes
   if (net.len > 24) then {
     print "Reject: Too small prefix: ", net, " ", bgp_path;
     reject;
   }
+  
+  # TODO: add all other filtering needed.
+  
   # accecpt any other routes
   else accept;
 }
@@ -43,7 +47,7 @@ protocol bgp NAME {
   (...)
   ipv4 {
   	# perform some filtering on received routes
-    import filter reject_small_prefixes_v4;
+    import filter filter_import_v4;
   }
 }
 ```
