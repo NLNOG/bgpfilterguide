@@ -117,6 +117,8 @@ ip prefix-list BOGONS_v4 deny 240.0.0.0/4 le 32
 ```
 
 ## Mikrotik
+
+### RouterOS v6
 This is not recommanded. Mikrotik will take a very very long time to process all those routes and has some issues with BGP.
 ```
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ip prefix=0.0.0.0/8 prefix-length=8-32 protocol=bgp action=discard comment="RFC 1122 'this' network"
@@ -133,6 +135,25 @@ This is not recommanded. Mikrotik will take a very very long time to process all
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ip prefix=203.0.113.0/24 prefix-length=24-32 protocol=bgp action=discard comment="RFC 5737 TEST-NET-3"
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ip prefix=224.0.0.0/4 prefix-length=4-32 protocol=bgp action=discard comment="multicast"
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ip prefix=240.0.0.0/4 prefix-length=4-32 protocol=bgp action=discard comment="multicast"
+```
+
+### RouterOS v7
+```
+/routing/filter/rule
+add chain=GENERIC_PREFIX_LIST rule="if ( afi ipv4 && dst=0.0.0.0/8 && dst-len >= 8 ){ reject; }" comment="RFC 1122 'this' network"
+add chain=GENERIC_PREFIX_LIST rule="if ( afi ipv4 && dst=10.0.0.0/8 && dst-len >= 8){ reject; }" comment="RFC 1918 private space"
+add chain=GENERIC_PREFIX_LIST rule="if ( afi ipv4 && dst=100.64.0.0/10 && dst-len >= 10){ reject; }" comment="RFC 6598 Carrier grade nat space"
+add chain=GENERIC_PREFIX_LIST rule="if ( afi ipv4 && dst=127.0.0.0/8 && dst-len >= 8){ rejecet; }" comment="RFC 1122 localhost"
+add chain=GENERIC_PREFIX_LIST rule="if ( afi ipv4 && dst=169.254.0.0/16 && dst-len >= 16){ reject; }" comment="RFC 3927 link local"
+add chain=GENERIC_PREFIX_LIST rule="if ( afi ipv4 && dst=172.16.0.0/12 && dst-len >= 12){ reject; }" comment="RFC 1918 private space"
+add chain=GENERIC_PREFIX_LIST rule="if ( afi ipv4 && dst=192.0.2.0/24 && dst-len >= 24){ reject; }" comment="RFC 5737 TEST-NET-1"
+add chain=GENERIC_PREFIX_LIST rule="if ( afi ipv4 && dst=192.88.99.0/24 && dst-len >= 24){ reject; }" comment="RFC 7526 6to4 anycast relay"
+add chain=GENERIC_PREFIX_LIST rule="if ( afi ipv4 && dst=192.168.0.0/16 && dst-len >= 16){ reject; }" comment="RFC 1918 private space"
+add chain=GENERIC_PREFIX_LIST rule="if ( afi ipv4 && dst=198.18.0.0/15 && dst-len >= 15){ reject; }" comment="RFC 2544 benchmarking"
+add chain=GENERIC_PREFIX_LIST rule="if ( afi ipv4 && dst=198.51.100.0/24 && dst-len >= 24){ reject; }" comment="RFC 5737 TEST-NET-2"
+add chain=GENERIC_PREFIX_LIST rule="if ( afi ipv4 && dst=203.0.113.0/24 && dst-len >= 24){ reject; }" comment="RFC 5737 TEST-NET-3"
+add chain=GENERIC_PREFIX_LIST rule="if ( afi ipv4 && dst=224.0.0.0/4 && dst-len >= 4){ reject; } comment="multicast"
+add chain=GENERIC_PREFIX_LIST rule="if ( afi ipv4 && dst=240.0.0.0/4 && dst-len >= 4){ reject; } comment="reserved"
 ```
 
 ## Junos
@@ -460,6 +481,8 @@ ipv6 prefix-list BOGONS_v6 deny ff00::/8 le 128
 ```
 
 ## Mikrotik
+
+### RouterOS v6
 This is not recommanded. Mikrotik will take a very very long time to process all those routes and has some issues with BGP.
 ```
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=::/8 prefix-length=8-128 protocol=bgp action=discard comment="RFC 4291 IPv4-compatible, loopback, et al"
@@ -473,6 +496,22 @@ This is not recommanded. Mikrotik will take a very very long time to process all
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=fe80::/10 prefix-length=10-128 protocol=bgp action=discard comment="RFC 4291 link local unicast"
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=fec0::/10 prefix-length=10-128 protocol=bgp action=discard comment="RFC 3879 old site local unicast"
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=ff00::/8 prefix-length=8-128 protocol=bgp action=discard comment="RFC 4291 multicast"
+```
+
+### RouterOS v7 
+```
+/routing/filter/rule
+add chain="GENERIC_PREFIX_LIST" rule="if ( afi==ipv6 && dst==::/8 && dst-len >= 8 ){ reject;}" comment="RFC 4291 IPv4-compatible, loopback, et al"
+add chain="GENERIC_PREFIX_LIST" rule="if ( afi==ipv6 && dst==0100::/64 && dst-len >= 64 ){ reject; }" comment="RFC 6666 Discard-Only"
+add chain="GENERIC_PREFIX_LIST" rule="if ( afi==ipv6 && dst==2001:2::/48 && dst-len >= 48 ){ reject; }" comment="RFC 5180 BMWG"
+add chain="GENERIC_PREFIX_LIST" rule="if ( afi==ipv6 && dst==2001:10::/28 && dst-len >= 28 ){ reject; }" comment="RFC 4843 ORCHID"
+add chain="GENERIC_PREFIX_LIST" rule="if ( afi==ipv6 && dst==2001:db8::/32 && dst-len >= 32 ){ reject; }" comment="RFC 3849 documentation"
+add chain="GENERIC_PREFIX_LIST" rule="if ( afi==ipv6 && dst==2002::/16 && dst-len >= 16 ){ reject; }" comment="RFC 7526 6to4 anycast relay"
+add chain="GENERIC_PREFIX_LIST" rule="if ( afi==ipv6 && dst==3ffe::/16 && dst-len >= 16){ reject; }" comment="RFC 3701 old 6bone"
+add chain="GENERIC_PREFIX_LIST" rule="if ( afi==ipv6 && dst==fc00::/7 && dst-len >=7 ){ reject; }" comment="RFC 4193 unique local unicast"
+add chain="GENERIC_PREFIX_LIST" rule="if ( afi==ipv6 && dst==fe80::/10 && dst-len >= 10){ reject; }" comment="RFC 4291 link local unicast"
+add chain="GENERIC_PREFIX_LIST" rule="if ( afi==ipv6 && dst==fec0::/10 && dst-len >= 10){ reject; }" comment="RFC 3879 old site local unicast"
+add chain="GENERIC_PREFIX_LIST" rule="if ( afi==ipv6 && address-family=ipv6 && prefix=ff00::/8 dst-len >= 8) { reject; }" comment="RFC 4291 multicast"
 ```
 
 ## Juniper and Cisco

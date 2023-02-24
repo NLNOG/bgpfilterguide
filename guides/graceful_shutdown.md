@@ -184,6 +184,14 @@ policy-statement "BGP_FILTER_IN" {
 }
 ```
 
+## MikroTik 
+### RouterOS v7
+RouterOS 7 added support for several Well-known communities including graceful-shutdown. 
+```
+/routing/filter/rule 
+add chain="GENERIC_PREFIX_LIST" rule="if (bgp-communities includes graceful-shutdown) { set bgp-local-pref 0; }"
+```
+
 ## Huawei VRP
 ```
 ip community-filter basic GRACEFUL-SHUTDOWN index 10 permit 65535:0
