@@ -18,6 +18,13 @@ If you wish to put a limit on this you could strip regular, extended or large co
 
 # Configuration Examples
 
+## OpenBGPD
+
+```
+match from any max-communities 100 set { community delete *:* }
+match from any max-ext-communities 100 set { ext-community delete * * }
+match from any max-large-communities 100 set { large-community delete *:*:* }
+```
 
 ## BIRD
 
