@@ -24,6 +24,10 @@ Rejecting routes which are bogons: [bogon_prefixes](/guides/bogon_prefixes/).
 
 Rejecting routes which have small prefixes: [No Small Prefixes](/guides/small_prefixes/).
 
+### Filter IXP Peering LANs
+
+Rejecting routes which match connected IXP Peering LAN prefixes: [No IXP Peering LANs](/guides/no_ixp_leaks/).
+
 ### Filter Long AS Paths
 
 Rejecting routes which have very long AS Paths: [No Long AS Paths](/guides/long_paths/).
