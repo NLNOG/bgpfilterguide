@@ -22,6 +22,12 @@ The examples below are meant for scenario's where there is no ROA, or in case yo
 
 # Configuration Examples
 
+## OpenBGPD
+
+```
+deny quick from any prefix 80.249.208.0/21 or-longer
+deny quick from any prefix 193.239.116.0/22 or-longer
+```
 
 ## BIRD
 
