@@ -36,6 +36,10 @@ Rejecting routes which have very long AS Paths: [No Long AS Paths](/guides/long_
 
 Rejecting routes which contain known Transit Networks in the AS Path: [No Known Transit in AS_Path](/guides/no_transit_leaks/).
 
+### Strip high number of BGP Communities
+
+Stripping large number of BGP communities from routes: [Strip High Community Count](/guides/many_communities/).
+
 ### Remainder Accept term
 
 A Remainder accept term with BGP communities and a local-preference: [Remainder accept term](/guides/remainder_accept/).
