@@ -224,4 +224,5 @@ route-policy TRANSIT-IN permit node 350
 * Fastly / AS 54113
 * Interconnect Services BV / AS 9150
 * Fusix Networks / AS 57866
-
+* Dyjix / AS 212815
+* Cogent / AS 174
