@@ -37,6 +37,45 @@ function reject_small_prefixes()
 }
 ```
 
+## FortiOS
+```
+config router prefix-list
+    edit "IPv4_SMALL_PREFIXES"
+        config rule
+            edit 1
+                set prefix 0.0.0.0 0.0.0.0
+                set ge 25
+                unset le
+            next
+        end
+    next
+end
+
+config router prefix-list6
+    edit "IPv6_SMALL_PREFIXES"
+        config rule
+            edit 1
+                set prefix6 ::/0
+                set ge 49
+                unset le
+            next
+        end
+    next
+end
+
+config router route-map
+    edit "BGP_FILTER_IN"
+        config rule
+            edit 1
+                set action deny
+                set match-ip-address "IPv4_SMALL_PREFIXES"
+                set match-ip6-address "IPv6_SMALL_PREFIXES"
+            next
+        end
+    next
+end
+```
+
 ## Junos
 
 ```

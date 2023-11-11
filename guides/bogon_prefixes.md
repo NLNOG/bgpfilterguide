@@ -77,6 +77,96 @@ filter ixp_in {
 }
 
 ```
+## FortiOS
+```
+config router prefix-list
+    edit "IPv4_BOGONS"
+        config rule
+            edit 1
+                set prefix 0.0.0.0 255.0.0.0
+                set ge 9
+                unset le
+            next
+            edit 3
+                set prefix 100.64.0.0 255.192.0.0
+                set ge 11
+                unset le
+            next
+            edit 2
+                set prefix 10.0.0.0 255.0.0.0
+                set ge 9
+                unset le
+            next
+            edit 4
+                set prefix 127.0.0.0 255.0.0.0
+                set ge 9
+                unset le
+            next
+            edit 5
+                set prefix 169.254.0.0 255.255.0.0
+                set ge 17
+                unset le
+            next
+            edit 6
+                set prefix 172.16.0.0 255.240.0.0
+                set ge 13
+                unset le
+            next
+            edit 7
+                set prefix 192.0.2.0 255.255.255.0
+                unset ge
+                unset le
+            next
+            edit 8
+                set prefix 192.88.99.0 255.255.255.0
+                unset ge
+                unset le
+            next
+            edit 9
+                set prefix 192.168.0.0 255.255.0.0
+                set ge 17
+                unset le
+            next
+            edit 10
+                set prefix 198.18.0.0 255.254.0.0
+                set ge 16
+                unset le
+            next
+            edit 11
+                set prefix 198.51.100.0 255.255.255.0
+                unset ge
+                unset le
+            next
+            edit 12
+                set prefix 203.0.113.0 255.255.255.0
+                unset ge
+                unset le
+            next
+            edit 13
+                set prefix 224.0.0.0 240.0.0.0
+                set ge 5
+                unset le
+            next
+            edit 14
+                set prefix 240.0.0.0 240.0.0.0
+                set ge 5
+                unset le
+            next
+        end
+    next
+end
+
+config router route-map
+    edit "BGP_FILTER_IN"
+        config rule
+            edit 1
+                set action deny
+                set match-ip-address "IPv4_BOGONS"
+            next
+        end
+    next
+end
+```
 ## OpenBGPD
 
 Copied from [openbsd examples](https://github.com/openbsd/src/blob/master/etc/examples/bgpd.conf#L97-L109)
@@ -446,7 +536,81 @@ filter ixp_in {
 }
 
 ```
+## FortiOS
+```
+config router prefix-list6
+    edit "BGP_IPv6_BOGONS"
+        config rule
+            edit 1
+                set prefix6 ::/8
+                set ge 9
+                unset le
+            next
+            edit 2
+                set prefix6 100::/64
+                set ge 65
+                unset le
+            next
+            edit 3
+                set prefix6 2001:2::/48
+                set ge 49
+                unset le
+            next
+            edit 4
+                set prefix6 2001:10::/28
+                set ge 29
+                unset le
+            next
+            edit 5
+                set prefix6 2001:db8::/32
+                set ge 33
+                unset le
+            next
+            edit 6
+                set prefix6 2002::/16
+                set ge 17
+                unset le
+            next
+            edit 7
+                set prefix6 3ffe::/16
+                set ge 17
+                unset le
+            next
+            edit 8
+                set prefix6 fc00::/7
+                set ge 8
+                unset le
+            next
+            edit 9
+                set prefix6 fe80::/10
+                set ge 11
+                unset le
+            next
+            edit 10
+                set prefix6 fec0::/10
+                set ge 11
+                unset le
+            next
+            edit 11
+                set prefix6 ff00::/8
+                set ge 9
+                unset le
+            next
+        end
+    next
+end
 
+config router route-map
+    edit "BGP_FILTER_IN"
+        config rule
+            edit 1
+                set action deny
+                set match-ip6-address "IPv6_BOGONS"
+            next
+        end
+    next
+end
+```
 ## OpenBGPD
 
 Copied from [openbsd examples](https://github.com/openbsd/src/blob/master/etc/examples/bgpd.conf#L111-L121)
