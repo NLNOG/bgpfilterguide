@@ -207,6 +207,8 @@ bgp as-path access-list bogon-asns deny 4200000000-4294967295
 ```
 
 ## Mikrotik
+
+### RouterOS v6
 This is not recommanded. Mikrotik will take a very very long time to process all those routes and has some issues with BGP.
 ```
 /routing filter add chain=GENERIC_PREFIX_LIST bgp-as-path="_0_" protocol=bgp action=discard comment="RFC 7607"
@@ -220,6 +222,23 @@ This is not recommanded. Mikrotik will take a very very long time to process all
 /routing filter add chain=GENERIC_PREFIX_LIST bgp-as-path="_(429[0-3][0-9][0-9][0-9][0-9][0-9][0-9])_|_(4294[0-8][0-9][0-9][0-9][0-9][0-9])_" protocol=bgp action=discard comment="RFC 6996 Private ASNs"
 /routing filter add chain=GENERIC_PREFIX_LIST bgp-as-path="_(42949[0-5][0-9][0-9][0-9][0-9])_|_(429496[0-6][0-9][0-9][0-9])_" protocol=bgp action=discard comment="RFC 6996 Private ASNs"
 /routing filter add chain=GENERIC_PREFIX_LIST bgp-as-path="_(4294967[0-1][0-9][0-9])_|_(42949672[0-8][0-9])_|_(429496729[0-4])_" protocol=bgp action=discard comment="RFC 6996 Private ASNs"
+```
+
+### RouterOS v7 
+```
+/routing/filter/num-list 
+add list=BOGON-AS range=0 comment="RFC 7607"
+add list=BOGON-AS range=23456 comment="RFC 4893 AS_TRANS"
+add list=BOGON-AS range=64496-64511 comment="RFC 5398"
+add list=BOGON-AS range=64512-65534 comment="RFC 6996"
+add list=BOGON-AS range=65535 comment="RFC 7300"
+add list=BOGON-AS range=65536-65551 comment="RFC 5398"
+add list=BOGON-AS range=65552-131071 comment="Reserved"
+add list=BOGON-AS range=4200000000-4294967294 comment="RFC 6996"
+add list=BOGON-AS range=4294967294 comment="RFC 7300"
+
+/routing/filter/rule 
+add chain="GENERIC_PREFIX_LIST" rule="if (bgp-as-path [[:BOGON-AS:]]){ reject }"
 ```
 
 ## Huawei VRP

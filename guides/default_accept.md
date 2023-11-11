@@ -121,3 +121,14 @@ policy-statement "BGP_FILTER_IN" {
         }
     }
 ```
+
+## Mikrotik
+### RouterOS v7
+These should be the last rules in the chain, by default RouterOS will add the new rules to the end of the list. 
+
+```
+/routing/filter/rule
+add chain="GENERIC_PREFIX_LIST" rule="set bgp-local-pref 115;"
+add chain="GENERIC_PREFIX_LIST" rule="append bgp-communities <your ASN>:<peer ASN>;"
+add chain="GENERIC_PREFIX_LIST" rule="accept"
+```

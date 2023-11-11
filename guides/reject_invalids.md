@@ -376,6 +376,26 @@ A:admin@br1-nyc# info
 
  ```
 
+## Mikrotik 
+
+### RouterOS v7
+Since RouterOS v7 MikroTik has added support for RPKI-validation. 
+
+Configure RTR
+```
+/routing/rpki
+add address=10.1.1.6 group=rpki-validator port=323
+```
+
+Now validate the prefixes in the EBGP ingress policy: 
+```
+/routing/filter/rule
+add chain="GENERIC_PREFIX_LIST" rule="rpki-verify rpki-validator"
+add chain="GENERIC_PREFIX_LIST" rule="if (rpki invalid){ reject }"
+```
+
+
+
 ## Huawei VRP
 
 Configure RTR and enable RPKI.

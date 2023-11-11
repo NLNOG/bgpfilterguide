@@ -97,12 +97,23 @@ ipv6 prefix-list BOGONS_v6 deny ::/0 ge 49 le 128
 ```
 
 ## Mikrotik
+
+### RouterOS v6
 This is not recommanded. Mikrotik will take a very very long time to process all those routes and has some issues with BGP.
 ```
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv4 prefix-length=0-7 protocol=bgp action=discard comment=""
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv4 prefix-length=25-32 protocol=bgp action=discard comment=""
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix-length=0-15 protocol=bgp action=discard comment=""
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix-length=49-128 protocol=bgp action=discard comment=""
+```
+
+### RouterOS v7 
+```
+/routing/filter/rule
+add chain="GENERIC_PREFIX_LIST" rule="if (afi ipv4 && dst-len > 24){ reject }"
+add chain="GENERIC_PREFIX_LIST" rule="if (afi ipv4 && dst-len < 7){ reject }" 
+add chain="GENERIC_PREFIX_LIST" rule="if (afi ipv6 && dst-len > 48){ reject }"
+add chain="GENERIC_PREFIX_LIST" rule="if (afi ipv6 && dst-len < 15){ reject }"
 ```
 
 ## Nokia SR OS
