@@ -322,20 +322,20 @@ echo "Policy Configuration"
         policy-options
             begin
             prefix-list "BOGONS_V4"
-                prefix 0.0.0.0/8 exact
-                prefix 10.0.0.0/8 exact
-                prefix 100.64.0.0/10 exact
-                prefix 127.0.0.0/8 exact
-                prefix 169.254.0.0/16 exact
-                prefix 172.16.0.0/12 exact
-                prefix 192.0.2.0/24 exact
-                prefix 192.88.99.0/24 exact
-                prefix 192.168.0.0/16 exact
-                prefix 198.18.0.0/15 exact
-                prefix 198.51.100.0/24 exact
-                prefix 203.0.113.0/24 exact
-                prefix 224.0.0.0/4 exact
-                prefix 240.0.0.0/4 exact
+                prefix 0.0.0.0/8 longer
+                prefix 10.0.0.0/8 longer
+                prefix 100.64.0.0/10 longer
+                prefix 127.0.0.0/8 longer
+                prefix 169.254.0.0/16 longer
+                prefix 172.16.0.0/12 longer
+                prefix 192.0.2.0/24 longer
+                prefix 192.88.99.0/24 longer
+                prefix 192.168.0.0/16 longer
+                prefix 198.18.0.0/15 longer
+                prefix 198.51.100.0/24 longer
+                prefix 203.0.113.0/24 longer
+                prefix 224.0.0.0/4 longer
+                prefix 240.0.0.0/4 longer
             exit
             policy-statement "BGP_FILTER_IN"
                 entry 10
@@ -354,20 +354,20 @@ echo "Policy Configuration"
 # Paste-friendly Classic CLI blob
 #
 /configure router policy-options begin
-/configure router policy-options prefix-list "BOGONS_V4" prefix 0.0.0.0/8 exact
-/configure router policy-options prefix-list "BOGONS_V4" prefix 10.0.0.0/8 exact
-/configure router policy-options prefix-list "BOGONS_V4" prefix 100.64.0.0/10 exact
-/configure router policy-options prefix-list "BOGONS_V4" prefix 127.0.0.0/8 exact
-/configure router policy-options prefix-list "BOGONS_V4" prefix 169.254.0.0/16 exact
-/configure router policy-options prefix-list "BOGONS_V4" prefix 172.16.0.0/12 exact
-/configure router policy-options prefix-list "BOGONS_V4" prefix 192.0.2.0/24 exact
-/configure router policy-options prefix-list "BOGONS_V4" prefix 192.88.99.0/24 exact
-/configure router policy-options prefix-list "BOGONS_V4" prefix 192.168.0.0/16 exact
-/configure router policy-options prefix-list "BOGONS_V4" prefix 198.18.0.0/15 exact
-/configure router policy-options prefix-list "BOGONS_V4" prefix 198.51.100.0/24 exact
-/configure router policy-options prefix-list "BOGONS_V4" prefix 203.0.113.0/24 exact
-/configure router policy-options prefix-list "BOGONS_V4" prefix 224.0.0.0/4 exact
-/configure router policy-options prefix-list "BOGONS_V4" prefix 240.0.0.0/4 exact
+/configure router policy-options prefix-list "BOGONS_V4" prefix 0.0.0.0/8 longer
+/configure router policy-options prefix-list "BOGONS_V4" prefix 10.0.0.0/8 longer
+/configure router policy-options prefix-list "BOGONS_V4" prefix 100.64.0.0/10 longer
+/configure router policy-options prefix-list "BOGONS_V4" prefix 127.0.0.0/8 longer
+/configure router policy-options prefix-list "BOGONS_V4" prefix 169.254.0.0/16 longer
+/configure router policy-options prefix-list "BOGONS_V4" prefix 172.16.0.0/12 longer
+/configure router policy-options prefix-list "BOGONS_V4" prefix 192.0.2.0/24 longer
+/configure router policy-options prefix-list "BOGONS_V4" prefix 192.88.99.0/24 longer
+/configure router policy-options prefix-list "BOGONS_V4" prefix 192.168.0.0/16 longer
+/configure router policy-options prefix-list "BOGONS_V4" prefix 198.18.0.0/15 longer
+/configure router policy-options prefix-list "BOGONS_V4" prefix 198.51.100.0/24 longer
+/configure router policy-options prefix-list "BOGONS_V4" prefix 203.0.113.0/24 longer
+/configure router policy-options prefix-list "BOGONS_V4" prefix 224.0.0.0/4 longer
+/configure router policy-options prefix-list "BOGONS_V4" prefix 240.0.0.0/4 longer
 /configure router policy-options policy-statement "BGP_FILTER_IN" entry 10 from prefix-list "BOGONS_V4"
 /configure router policy-options policy-statement "BGP_FILTER_IN" entry 10 action drop
 /configure router policy-options commit
@@ -377,33 +377,33 @@ echo "Policy Configuration"
 #
 [gl:configure policy-options]
     prefix-list "BOGONS_V4" {
-        prefix 0.0.0.0/8 type exact {
+        prefix 0.0.0.0/8 type longer {
         }
-        prefix 10.0.0.0/8 type exact {
+        prefix 10.0.0.0/8 type longer {
         }
-        prefix 100.64.0.0/10 type exact {
+        prefix 100.64.0.0/10 type longer {
         }
-        prefix 127.0.0.0/8 type exact {
+        prefix 127.0.0.0/8 type longer {
         }
-        prefix 169.254.0.0/16 type exact {
+        prefix 169.254.0.0/16 type longer {
         }
-        prefix 172.16.0.0/12 type exact {
+        prefix 172.16.0.0/12 type longer {
         }
-        prefix 192.0.2.0/24 type exact {
+        prefix 192.0.2.0/24 type longer {
         }
-        prefix 192.88.99.0/24 type exact {
+        prefix 192.88.99.0/24 type longer {
         }
-        prefix 192.168.0.0/16 type exact {
+        prefix 192.168.0.0/16 type longer {
         }
-        prefix 198.18.0.0/15 type exact {
+        prefix 198.18.0.0/15 type longer {
         }
-        prefix 198.51.100.0/24 type exact {
+        prefix 198.51.100.0/24 type longer {
         }
-        prefix 203.0.113.0/24 type exact {
+        prefix 203.0.113.0/24 type longer {
         }
-        prefix 224.0.0.0/4 type exact {
+        prefix 224.0.0.0/4 type longer {
         }
-        prefix 240.0.0.0/4 type exact {
+        prefix 240.0.0.0/4 type longer {
         }
     }
     policy-statement "BGP_FILTER_IN" {
@@ -420,20 +420,20 @@ echo "Policy Configuration"
 # Paste-friendly MD-CLI blob
 #
 /configure policy-options prefix-list "BOGONS_V4" { }
-/configure policy-options prefix-list "BOGONS_V4" { prefix 0.0.0.0/8 type exact }
-/configure policy-options prefix-list "BOGONS_V4" { prefix 10.0.0.0/8 type exact }
-/configure policy-options prefix-list "BOGONS_V4" { prefix 100.64.0.0/10 type exact }
-/configure policy-options prefix-list "BOGONS_V4" { prefix 127.0.0.0/8 type exact }
-/configure policy-options prefix-list "BOGONS_V4" { prefix 169.254.0.0/16 type exact }
-/configure policy-options prefix-list "BOGONS_V4" { prefix 172.16.0.0/12 type exact }
-/configure policy-options prefix-list "BOGONS_V4" { prefix 192.0.2.0/24 type exact }
-/configure policy-options prefix-list "BOGONS_V4" { prefix 192.88.99.0/24 type exact }
-/configure policy-options prefix-list "BOGONS_V4" { prefix 192.168.0.0/16 type exact }
-/configure policy-options prefix-list "BOGONS_V4" { prefix 198.18.0.0/15 type exact }
-/configure policy-options prefix-list "BOGONS_V4" { prefix 198.51.100.0/24 type exact }
-/configure policy-options prefix-list "BOGONS_V4" { prefix 203.0.113.0/24 type exact }
-/configure policy-options prefix-list "BOGONS_V4" { prefix 224.0.0.0/4 type exact }
-/configure policy-options prefix-list "BOGONS_V4" { prefix 240.0.0.0/4 type exact }
+/configure policy-options prefix-list "BOGONS_V4" { prefix 0.0.0.0/8 type longer }
+/configure policy-options prefix-list "BOGONS_V4" { prefix 10.0.0.0/8 type longer }
+/configure policy-options prefix-list "BOGONS_V4" { prefix 100.64.0.0/10 type longer }
+/configure policy-options prefix-list "BOGONS_V4" { prefix 127.0.0.0/8 type longer }
+/configure policy-options prefix-list "BOGONS_V4" { prefix 169.254.0.0/16 type longer }
+/configure policy-options prefix-list "BOGONS_V4" { prefix 172.16.0.0/12 type longer }
+/configure policy-options prefix-list "BOGONS_V4" { prefix 192.0.2.0/24 type longer }
+/configure policy-options prefix-list "BOGONS_V4" { prefix 192.88.99.0/24 type longer }
+/configure policy-options prefix-list "BOGONS_V4" { prefix 192.168.0.0/16 type longer }
+/configure policy-options prefix-list "BOGONS_V4" { prefix 198.18.0.0/15 type longer }
+/configure policy-options prefix-list "BOGONS_V4" { prefix 198.51.100.0/24 type longer }
+/configure policy-options prefix-list "BOGONS_V4" { prefix 203.0.113.0/24 type longer }
+/configure policy-options prefix-list "BOGONS_V4" { prefix 224.0.0.0/4 type longer }
+/configure policy-options prefix-list "BOGONS_V4" { prefix 240.0.0.0/4 type longer }
 /configure policy-options policy-statement "BGP_FILTER_IN" { }
 /configure policy-options policy-statement "BGP_FILTER_IN" { entry 10 }
 /configure policy-options policy-statement "BGP_FILTER_IN" entry 10 from prefix-list ["BOGONS_V4"]
