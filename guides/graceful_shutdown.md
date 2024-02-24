@@ -75,6 +75,23 @@ router bgp <own_ASN>
 ```
 This will enable sending of the graceful shutdown community on all prefixes to all peers.
 
+## VyOS
+Older Versions:
+```
+set policy community-list GSHUT description 'RFC 8326 -- Graceful Shutdown'
+set policy community-list GSHUT rule 10 action 'permit'
+set policy community-list GSHUT rule 10 regex '65535:0'
+
+set policy route-map TRANSIT-IN rule 10 action 'permit'
+set policy route-map TRANSIT-IN rule 10 match community community-list 'GSHUT'
+set policy route-map TRANSIT-IN rule 10 set local-preference '0'
+```
+
+Modern Versions:
+```
+set protocols bgp parameters graceful-shutdown
+```
+
 ## Junos
 
 Junos supports graceful shutdown by default [as of version 19.1](https://www.juniper.net/documentation/en_US/junos/topics/reference/configuration-statement/graceful-shutdown-edit-protocols-bgp.html). Local preference can be set to any value. For previous versions, or if one does not want to use the provided feature, it still possible to configure it with a policy.
