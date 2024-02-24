@@ -206,6 +206,54 @@ ip prefix-list BOGONS_v4 deny 224.0.0.0/4 le 32
 ip prefix-list BOGONS_v4 deny 240.0.0.0/4 le 32
 ```
 
+## VyOS
+```
+set policy prefix-list BOGONS-V4 rule 10 action 'permit'
+set policy prefix-list BOGONS-V4 rule 10 le '32'
+set policy prefix-list BOGONS-V4 rule 10 prefix '0.0.0.0/8'
+set policy prefix-list BOGONS-V4 rule 20 action 'permit'
+set policy prefix-list BOGONS-V4 rule 20 le '32'
+set policy prefix-list BOGONS-V4 rule 20 prefix '10.0.0.0/8'
+set policy prefix-list BOGONS-V4 rule 30 action 'permit'
+set policy prefix-list BOGONS-V4 rule 30 le '32'
+set policy prefix-list BOGONS-V4 rule 30 prefix '100.64.0.0/10'
+set policy prefix-list BOGONS-V4 rule 40 action 'permit'
+set policy prefix-list BOGONS-V4 rule 40 le '32'
+set policy prefix-list BOGONS-V4 rule 40 prefix '127.0.0.0/8'
+set policy prefix-list BOGONS-V4 rule 50 action 'permit'
+set policy prefix-list BOGONS-V4 rule 50 le '32'
+set policy prefix-list BOGONS-V4 rule 50 prefix '169.254.0.0/16'
+set policy prefix-list BOGONS-V4 rule 60 action 'permit'
+set policy prefix-list BOGONS-V4 rule 60 le '32'
+set policy prefix-list BOGONS-V4 rule 60 prefix '172.16.0.0/12'
+set policy prefix-list BOGONS-V4 rule 70 action 'permit'
+set policy prefix-list BOGONS-V4 rule 70 le '32'
+set policy prefix-list BOGONS-V4 rule 70 prefix '192.0.2.0/24'
+set policy prefix-list BOGONS-V4 rule 80 action 'permit'
+set policy prefix-list BOGONS-V4 rule 80 le '32'
+set policy prefix-list BOGONS-V4 rule 80 prefix '192.88.99.0/24'
+set policy prefix-list BOGONS-V4 rule 90 action 'permit'
+set policy prefix-list BOGONS-V4 rule 90 le '32'
+set policy prefix-list BOGONS-V4 rule 90 prefix '192.168.0.0/16'
+set policy prefix-list BOGONS-V4 rule 100 action 'permit'
+set policy prefix-list BOGONS-V4 rule 100 le '32'
+set policy prefix-list BOGONS-V4 rule 100 prefix '198.18.0.0/15'
+set policy prefix-list BOGONS-V4 rule 110 action 'permit'
+set policy prefix-list BOGONS-V4 rule 110 le '32'
+set policy prefix-list BOGONS-V4 rule 110 prefix '198.51.100.0/24'
+set policy prefix-list BOGONS-V4 rule 120 action 'permit'
+set policy prefix-list BOGONS-V4 rule 120 le '32'
+set policy prefix-list BOGONS-V4 rule 120 prefix '203.0.113.0/24'
+set policy prefix-list BOGONS-V4 rule 130 action 'permit'
+set policy prefix-list BOGONS-V4 rule 130 le '32'
+set policy prefix-list BOGONS-V4 rule 130 prefix '224.0.0.0/4'
+set policy prefix-list BOGONS-V4 rule 140 action 'permit'
+set policy prefix-list BOGONS-V4 rule 140 le '32'
+set policy prefix-list BOGONS-V4 rule 140 prefix '240.0.0.0/4'
+
+set policy route-map MY-ROUTE-MAP rule 10 match ip address prefix-list 'BOGONS-V4'
+```
+
 ## Mikrotik
 
 ### RouterOS v6
@@ -642,6 +690,45 @@ ipv6 prefix-list BOGONS_v6 deny fc00::/7 le 128
 ipv6 prefix-list BOGONS_v6 deny fe80::/10 le 128
 ipv6 prefix-list BOGONS_v6 deny fec0::/10 le 128
 ipv6 prefix-list BOGONS_v6 deny ff00::/8 le 128
+```
+
+## VyOS
+```
+set policy prefix-list6 BOGONS-V6 rule 10 action 'permit'
+set policy prefix-list6 BOGONS-V6 rule 10 le '128'
+set policy prefix-list6 BOGONS-V6 rule 10 prefix '::/8'
+set policy prefix-list6 BOGONS-V6 rule 20 action 'permit'
+set policy prefix-list6 BOGONS-V6 rule 20 le '128'
+set policy prefix-list6 BOGONS-V6 rule 20 prefix '100::/64'
+set policy prefix-list6 BOGONS-V6 rule 30 action 'permit'
+set policy prefix-list6 BOGONS-V6 rule 30 le '128'
+set policy prefix-list6 BOGONS-V6 rule 30 prefix '2001:2::/48'
+set policy prefix-list6 BOGONS-V6 rule 40 action 'permit'
+set policy prefix-list6 BOGONS-V6 rule 40 le '128'
+set policy prefix-list6 BOGONS-V6 rule 40 prefix '2001:10::/28'
+set policy prefix-list6 BOGONS-V6 rule 50 action 'permit'
+set policy prefix-list6 BOGONS-V6 rule 50 le '128'
+set policy prefix-list6 BOGONS-V6 rule 50 prefix '2001:db8::/32'
+set policy prefix-list6 BOGONS-V6 rule 60 action 'permit'
+set policy prefix-list6 BOGONS-V6 rule 60 le '128'
+set policy prefix-list6 BOGONS-V6 rule 60 prefix '2002::/16'
+set policy prefix-list6 BOGONS-V6 rule 70 action 'permit'
+set policy prefix-list6 BOGONS-V6 rule 70 le '128'
+set policy prefix-list6 BOGONS-V6 rule 70 prefix '3ffe::/16'
+set policy prefix-list6 BOGONS-V6 rule 80 action 'permit'
+set policy prefix-list6 BOGONS-V6 rule 80 le '128'
+set policy prefix-list6 BOGONS-V6 rule 80 prefix 'fc00::/7'
+set policy prefix-list6 BOGONS-V6 rule 90 action 'permit'
+set policy prefix-list6 BOGONS-V6 rule 90 le '128'
+set policy prefix-list6 BOGONS-V6 rule 90 prefix 'fe80::/10'
+set policy prefix-list6 BOGONS-V6 rule 100 action 'permit'
+set policy prefix-list6 BOGONS-V6 rule 100 le '128'
+set policy prefix-list6 BOGONS-V6 rule 100 prefix 'fec0::/10'
+set policy prefix-list6 BOGONS-V6 rule 110 action 'permit'
+set policy prefix-list6 BOGONS-V6 rule 110 le '128'
+set policy prefix-list6 BOGONS-V6 rule 110 prefix 'ff00::/8'
+
+set policy route-map MY-ROUTE-MAP rule 10 match ipv6 address prefix-list 'BOGONS-V6'
 ```
 
 ## Mikrotik
