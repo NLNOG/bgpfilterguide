@@ -261,3 +261,4 @@ route-policy TRANSIT-IN permit node 350
 * Fusix Networks / AS 57866
 * Dyjix / AS 212815
 * Cogent / AS 174
+* Booking.com / AS 43996 + AS 202196
