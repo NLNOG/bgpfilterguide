@@ -111,6 +111,23 @@ route-map BGP_FILTER_IN deny 22
 !
 ```
 
+## VyOS
+```
+set policy prefix-list IXP-LANS-V4 rule 10 action 'permit'
+set policy prefix-list IXP-LANS-V4 rule 10 ge '24'
+set policy prefix-list IXP-LANS-V4 rule 10 le '32'
+set policy prefix-list IXP-LANS-V4 rule 10 prefix '192.33.255.0/24'
+set policy prefix-list6 IXP-LANS-V6 rule 10 action 'permit'
+set policy prefix-list6 IXP-LANS-V6 rule 10 ge '48'
+set policy prefix-list6 IXP-LANS-V6 rule 10 le '128'
+set policy prefix-list6 IXP-LANS-V6 rule 10 prefix '2001:504:30::/48'
+
+set policy route-map INTERNET-IN rule 10 action 'deny'
+set policy route-map INTERNET-IN rule 10 match ip address prefix-list 'IXP-LANS-V4'
+set policy route-map INTERNET-IN rule 20 action 'deny'
+set policy route-map INTERNET-IN rule 20 match ipv6 address prefix-list 'IXP-LANS-V6'
+```
+
 ## Arista
 
 ```
