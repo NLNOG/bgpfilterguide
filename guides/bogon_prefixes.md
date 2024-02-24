@@ -16,7 +16,7 @@ for these to be routed on the public Internet, and Internet routers shouldn't
 propagate or accept prefixes in these ranges.
 
 IANA IPv4 Address Space: https://www.iana.org/assignments/ipv4-address-space/ipv4-address-space.xhtml
-IANA IPv6 Address SPace: https://www.iana.org/assignments/ipv6-address-space/ipv6-address-space.xhtml
+IANA IPv6 Address Space: https://www.iana.org/assignments/ipv6-address-space/ipv6-address-space.xhtml
 
 ## IPv4 Listing
 
@@ -24,7 +24,7 @@ IANA IPv6 Address SPace: https://www.iana.org/assignments/ipv6-address-space/ipv
 |-----------------|----------------------------------|
 | 0.0.0.0/8       | RFC 1122 'this' network          |
 | 10.0.0.0/8      | RFC 1918 private space           |
-| 100.64.0.0/10+, | RFC 6598 Carrier grade nat space |
+| 100.64.0.0/10   | RFC 6598 Carrier grade nat space |
 | 127.0.0.0/8     | RFC 1122 localhost               |
 | 169.254.0.0/16  | RFC 3927 link local              |
 | 172.16.0.0/12   | RFC 1918 private space           |
@@ -295,7 +295,7 @@ set policy route-map MY-ROUTE-MAP rule 10 match ip address prefix-list 'BOGONS-V
 ## Mikrotik
 
 ### RouterOS v6
-This is not recommanded. Mikrotik will take a very very long time to process all those routes and has some issues with BGP.
+This is not recommended. Mikrotik will take a very very long time to process all those routes and has some issues with BGP.
 ```
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ip prefix=0.0.0.0/8 prefix-length=8-32 protocol=bgp action=discard comment="RFC 1122 'this' network"
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ip prefix=10.0.0.0/8 prefix-length=8-32 protocol=bgp action=discard comment="RFC 1918 private space"
@@ -319,7 +319,7 @@ This is not recommanded. Mikrotik will take a very very long time to process all
 add chain=GENERIC_PREFIX_LIST rule="if ( afi ipv4 && dst==0.0.0.0/8 && dst-len >= 8 ){ reject; }" comment="RFC 1122 'this' network"
 add chain=GENERIC_PREFIX_LIST rule="if ( afi ipv4 && dst==10.0.0.0/8 && dst-len >= 8){ reject; }" comment="RFC 1918 private space"
 add chain=GENERIC_PREFIX_LIST rule="if ( afi ipv4 && dst==100.64.0.0/10 && dst-len >= 10){ reject; }" comment="RFC 6598 Carrier grade nat space"
-add chain=GENERIC_PREFIX_LIST rule="if ( afi ipv4 && dst==127.0.0.0/8 && dst-len >= 8){ rejecet; }" comment="RFC 1122 localhost"
+add chain=GENERIC_PREFIX_LIST rule="if ( afi ipv4 && dst==127.0.0.0/8 && dst-len >= 8){ reject; }" comment="RFC 1122 localhost"
 add chain=GENERIC_PREFIX_LIST rule="if ( afi ipv4 && dst==169.254.0.0/16 && dst-len >= 16){ reject; }" comment="RFC 3927 link local"
 add chain=GENERIC_PREFIX_LIST rule="if ( afi ipv4 && dst==172.16.0.0/12 && dst-len >= 12){ reject; }" comment="RFC 1918 private space"
 add chain=GENERIC_PREFIX_LIST rule="if ( afi ipv4 && dst==192.0.2.0/24 && dst-len >= 24){ reject; }" comment="RFC 5737 TEST-NET-1"
@@ -772,7 +772,7 @@ set policy route-map MY-ROUTE-MAP rule 10 match ipv6 address prefix-list 'BOGONS
 ## Mikrotik
 
 ### RouterOS v6
-This is not recommanded. Mikrotik will take a very very long time to process all those routes and has some issues with BGP.
+This is not recommended. Mikrotik will take a very very long time to process all those routes and has some issues with BGP.
 ```
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=::/8 prefix-length=8-128 protocol=bgp action=discard comment="RFC 4291 IPv4-compatible, loopback, et al"
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=0100::/64 prefix-length=64-128 protocol=bgp action=discard comment="RFC 6666 Discard-Only"
