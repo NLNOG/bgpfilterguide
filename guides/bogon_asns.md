@@ -206,6 +206,18 @@ bgp as-path access-list bogon-asns deny 64496-131071
 bgp as-path access-list bogon-asns deny 4200000000-4294967295
 ```
 
+## VyOS
+```
+set policy as-path-list BOGON-ASNS rule 10 action 'permit'
+set policy as-path-list BOGON-ASNS rule 10 regex '23456'
+set policy as-path-list BOGON-ASNS rule 20 action 'permit'
+set policy as-path-list BOGON-ASNS rule 20 regex '64496-131071'
+set policy as-path-list BOGON-ASNS rule 30 action 'permit'
+set policy as-path-list BOGON-ASNS rule 30 regex '4200000000-4294967295'
+
+set policy route-map MY-ROUTE-MAP rule 10 match as-path 'BOGON-ASNS'
+```
+
 ## Mikrotik
 
 ### RouterOS v6
