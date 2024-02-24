@@ -124,6 +124,16 @@ deny from $IXP transit-as {174,701,1299,2914,3257,3320,3356,3491,4134,5511,6453,
 bgp as-path access-list peerings deny .* (174|701|1299|2914|3257|3320|3356|3491|4134|5511|6453|6461|6762|6830|7018) .*
 ```
 
+## VyOS
+```
+set policy as-path-list TRANSIT-ASNS rule 10 action 'permit'
+set policy as-path-list TRANSIT-ASNS rule 10 description 'Well-known transit ASNs'
+set policy as-path-list TRANSIT-ASNS rule 10 regex '.* (174|701|1299|2914|3257|3320|3356|3491|4134|5511|6453|6461|6762|6830|7018) .*'
+
+set policy route-map PEERING-IN rule 20 action 'deny'
+set policy route-map PEERING-IN rule 20 match as-path 'TRANSIT-ASNS'
+```
+
 ## Nokia SR OS
 
 ```
