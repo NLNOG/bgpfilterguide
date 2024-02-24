@@ -376,6 +376,28 @@ A:admin@br1-nyc# info
 
  ```
 
+## FRR (vtysh)
+First, make sure that you have `-M rpki` added to the `bgpd_options=` line of
+/etc/frr/daemons
+```
+route-map INTERNET-IN deny 10
+ match rpki invalid
+exit
+
+rpki
+ rpki cache <validator_ip> 3323 preference 1
+exit
+```
+
+## VyOS
+```
+set protocols rpki cache <validator_ip> port '3323'
+set protocols rpki cache <validator_ip> preference '1'
+
+set policy route-map INTERNET-IN rule 10 action 'deny'
+set policy route-map INTERNET-IN rule 10 match rpki 'invalid'
+```
+
 ## Mikrotik 
 
 ### RouterOS v7
