@@ -21,7 +21,7 @@ Announcements for blackholing are often a `/32` (IPv4) or a `/128` (IPv6) that w
 
 # Configuration Examples
 
-## BIRD v2.x
+## BIRD v2.x - Signalling blackholing from own network(s) to peers
 ### Define which IP address(es) to blackhole
 ```
 # BLACKHOLING the following routes:
@@ -70,3 +70,8 @@ protocol bgp upstream_a_v4 {
   };
 }
 ```
+
+## BIRD v2.x - Filtering out traffic based on peers blackholing announcement
+We don't want to accept blackhole-announcements from peers blindly as they could be malicious (e.g. blackholing traffic for someone else's routes).
+
+TODO
