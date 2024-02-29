@@ -41,8 +41,7 @@ function net_ixp() {
             ];
         NET_IP6:
             return net ~ [
-                2001:7f8:1::/64+,  # AMS-IX
-                2001:7f8:13::/64+  # NL-IX
+                2001:7f8::/32+  # RIPE IXP space
             ];
     }
 }
@@ -56,7 +55,7 @@ template bgp peer_v4 {
     }
 }
 template bgp peer_v6 {
-    ipv4 {
+    ipv6 {
         import keep filtered;
         import filter {
             if net_ixp() then reject;
@@ -74,8 +73,7 @@ policy-options {
         193.239.116.0/22;
     }
     prefix-list v6-ixpnets {
-        2001:7f8:1::/64;
-        2001:7f8:13::/64;
+        2001:7f8::/32;
     }
     policy-statement bgp-import-policy {
         term no-ixp-leaks {
@@ -100,8 +98,7 @@ policy-options {
 ip prefix-list IXPNET4 permit 80.249.208.0/21 ge 21 le 32
 ip prefix-list IXPNET4 permit 193.239.116.0/22 ge 22 le 32
 !
-ipv6 prefix-list IXPNET6 permit 2001:7f8:1::/64 ge 64 le 128
-ipv6 prefix-list IXPNET6 permit 2001:7f8:13::/64 ge 64 le 128
+ipv6 prefix-list IXPNET6 permit 2001:7f8::/32 ge 32 le 128
 !
 route-map BGP_FILTER_IN deny 21
     match ip address prefix-list IXPNET4
@@ -118,8 +115,7 @@ ip prefix-list IXPNET4 seq 101 permit 80.249.208.0/21 le 32
 ip prefix-list IXPNET4 seq 102 permit 193.239.116.0/22 le 32
 !
 ipv6 prefix-list IXPNET6
-    seq 101 permit 2001:7f8:1::/64 le 128
-    seq 102 permit 2001:7f8:13::/64 le 128
+    seq 101 permit 2001:7f8::/32 le 128
 !
 route-map BGP_FILTER_IN deny 21
     match ip address prefix-list IXPNET4
