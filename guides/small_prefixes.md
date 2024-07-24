@@ -150,6 +150,24 @@ ip prefix-list BOGONS_v4 deny 0.0.0.0/0 ge 25 le 32
 ipv6 prefix-list BOGONS_v6 deny ::/0 ge 49 le 128
 ```
 
+## VyOS
+```
+set policy prefix-list TINY-PREFIX-V4 rule 10 action 'permit'
+set policy prefix-list TINY-PREFIX-V4 rule 10 ge '25'
+set policy prefix-list TINY-PREFIX-V4 rule 10 le '32'
+set policy prefix-list TINY-PREFIX-V4 rule 10 prefix '0.0.0.0/0'
+
+set policy prefix-list6 TINY-PREFIX-V6 rule 10 action 'permit'
+set policy prefix-list6 TINY-PREFIX-V6 rule 10 ge '49'
+set policy prefix-list6 TINY-PREFIX-V6 rule 10 le '128'
+set policy prefix-list6 TINY-PREFIX-V6 rule 10 prefix '::/0'
+
+set policy route-map INTERNET-IN rule 10 action 'deny'
+set policy route-map INTERNET-IN rule 10 match ip address prefix-list 'TINY-PREFIX-V4'
+set policy route-map INTERNET-IN rule 20 action 'deny'
+set policy route-map INTERNET-IN rule 20 match ipv6 address prefix-list 'TINY-PREFIX-V6'
+```
+
 ## Mikrotik
 
 ### RouterOS v6
