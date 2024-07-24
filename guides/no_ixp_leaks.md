@@ -17,7 +17,7 @@ If you are connected to an IXP you should never accept the IXP's prefix from any
 Accepting Peering LAN prefixes can be especially dangerous when an IXP increases their Peering LAN subnet size.
 If the local IXP-connected router has the increased subnet size configured and a route with the older, more specific subnet is received via BGP this can lead to instability.
 
-When the IXP has created ROA's and (has not configured)[https://datatracker.ietf.org/doc/html/rfc9319] the maxLength attribute, [rejecting RPKI invalid routes](/guides/reject_invalids) offers sufficient protection.
+When the IXP has created ROAs and [has not configured](https://datatracker.ietf.org/doc/html/rfc9319) the maxLength attribute, [rejecting RPKI invalid routes](/guides/reject_invalids) offers sufficient protection.
 The examples below are meant for scenario's where there is no ROA, or in case you have not implemented RPKI ROV.
 
 # Configuration Examples
