@@ -278,6 +278,7 @@ policy-statement reject-bogon-prefixes {
             route-filter 3fff::/20 orlonger;
             route-filter 2002::/16 orlonger;
             route-filter 3ffe::/16 orlonger;
+            route-filter 5f00::/16 orlonger;
             route-filter fc00::/7 orlonger;
             route-filter fe80::/10 orlonger;
             route-filter fec0::/10 orlonger;
@@ -496,6 +497,7 @@ define BOGON_PREFIXES = [ ::/8+,                         # RFC 4291 IPv4-compati
                           3fff::/20+,                    # draft-ietf-v6ops-rfc3849-update documentation
                           2002::/16+,                    # RFC 7526 6to4 anycast relay
                           3ffe::/16+,                    # RFC 3701 old 6bone
+                          5f00::/16+,                    # draft-ietf-6man-sids-06 SRv6
                           fc00::/7+,                     # RFC 4193 unique local unicast
                           fe80::/10+,                    # RFC 4291 link local unicast
                           fec0::/10+,                    # RFC 3879 old site local unicast
@@ -603,6 +605,11 @@ config router prefix-list6
                 set ge 21
                 unset le
             next
+            edit 13
+                set prefix6 5f00::/16
+                set ge 17
+                unset le
+            next
         end
     next
 end
@@ -631,6 +638,7 @@ deny from any prefix 2001:db8::/32 prefixlen >= 32      # docu range [RFC3849]
 deny from any prefix 3fff::/20 prefixlen >= 20,         # docu range 2 [draft-ietf-v6ops-rfc3849-update]
 deny from any prefix 2002::/16 prefixlen >= 16          # 6to4 anycast relay [RFC7526]
 deny from any prefix 3ffe::/16 prefixlen >= 16          # old 6bone
+deny from any prefix 5f00::/16 prefixlen >= 16          # SRv6 [draft-ietf-6man-sids-06]
 deny from any prefix fc00::/7 prefixlen >= 7            # unique local unicast
 deny from any prefix fe80::/10 prefixlen >= 10          # link local unicast
 deny from any prefix fec0::/10 prefixlen >= 10          # old site local unicast
@@ -647,6 +655,7 @@ ipv6 prefix-list BOGONS_v6 deny 2001:db8::/32 le 128
 ipv6 prefix-list BOGONS_v6 deny 3fff::/20 le 128
 ipv6 prefix-list BOGONS_v6 deny 2002::/16 le 128
 ipv6 prefix-list BOGONS_v6 deny 3ffe::/16 le 128
+ipv6 prefix-list BOGONS_v6 deny 5f00::/16 le 128
 ipv6 prefix-list BOGONS_v6 deny fc00::/7 le 128
 ipv6 prefix-list BOGONS_v6 deny fe80::/10 le 128
 ipv6 prefix-list BOGONS_v6 deny fec0::/10 le 128
@@ -666,6 +675,7 @@ This is not recommanded. Mikrotik will take a very very long time to process all
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=3fff::/20 prefix-length=20-128 protocol=bgp action=discard comment="draft-ietf-v6ops-rfc3849-update documentation"
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=2002::/16 prefix-length=16-128 protocol=bgp action=discard comment="RFC 7526 6to4 anycast relay"
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=3ffe::/16 prefix-length=16-128 protocol=bgp action=discard comment="RFC 3701 old 6bone"
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=5f00::/16 prefix-length=16-128 protocol=bgp action=discard comment="draft-ietf-6man-sids-06 SRv6"
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=fc00::/7 prefix-length=7-128 protocol=bgp action=discard comment="RFC 4193 unique local unicast"
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=fe80::/10 prefix-length=10-128 protocol=bgp action=discard comment="RFC 4291 link local unicast"
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=fec0::/10 prefix-length=10-128 protocol=bgp action=discard comment="RFC 3879 old site local unicast"
@@ -683,6 +693,7 @@ add chain="GENERIC_PREFIX_LIST" rule="if ( afi ipv6 && dst==2001:db8::/32 && dst
 add chain="GENERIC_PREFIX_LIST" rule="if ( afi ipv6 && dst==3fff::/20 && dst-len >= 20 ){ reject; }" comment="draft-ietf-v6ops-rfc3849-update documentation"
 add chain="GENERIC_PREFIX_LIST" rule="if ( afi ipv6 && dst==2002::/16 && dst-len >= 16 ){ reject; }" comment="RFC 7526 6to4 anycast relay"
 add chain="GENERIC_PREFIX_LIST" rule="if ( afi ipv6 && dst==3ffe::/16 && dst-len >= 16){ reject; }" comment="RFC 3701 old 6bone"
+add chain="GENERIC_PREFIX_LIST" rule="if ( afi ipv6 && dst==5f00::/16 && dst-len >= 16){ reject; }" comment="draft-ietf-6man-sids-06 SRv6"
 add chain="GENERIC_PREFIX_LIST" rule="if ( afi ipv6 && dst==fc00::/7 && dst-len >=7 ){ reject; }" comment="RFC 4193 unique local unicast"
 add chain="GENERIC_PREFIX_LIST" rule="if ( afi ipv6 && dst==fe80::/10 && dst-len >= 10){ reject; }" comment="RFC 4291 link local unicast"
 add chain="GENERIC_PREFIX_LIST" rule="if ( afi ipv6 && dst==fec0::/10 && dst-len >= 10){ reject; }" comment="RFC 3879 old site local unicast"
@@ -716,6 +727,7 @@ echo "Policy Configuration"
                 prefix 3fff::/20 longer
                 prefix 2002::/16 longer
                 prefix 3ffe::/16 longer
+                prefix 5f00::/16 longer
                 prefix fc00::/7 longer
                 prefix fe80::/10 longer
                 prefix fec0::/10 longer
@@ -745,6 +757,7 @@ echo "Policy Configuration"
 /configure router policy-options prefix-list "BOGONS_V6" prefix 3fff::/20 longer
 /configure router policy-options prefix-list "BOGONS_V6" prefix 2002::/16 longer
 /configure router policy-options prefix-list "BOGONS_V6" prefix 3ffe::/16 longer
+/configure router policy-options prefix-list "BOGONS_V6" prefix 5f00::/16 longer
 /configure router policy-options prefix-list "BOGONS_V6" prefix fc00::/7 longer
 /configure router policy-options prefix-list "BOGONS_V6" prefix fe80::/10 longer
 /configure router policy-options prefix-list "BOGONS_V6" prefix fec0::/10 longer
@@ -773,6 +786,8 @@ echo "Policy Configuration"
         prefix 2002::/16 type longer {
         }
         prefix 3ffe::/16 type longer {
+        }
+        prefix 5f00::/16 type longer {
         }
         prefix fc00::/7 type longer {
         }
@@ -806,6 +821,7 @@ echo "Policy Configuration"
 /configure policy-options prefix-list "BOGONS_V6" { prefix 3fff::/20 type longer }
 /configure policy-options prefix-list "BOGONS_V6" { prefix 2002::/16 type longer }
 /configure policy-options prefix-list "BOGONS_V6" { prefix 3ffe::/16 type longer }
+/configure policy-options prefix-list "BOGONS_V6" { prefix 5f00::/16 type longer }
 /configure policy-options prefix-list "BOGONS_V6" { prefix fc00::/7 type longer }
 /configure policy-options prefix-list "BOGONS_V6" { prefix fe80::/10 type longer }
 /configure policy-options prefix-list "BOGONS_V6" { prefix fec0::/10 type longer }
@@ -823,6 +839,7 @@ ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 40 permit 2001:10:: 28 greater-eq
 ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 50 permit 2001:DB8:: 32 greater-equal 32 less-equal 128
 ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 60 permit 2002:: 16 greater-equal 16 less-equal 128
 ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 70 permit 3FFE:: 16 greater-equal 16 less-equal 128
+ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 70 permit 3F00:: 16 greater-equal 16 less-equal 128
 ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 80 permit FC00:: 7 greater-equal 7 less-equal 128
 ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 90 permit FE80:: 10 greater-equal 10 less-equal 128
 ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 100 permit FEC0:: 10 greater-equal 10 less-equal 128
