@@ -680,7 +680,7 @@ add chain="GENERIC_PREFIX_LIST" rule="if ( afi ipv6 && dst==0100::/64 && dst-len
 add chain="GENERIC_PREFIX_LIST" rule="if ( afi ipv6 && dst==2001:2::/48 && dst-len >= 48 ){ reject; }" comment="RFC 5180 BMWG"
 add chain="GENERIC_PREFIX_LIST" rule="if ( afi ipv6 && dst==2001:10::/28 && dst-len >= 28 ){ reject; }" comment="RFC 4843 ORCHID"
 add chain="GENERIC_PREFIX_LIST" rule="if ( afi ipv6 && dst==2001:db8::/32 && dst-len >= 32 ){ reject; }" comment="RFC 3849 documentation"
-add chain="GENERIC_PREFIX_LIST" rule="if ( afi ipv6 && dst==3fff::/32 && dst-len >= 20 ){ reject; }" comment="draft-ietf-v6ops-rfc3849-update documentation"
+add chain="GENERIC_PREFIX_LIST" rule="if ( afi ipv6 && dst==3fff::/20 && dst-len >= 20 ){ reject; }" comment="draft-ietf-v6ops-rfc3849-update documentation"
 add chain="GENERIC_PREFIX_LIST" rule="if ( afi ipv6 && dst==2002::/16 && dst-len >= 16 ){ reject; }" comment="RFC 7526 6to4 anycast relay"
 add chain="GENERIC_PREFIX_LIST" rule="if ( afi ipv6 && dst==3ffe::/16 && dst-len >= 16){ reject; }" comment="RFC 3701 old 6bone"
 add chain="GENERIC_PREFIX_LIST" rule="if ( afi ipv6 && dst==fc00::/7 && dst-len >=7 ){ reject; }" comment="RFC 4193 unique local unicast"
