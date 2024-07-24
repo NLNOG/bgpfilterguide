@@ -837,13 +837,14 @@ ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 20 permit 100:: 64 greater-equal 
 ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 30 permit 2001:2:: 48 greater-equal 48 less-equal 128
 ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 40 permit 2001:10:: 28 greater-equal 28 less-equal 128
 ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 50 permit 2001:DB8:: 32 greater-equal 32 less-equal 128
-ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 60 permit 2002:: 16 greater-equal 16 less-equal 128
-ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 70 permit 3FFE:: 16 greater-equal 16 less-equal 128
-ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 70 permit 3F00:: 16 greater-equal 16 less-equal 128
-ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 80 permit FC00:: 7 greater-equal 7 less-equal 128
-ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 90 permit FE80:: 10 greater-equal 10 less-equal 128
-ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 100 permit FEC0:: 10 greater-equal 10 less-equal 128
-ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 110 permit FF00:: 8 greater-equal 8 less-equal 128
+ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 60 permit 3FFF:: 20 greater-equal 20 less-equal 128
+ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 70 permit 2002:: 16 greater-equal 16 less-equal 128
+ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 80 permit 3FFE:: 16 greater-equal 16 less-equal 128
+ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 90 permit 5F00:: 16 greater-equal 16 less-equal 128
+ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 100 permit FC00:: 7 greater-equal 7 less-equal 128
+ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 110 permit FE80:: 10 greater-equal 10 less-equal 128
+ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 120 permit FEC0:: 10 greater-equal 10 less-equal 128
+ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 130 permit FF00:: 8 greater-equal 8 less-equal 128
 
 route-policy TRANSIT-V6-IN deny node 100
  if-match ipv6 address prefix-list prefix_Denied_Bogons_ipv6
