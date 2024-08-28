@@ -494,7 +494,7 @@ define BOGON_PREFIXES = [ ::/8+,                         # RFC 4291 IPv4-compati
                           2001:2::/48+,                  # RFC 5180 BMWG
                           2001:10::/28+,                 # RFC 4843 ORCHID
                           2001:db8::/32+,                # RFC 3849 documentation
-                          3fff::/20+,                    # draft-ietf-v6ops-rfc3849-update documentation
+                          3fff::/20+,                    # RFC 9637 documentation
                           2002::/16+,                    # RFC 7526 6to4 anycast relay
                           3ffe::/16+,                    # RFC 3701 old 6bone
                           5f00::/16+,                    # draft-ietf-6man-sids-06 SRv6
@@ -635,7 +635,7 @@ deny from any prefix 0100::/64 prefixlen >= 64          # Discard-Only [RFC6666]
 deny from any prefix 2001:2::/48 prefixlen >= 48        # BMWG [RFC5180]
 deny from any prefix 2001:10::/28 prefixlen >= 28       # ORCHID [RFC4843]
 deny from any prefix 2001:db8::/32 prefixlen >= 32      # docu range [RFC3849]
-deny from any prefix 3fff::/20 prefixlen >= 20,         # docu range 2 [draft-ietf-v6ops-rfc3849-update]
+deny from any prefix 3fff::/20 prefixlen >= 20,         # docu range 2 [RFC9637]
 deny from any prefix 2002::/16 prefixlen >= 16          # 6to4 anycast relay [RFC7526]
 deny from any prefix 3ffe::/16 prefixlen >= 16          # old 6bone
 deny from any prefix 5f00::/16 prefixlen >= 16          # SRv6 [draft-ietf-6man-sids-06]
@@ -672,7 +672,7 @@ This is not recommanded. Mikrotik will take a very very long time to process all
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=2001:2::/48 prefix-length=48-128 protocol=bgp action=discard comment="RFC 5180 BMWG"
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=2001:10::/28 prefix-length=28-128 protocol=bgp action=discard comment="RFC 4843 ORCHID"
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=2001:db8::/32 prefix-length=32-128 protocol=bgp action=discard comment="RFC 3849 documentation"
-/routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=3fff::/20 prefix-length=20-128 protocol=bgp action=discard comment="draft-ietf-v6ops-rfc3849-update documentation"
+/routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=3fff::/20 prefix-length=20-128 protocol=bgp action=discard comment="RFC 9637 documentation"
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=2002::/16 prefix-length=16-128 protocol=bgp action=discard comment="RFC 7526 6to4 anycast relay"
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=3ffe::/16 prefix-length=16-128 protocol=bgp action=discard comment="RFC 3701 old 6bone"
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=5f00::/16 prefix-length=16-128 protocol=bgp action=discard comment="draft-ietf-6man-sids-06 SRv6"
@@ -690,7 +690,7 @@ add chain="GENERIC_PREFIX_LIST" rule="if ( afi ipv6 && dst==0100::/64 && dst-len
 add chain="GENERIC_PREFIX_LIST" rule="if ( afi ipv6 && dst==2001:2::/48 && dst-len >= 48 ){ reject; }" comment="RFC 5180 BMWG"
 add chain="GENERIC_PREFIX_LIST" rule="if ( afi ipv6 && dst==2001:10::/28 && dst-len >= 28 ){ reject; }" comment="RFC 4843 ORCHID"
 add chain="GENERIC_PREFIX_LIST" rule="if ( afi ipv6 && dst==2001:db8::/32 && dst-len >= 32 ){ reject; }" comment="RFC 3849 documentation"
-add chain="GENERIC_PREFIX_LIST" rule="if ( afi ipv6 && dst==3fff::/20 && dst-len >= 20 ){ reject; }" comment="draft-ietf-v6ops-rfc3849-update documentation"
+add chain="GENERIC_PREFIX_LIST" rule="if ( afi ipv6 && dst==3fff::/20 && dst-len >= 20 ){ reject; }" comment="RFC 9637 documentation"
 add chain="GENERIC_PREFIX_LIST" rule="if ( afi ipv6 && dst==2002::/16 && dst-len >= 16 ){ reject; }" comment="RFC 7526 6to4 anycast relay"
 add chain="GENERIC_PREFIX_LIST" rule="if ( afi ipv6 && dst==3ffe::/16 && dst-len >= 16){ reject; }" comment="RFC 3701 old 6bone"
 add chain="GENERIC_PREFIX_LIST" rule="if ( afi ipv6 && dst==5f00::/16 && dst-len >= 16){ reject; }" comment="draft-ietf-6man-sids-06 SRv6"
