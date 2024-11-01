@@ -80,6 +80,12 @@ address-family <IP_version> unicast
   neighbor <remote_IP> activate
 ```
 
+## VyOS
+```
+set protocols bgp neighbor <remote_IP> address-family <ipvX-unicast> remove-private-as
+set protocols bgp neighbor <remote_IP> address-family <ipvX-unicast> soft-reconfiguration inbound
+```
+
 ## Nokia SR OS
 ```
 #
