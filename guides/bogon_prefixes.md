@@ -11,8 +11,46 @@ permalink: /guides/bogon_prefixes/
 
 ## Purpose
 
-These prefixes are not globally unique prefixes. IETF didn't intend for
-these to be routed on the public Internet.
+Bogon prefixes are not globally unique unicast IP prefixes. IETF didn't intend
+for these to be routed on the public Internet, and Internet routers shouldn't
+propagate or accept prefixes in these ranges.
+
+IANA IPv4 Address Space: https://www.iana.org/assignments/ipv4-address-space/ipv4-address-space.xhtml
+IANA IPv6 Address Space: https://www.iana.org/assignments/ipv6-address-space/ipv6-address-space.xhtml
+
+## IPv4 Listing
+
+| Prefix          | Description                      |
+|-----------------|----------------------------------|
+| 0.0.0.0/8       | RFC 1122 'this' network          |
+| 10.0.0.0/8      | RFC 1918 private space           |
+| 100.64.0.0/10   | RFC 6598 Carrier grade nat space |
+| 127.0.0.0/8     | RFC 1122 localhost               |
+| 169.254.0.0/16  | RFC 3927 link local              |
+| 172.16.0.0/12   | RFC 1918 private space           |
+| 192.0.2.0/24    | RFC 5737 TEST-NET-1              |
+| 192.88.99.0/24  | RFC 7526 6to4 anycast relay      |
+| 192.168.0.0/16  | RFC 1918 private space           |
+| 198.18.0.0/15   | RFC 2544 benchmarking            |
+| 198.51.100.0/24 | RFC 5737 TEST-NET-2              |
+| 203.0.113.0/24  | RFC 5737 TEST-NET-3              |
+| 224.0.0.0/4     | multicast                        |
+| 240.0.0.0/4     | reserved                         |
+
+## IPv6 Listing
+| Prefix        | Description                     |
+|---------------|---------------------------------|
+| 0100::/64     | RFC 6666 Discard-Only           |
+| 2001:2::/48   | RFC 5180 BMWG                   |
+| 2001:10::/28  | RFC 4843 ORCHID                 |
+| 2001:db8::/32 | RFC 3849 documentation          |
+| 2002::/16     | RFC 7526 6to4 anycast relay     |
+| 3ffe::/16     | RFC 3701 old 6bone              |
+| fc00::/7      | RFC 4193 unique local unicast   |
+| fe80::/10     | RFC 4291 link local unicast     |
+| fec0::/10     | RFC 3879 old site local unicast |
+| ff00::/8      | RFC 4291 multicast              |
+
 
 # Configuration Examples IPv4
 
@@ -206,10 +244,58 @@ ip prefix-list BOGONS_v4 deny 224.0.0.0/4 le 32
 ip prefix-list BOGONS_v4 deny 240.0.0.0/4 le 32
 ```
 
+## VyOS
+```
+set policy prefix-list BOGONS-V4 rule 10 action 'permit'
+set policy prefix-list BOGONS-V4 rule 10 le '32'
+set policy prefix-list BOGONS-V4 rule 10 prefix '0.0.0.0/8'
+set policy prefix-list BOGONS-V4 rule 20 action 'permit'
+set policy prefix-list BOGONS-V4 rule 20 le '32'
+set policy prefix-list BOGONS-V4 rule 20 prefix '10.0.0.0/8'
+set policy prefix-list BOGONS-V4 rule 30 action 'permit'
+set policy prefix-list BOGONS-V4 rule 30 le '32'
+set policy prefix-list BOGONS-V4 rule 30 prefix '100.64.0.0/10'
+set policy prefix-list BOGONS-V4 rule 40 action 'permit'
+set policy prefix-list BOGONS-V4 rule 40 le '32'
+set policy prefix-list BOGONS-V4 rule 40 prefix '127.0.0.0/8'
+set policy prefix-list BOGONS-V4 rule 50 action 'permit'
+set policy prefix-list BOGONS-V4 rule 50 le '32'
+set policy prefix-list BOGONS-V4 rule 50 prefix '169.254.0.0/16'
+set policy prefix-list BOGONS-V4 rule 60 action 'permit'
+set policy prefix-list BOGONS-V4 rule 60 le '32'
+set policy prefix-list BOGONS-V4 rule 60 prefix '172.16.0.0/12'
+set policy prefix-list BOGONS-V4 rule 70 action 'permit'
+set policy prefix-list BOGONS-V4 rule 70 le '32'
+set policy prefix-list BOGONS-V4 rule 70 prefix '192.0.2.0/24'
+set policy prefix-list BOGONS-V4 rule 80 action 'permit'
+set policy prefix-list BOGONS-V4 rule 80 le '32'
+set policy prefix-list BOGONS-V4 rule 80 prefix '192.88.99.0/24'
+set policy prefix-list BOGONS-V4 rule 90 action 'permit'
+set policy prefix-list BOGONS-V4 rule 90 le '32'
+set policy prefix-list BOGONS-V4 rule 90 prefix '192.168.0.0/16'
+set policy prefix-list BOGONS-V4 rule 100 action 'permit'
+set policy prefix-list BOGONS-V4 rule 100 le '32'
+set policy prefix-list BOGONS-V4 rule 100 prefix '198.18.0.0/15'
+set policy prefix-list BOGONS-V4 rule 110 action 'permit'
+set policy prefix-list BOGONS-V4 rule 110 le '32'
+set policy prefix-list BOGONS-V4 rule 110 prefix '198.51.100.0/24'
+set policy prefix-list BOGONS-V4 rule 120 action 'permit'
+set policy prefix-list BOGONS-V4 rule 120 le '32'
+set policy prefix-list BOGONS-V4 rule 120 prefix '203.0.113.0/24'
+set policy prefix-list BOGONS-V4 rule 130 action 'permit'
+set policy prefix-list BOGONS-V4 rule 130 le '32'
+set policy prefix-list BOGONS-V4 rule 130 prefix '224.0.0.0/4'
+set policy prefix-list BOGONS-V4 rule 140 action 'permit'
+set policy prefix-list BOGONS-V4 rule 140 le '32'
+set policy prefix-list BOGONS-V4 rule 140 prefix '240.0.0.0/4'
+
+set policy route-map MY-ROUTE-MAP rule 10 match ip address prefix-list 'BOGONS-V4'
+```
+
 ## Mikrotik
 
 ### RouterOS v6
-This is not recommanded. Mikrotik will take a very very long time to process all those routes and has some issues with BGP.
+This is not recommended. Mikrotik will take a very very long time to process all those routes and has some issues with BGP.
 ```
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ip prefix=0.0.0.0/8 prefix-length=8-32 protocol=bgp action=discard comment="RFC 1122 'this' network"
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ip prefix=10.0.0.0/8 prefix-length=8-32 protocol=bgp action=discard comment="RFC 1918 private space"
@@ -233,7 +319,7 @@ This is not recommanded. Mikrotik will take a very very long time to process all
 add chain=GENERIC_PREFIX_LIST rule="if ( afi ipv4 && dst==0.0.0.0/8 && dst-len >= 8 ){ reject; }" comment="RFC 1122 'this' network"
 add chain=GENERIC_PREFIX_LIST rule="if ( afi ipv4 && dst==10.0.0.0/8 && dst-len >= 8){ reject; }" comment="RFC 1918 private space"
 add chain=GENERIC_PREFIX_LIST rule="if ( afi ipv4 && dst==100.64.0.0/10 && dst-len >= 10){ reject; }" comment="RFC 6598 Carrier grade nat space"
-add chain=GENERIC_PREFIX_LIST rule="if ( afi ipv4 && dst==127.0.0.0/8 && dst-len >= 8){ rejecet; }" comment="RFC 1122 localhost"
+add chain=GENERIC_PREFIX_LIST rule="if ( afi ipv4 && dst==127.0.0.0/8 && dst-len >= 8){ reject; }" comment="RFC 1122 localhost"
 add chain=GENERIC_PREFIX_LIST rule="if ( afi ipv4 && dst==169.254.0.0/16 && dst-len >= 16){ reject; }" comment="RFC 3927 link local"
 add chain=GENERIC_PREFIX_LIST rule="if ( afi ipv4 && dst==172.16.0.0/12 && dst-len >= 12){ reject; }" comment="RFC 1918 private space"
 add chain=GENERIC_PREFIX_LIST rule="if ( afi ipv4 && dst==192.0.2.0/24 && dst-len >= 24){ reject; }" comment="RFC 5737 TEST-NET-1"
@@ -662,10 +748,49 @@ ipv6 prefix-list BOGONS_v6 deny fec0::/10 le 128
 ipv6 prefix-list BOGONS_v6 deny ff00::/8 le 128
 ```
 
+## VyOS
+```
+set policy prefix-list6 BOGONS-V6 rule 10 action 'permit'
+set policy prefix-list6 BOGONS-V6 rule 10 le '128'
+set policy prefix-list6 BOGONS-V6 rule 10 prefix '::/8'
+set policy prefix-list6 BOGONS-V6 rule 20 action 'permit'
+set policy prefix-list6 BOGONS-V6 rule 20 le '128'
+set policy prefix-list6 BOGONS-V6 rule 20 prefix '100::/64'
+set policy prefix-list6 BOGONS-V6 rule 30 action 'permit'
+set policy prefix-list6 BOGONS-V6 rule 30 le '128'
+set policy prefix-list6 BOGONS-V6 rule 30 prefix '2001:2::/48'
+set policy prefix-list6 BOGONS-V6 rule 40 action 'permit'
+set policy prefix-list6 BOGONS-V6 rule 40 le '128'
+set policy prefix-list6 BOGONS-V6 rule 40 prefix '2001:10::/28'
+set policy prefix-list6 BOGONS-V6 rule 50 action 'permit'
+set policy prefix-list6 BOGONS-V6 rule 50 le '128'
+set policy prefix-list6 BOGONS-V6 rule 50 prefix '2001:db8::/32'
+set policy prefix-list6 BOGONS-V6 rule 60 action 'permit'
+set policy prefix-list6 BOGONS-V6 rule 60 le '128'
+set policy prefix-list6 BOGONS-V6 rule 60 prefix '2002::/16'
+set policy prefix-list6 BOGONS-V6 rule 70 action 'permit'
+set policy prefix-list6 BOGONS-V6 rule 70 le '128'
+set policy prefix-list6 BOGONS-V6 rule 70 prefix '3ffe::/16'
+set policy prefix-list6 BOGONS-V6 rule 80 action 'permit'
+set policy prefix-list6 BOGONS-V6 rule 80 le '128'
+set policy prefix-list6 BOGONS-V6 rule 80 prefix 'fc00::/7'
+set policy prefix-list6 BOGONS-V6 rule 90 action 'permit'
+set policy prefix-list6 BOGONS-V6 rule 90 le '128'
+set policy prefix-list6 BOGONS-V6 rule 90 prefix 'fe80::/10'
+set policy prefix-list6 BOGONS-V6 rule 100 action 'permit'
+set policy prefix-list6 BOGONS-V6 rule 100 le '128'
+set policy prefix-list6 BOGONS-V6 rule 100 prefix 'fec0::/10'
+set policy prefix-list6 BOGONS-V6 rule 110 action 'permit'
+set policy prefix-list6 BOGONS-V6 rule 110 le '128'
+set policy prefix-list6 BOGONS-V6 rule 110 prefix 'ff00::/8'
+
+set policy route-map MY-ROUTE-MAP rule 10 match ipv6 address prefix-list 'BOGONS-V6'
+```
+
 ## Mikrotik
 
 ### RouterOS v6
-This is not recommanded. Mikrotik will take a very very long time to process all those routes and has some issues with BGP.
+This is not recommended. Mikrotik will take a very very long time to process all those routes and has some issues with BGP.
 ```
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=::/8 prefix-length=8-128 protocol=bgp action=discard comment="RFC 4291 IPv4-compatible, loopback, et al"
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv6 prefix=0100::/64 prefix-length=64-128 protocol=bgp action=discard comment="RFC 6666 Discard-Only"
