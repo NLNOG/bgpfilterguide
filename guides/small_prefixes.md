@@ -262,6 +262,23 @@ echo "Policy Configuration"
 /configure policy-options policy-statement "BGP_FILTER_IN" entry 30 action action-type reject
 ```
 
+## Arista EOS
+
+```
+ip prefix-list TINY-PREFIX-V4
+   seq 1 permit 0.0.0.0/0 ge 25 le 32
+!
+ipv6 prefix-list TINY-PREFIX-V6
+   seq 1 permit ::/0 ge 49 le 128
+!
+route-map NAME-IN-V4 deny 50
+    match ip address prefix-list TINY-PREFIX-V4
+!
+route-map NAME-IN-V6 deny 50
+    match ipv6 address prefix-list TINY-PREFIX-V6
+!
+```
+
 ## Huawei VRP
 ```
 ip ip-prefix default_ipv4_24 index 10 permit 0.0.0.0 0 greater-equal 8 less-equal 24
