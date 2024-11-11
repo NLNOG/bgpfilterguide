@@ -225,7 +225,17 @@ add list="TRANSIT_ASNS" range=7018 comment="AT&T"
 add chain="NO-TRANSIT-IN" rule="if (bgp-as-path [[:TRANSIT_ASNS:]]){ reject }"
 ```
 
+## Arista EOS
 
+```
+ip as-path regex-mode asn
+!
+ip as-path access-list TRANSIT-ASNS permit _(174|701|1299|2914|3257|3320|3356|3491|4134|5511|6453|6461|6762|6830|7018)_ any
+!
+route-map IX-PEER-IN deny 10
+    match as-path TRANSIT-ASNS
+!
+```
 
 ## Huawei VRP
 
