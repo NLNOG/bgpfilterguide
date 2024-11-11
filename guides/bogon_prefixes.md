@@ -15,8 +15,8 @@ Bogon prefixes are not globally unique unicast IP prefixes. IETF didn't intend
 for these to be routed on the public Internet, and Internet routers shouldn't
 propagate or accept prefixes in these ranges.
 
-IANA IPv4 Address Space: https://www.iana.org/assignments/ipv4-address-space/ipv4-address-space.xhtml
-IANA IPv6 Address Space: https://www.iana.org/assignments/ipv6-address-space/ipv6-address-space.xhtml
+- [IANA IPv4 Address Space](https://www.iana.org/assignments/ipv4-address-space/ipv4-address-space.xhtml)
+- [IANA IPv6 Address Space](https://www.iana.org/assignments/ipv6-address-space/ipv6-address-space.xhtml)
 
 ## IPv4 Listing
 
@@ -38,6 +38,7 @@ IANA IPv6 Address Space: https://www.iana.org/assignments/ipv6-address-space/ipv
 | 240.0.0.0/4     | reserved                         |
 
 ## IPv6 Listing
+
 | Prefix        | Description                     |
 |---------------|---------------------------------|
 | 0100::/64     | RFC 6666 Discard-Only           |
@@ -527,9 +528,9 @@ echo "Policy Configuration"
 /configure policy-options policy-statement "BGP_FILTER_IN" entry 10 from prefix-list ["BOGONS_V4"]
 /configure policy-options policy-statement "BGP_FILTER_IN" entry 10 action action-type reject
 ```
-## Arista
+## Arista EOS
 ```
-ip prefix-list BOGONS_v4
+ip prefix-list BOGONS_V4
    seq 1 permit 0.0.0.0/8 le 32
    seq 2 permit 10.0.0.0/8 le 32
    seq 3 permit 100.64.0.0/10 le 32
@@ -546,7 +547,7 @@ ip prefix-list BOGONS_v4
    seq 14 permit 240.0.0.0/4 le 32
 !
 route-map Import-Peer deny 20
-   match ip address prefix-list BOGONS_v4
+   match ip address prefix-list BOGONS_V4
 !
 ```
 
@@ -954,6 +955,25 @@ echo "Policy Configuration"
 /configure policy-options policy-statement "BGP_FILTER_IN" { entry 20 }
 /configure policy-options policy-statement "BGP_FILTER_IN" entry 20 from prefix-list ["BOGONS_V6"]
 /configure policy-options policy-statement "BGP_FILTER_IN" entry 20 action action-type reject
+```
+
+## Arista EOS
+```
+ipv6 prefix-list BOGONS_V6
+   seq 1 permit 100::/64
+   seq 2 permit 2001:2::/48
+   seq 3 permit 2001:10::/28
+   seq 4 permit 2001:db8::/32
+   seq 5 permit 2002::/16
+   seq 6 permit 3ffe::/16
+   seq 7 permit fc00::/7
+   seq 8 permit fe80::/10
+   seq 9 permit fec0::/10
+   seq 10 permit ff00::/8
+!
+route-map Import-Peer deny 30
+    match ipv6 address prefix-list BOGONS_V6
+!
 ```
 
 ## Huawei VRP
