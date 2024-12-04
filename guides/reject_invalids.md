@@ -311,7 +311,6 @@ Classic CLI BGP configuration (group or neighbor specific):
 ```
 A:br1-nyc>config>router>bgp# info
             best-path-selection
-                compare-origin-validation-state
                 origin-invalid-unusable
             exit
             group "EBGP_PEERING”
@@ -320,13 +319,14 @@ A:br1-nyc>config>router>bgp# info
             exit
             no shutdown
 ```
+
+
 MD-CLI BGP configuration (group or neighbor specific):
 ```
 [ex:configure router "Base" bgp]
 A:admin@br1-nyc# info
     peer-ip-tracking true
     best-path-selection {
-        compare-origin-validation-state true
         origin-invalid-unusable true
     }
     group "EBGP_PEERING" {
@@ -346,7 +346,6 @@ Classic CLI VPRN BGP configuration (group or neighbor specific):
 ```
 A:br1-nyc>config>service>vprn>bgp# info
                 best-path-selection
-                    compare-origin-validation-state
                     origin-invalid-unusable
                 exit
                 group "VPRN_PEERING"
@@ -361,7 +360,6 @@ MD-CLI VPRN BGP configuration (group or neighbor specific):
 [ex:configure service vprn "100" bgp]
 A:admin@br1-nyc# info
     best-path-selection {
-        compare-origin-validation-state true
         origin-invalid-unusable true
     }
     group "VPRN_PEERING" {
@@ -375,6 +373,12 @@ A:admin@br1-nyc# info
     }
 
  ```
+
+UPDATE 2024-11: We have removed the ```compare-origin-validation-state true``` part under best-path-selection, as this option takes the origin validation state into account in the BGP Best Path selection process and can result in unpredicted behaviour:
+
+_When compare-origin-validation-state is configured a new step is added to the BGP decision process after removal of invalid routes and before the comparison of local preference. The new step compares the origin validation state, so that a route with a ‛Valid’ state is preferred over a route with a ‛Not-Found’ state, and a route with a ‛Not-Found’ state is preferred over a route with an ‛Invalid’ state assuming that these routes are considered ‛usable’. The new step is skipped if the compare-origin-validation-state command is not configured._
+
+For more information see: [Nokia Unicast Routing Protocols Guide](https://infocenter.nokia.com/public/7750SR225R1A/topic/com.nokia.Unicast_Guide/bgp_prefix_orig-d497e11185.html)
 
 ## FRR (vtysh)
 First, make sure that you have `-M rpki` added to the `bgpd_options=` line of
