@@ -74,7 +74,7 @@ This is not recommanded. Mikrotik will take a very very long time to process all
 ### RouterOS v7
 ```
 /routing/filter/rule
-add chain="GENERIC_PREFIX_LIST" rule="if (bgp-path-len >= 100 ){ reject }"
+add chain=GENERIC_PREFIX_LIST rule="if (bgp-path-len >= 100 ){ reject }"
 ```
 
 ## Nokia SR OS

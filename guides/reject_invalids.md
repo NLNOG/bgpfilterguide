@@ -416,8 +416,8 @@ add address=10.1.1.6 group=rpki-validator port=323
 Now validate the prefixes in the EBGP ingress policy: 
 ```
 /routing/filter/rule
-add chain="GENERIC_PREFIX_LIST" rule="rpki-verify rpki-validator"
-add chain="GENERIC_PREFIX_LIST" rule="if (rpki invalid){ reject }"
+add chain=GENERIC_PREFIX_LIST rule="rpki-verify rpki-validator"
+add chain=GENERIC_PREFIX_LIST rule="if (rpki invalid){ reject }"
 ```
 
 
