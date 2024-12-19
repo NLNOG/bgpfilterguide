@@ -250,7 +250,7 @@ add list=BOGON-AS range=4200000000-4294967294 comment="RFC 6996"
 add list=BOGON-AS range=4294967294 comment="RFC 7300"
 
 /routing/filter/rule 
-add chain="GENERIC_PREFIX_LIST" rule="if (bgp-as-path [[:BOGON-AS:]]){ reject }"
+add chain=GENERIC_PREFIX_LIST rule="if (bgp-as-path [[:BOGON-AS:]]){ reject }"
 ```
 
 ## Huawei VRP

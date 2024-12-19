@@ -233,7 +233,7 @@ end
 RouterOS 7 added support for several Well-known communities including graceful-shutdown. 
 ```
 /routing/filter/rule 
-add chain="GENERIC_PREFIX_LIST" rule="if (bgp-communities includes graceful-shutdown) { set bgp-local-pref 0; }"
+add chain=GENERIC_PREFIX_LIST rule="if (bgp-communities includes graceful-shutdown) { set bgp-local-pref 0; }"
 ```
 
 ## Huawei VRP
