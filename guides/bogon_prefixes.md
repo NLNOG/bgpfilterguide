@@ -47,6 +47,7 @@ propagate or accept prefixes in these ranges.
 | 2001:db8::/32 | RFC 3849 documentation          |
 | 2002::/16     | RFC 7526 6to4 anycast relay     |
 | 3ffe::/16     | RFC 3701 old 6bone              |
+| 3fff::/20     | RFC 9637 documentation          |
 | fc00::/7      | RFC 4193 unique local unicast   |
 | fe80::/10     | RFC 4291 link local unicast     |
 | fec0::/10     | RFC 3879 old site local unicast |
@@ -784,6 +785,9 @@ set policy prefix-list6 BOGONS-V6 rule 100 prefix 'fec0::/10'
 set policy prefix-list6 BOGONS-V6 rule 110 action 'permit'
 set policy prefix-list6 BOGONS-V6 rule 110 le '128'
 set policy prefix-list6 BOGONS-V6 rule 110 prefix 'ff00::/8'
+set policy prefix-list6 BOGONS-V6 rule 120 action 'permit'
+set policy prefix-list6 BOGONS-V6 rule 120 le '128'
+set policy prefix-list6 BOGONS-V6 rule 120 prefix '3fff::/20'
 
 set policy route-map MY-ROUTE-MAP rule 10 match ipv6 address prefix-list 'BOGONS-V6'
 ```
@@ -970,6 +974,7 @@ ipv6 prefix-list BOGONS_V6
    seq 8 permit fe80::/10
    seq 9 permit fec0::/10
    seq 10 permit ff00::/8
+   set 11 permit 3fff::/20
 !
 route-map Import-Peer deny 30
     match ipv6 address prefix-list BOGONS_V6
