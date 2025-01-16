@@ -171,7 +171,7 @@ set policy route-map INTERNET-IN rule 20 match ipv6 address prefix-list 'TINY-PR
 ## Mikrotik
 
 ### RouterOS v6
-This is not recommanded. Mikrotik will take a very very long time to process all those routes and has some issues with BGP.
+This is not recommended. Mikrotik will take a very very long time to process all those routes and has some issues with BGP.
 ```
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv4 prefix-length=0-7 protocol=bgp action=discard comment=""
 /routing filter add chain=GENERIC_PREFIX_LIST address-family=ipv4 prefix-length=25-32 protocol=bgp action=discard comment=""
