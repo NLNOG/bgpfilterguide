@@ -69,7 +69,7 @@ policy-statement rpki {
   term reject_invalid {
     from {
       protocol bgp;
-        validation-database invalid;
+      validation-database invalid;
     }
     then {
       validation-state invalid;
