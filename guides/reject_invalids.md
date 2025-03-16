@@ -420,7 +420,7 @@ add chain=GENERIC_PREFIX_LIST rule="rpki-verify rpki-validator"
 add chain=GENERIC_PREFIX_LIST rule="if (rpki invalid){ reject }"
 ```
 
-
+If you specify more then one validator in one group, only one of the validators will be used. If you have multiple validators, and you want your routers to connect to all of them, you have to create multiple groups.
 
 ## Huawei VRP
 
