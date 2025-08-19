@@ -834,13 +834,9 @@ add chain="GENERIC_PREFIX_LIST" rule="if ( afi ipv6 && dst==fec0::/10 && dst-len
 add chain="GENERIC_PREFIX_LIST" rule="if ( afi ipv6 && dst==ff00::/8 && dst-len >= 8) { reject; }" comment="RFC 4291 multicast"
 ```
 
-## Juniper and Cisco
-
-Gert Doering's [ipv6-filters](https://www.space.net/~gert/RIPE/ipv6-filters.html)
-
 ## YAML from Coloclue
 
-Coloclue's network management system [kees](https://github.com/coloclue/kees) considers these the IPv6 Bogons: [yaml file](https://github.com/coloclue/kees/blob/master/vars_example/generic.yml#L188-L274)
+Coloclue's network management system [kees](https://github.com/coloclue/kees) considers these the IPv4 and IPv6 Bogons: [yaml file](https://github.com/coloclue/kees/blob/master/vars_example/generic.yml#L178-L340)
 
 ## Nokia SR OS
 ```
