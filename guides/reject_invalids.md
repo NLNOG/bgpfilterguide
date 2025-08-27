@@ -158,7 +158,7 @@ BIRD 2.0 supports RTR. However, the current implementation does not perform an a
 > The RPKI-RTR protocol receives and maintains a set of ROAs from a cache server (also called validator). You can validate routes (RFC 6483) using function `roa_check()` in filter and set it as import filter at the BGP protocol. BIRD should re-validate all of affected routes after RPKI update by RFC 6811, but we don't support it yet! You can use a BIRD's client command `reload in bgp_protocol_name` for manual call of revalidation of all routes.
 (https://bird.network.cz/?get_doc&v=20&f=bird-6.html#ss6.13)
 
-The [rtrsub](https://github.com/job/rtrsub) utility can be used to generate static ROA tables for BIRD 1.6.
+BIRD 3.0 *does*  support automatic revalidation. It is [enabled by default (`rpki reload on`)](https://bird.network.cz/?get_doc&v=30&f=bird.html#toc3.5), but, for BGP channels, you must configure [`import table yes`](https://bird.network.cz/?get_doc&v=30&f=bird-6.html#bgp-import-table) and/or [`export table yes`](https://bird.network.cz/?get_doc&v=30&f=bird-6.html#bgp-export-table), for respective direction.
 
 Set up RTR as following:
 
@@ -208,9 +208,17 @@ protocol bgp PEER1 from PEERS_TEMPLATE {
   local 192.0.2.1 as 64500;
   neighbor 192.0.2.2 as 64500;
   ipv4 {
+    # for BIRD 3.0, depending on direction
+    # import table yes;
+    # export table yes;
+
     filter filter ebgp_inbound;
   };
   ipv6 {
+    # for BIRD 3.0, depending on direction
+    # import table yes;
+    # export table yes;
+
     filter filter ebgp_inbound;
   };
 }
