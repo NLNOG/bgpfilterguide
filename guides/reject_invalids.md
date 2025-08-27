@@ -160,6 +160,8 @@ BIRD 2.0 supports RTR. However, the current implementation does not perform an a
 
 BIRD 3.0 *does*  support automatic revalidation. It is [enabled by default (`rpki reload on`)](https://bird.network.cz/?get_doc&v=30&f=bird.html#toc3.5), but, for BGP channels, you must configure [`import table yes`](https://bird.network.cz/?get_doc&v=30&f=bird-6.html#bgp-import-table) and/or [`export table yes`](https://bird.network.cz/?get_doc&v=30&f=bird-6.html#bgp-export-table), for respective direction.
 
+The [rtrsub](https://github.com/job/rtrsub) utility can be used to generate static ROA tables for BIRD 1.6.
+
 Set up RTR as following:
 
 ```
