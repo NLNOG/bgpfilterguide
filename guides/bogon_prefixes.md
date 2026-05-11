@@ -985,6 +985,7 @@ route-map Import-Peer deny 30
 
 ## Huawei VRP
 ```
+ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 10 permit :: 8 greater-equal 8 less-equal 128
 ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 20 permit 100:: 64 greater-equal 64 less-equal 128
 ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 30 permit 2001:2:: 48 greater-equal 48 less-equal 128
 ip ipv6-prefix prefix_Denied_Bogons_ipv6 index 40 permit 2001:10:: 28 greater-equal 28 less-equal 128
