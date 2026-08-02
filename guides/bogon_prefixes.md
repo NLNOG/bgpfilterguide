@@ -377,6 +377,28 @@ policy-statement reject-bogon-prefixes {
     }
 }
 ```
+## IOS-XE
+```
+ip prefix-list bogon_prefixes seq 5 deny 0.0.0.0/8 le 32
+ip prefix-list bogon_prefixes seq 10 deny 10.0.0.0/8 le 32
+ip prefix-list bogon_prefixes seq 15 deny 100.64.0.0/10 le 32
+ip prefix-list bogon_prefixes seq 20 deny 127.0.0.0/8 le 32
+ip prefix-list bogon_prefixes seq 25 deny 169.254.0.0/16 le 32
+ip prefix-list bogon_prefixes seq 30 deny 172.16.0.0/12 le 32
+ip prefix-list bogon_prefixes seq 35 deny 192.0.2.0/24 le 32
+ip prefix-list bogon_prefixes seq 40 deny 192.88.99.0/24 le 32
+ip prefix-list bogon_prefixes seq 45 deny 192.168.0.0/16 le 32
+ip prefix-list bogon_prefixes seq 50 deny 198.18.0.0/15 le 32
+ip prefix-list bogon_prefixes seq 55 deny 198.51.100.0/24 le 32
+ip prefix-list bogon_prefixes seq 60 deny 203.0.113.0/24 le 32
+ip prefix-list bogon_prefixes seq 65 deny 224.0.0.0/4 le 32
+ip prefix-list bogon_prefixes seq 70 deny 240.0.0.0/4 le 32
+
+router bgp <ASN>
+address-family ipv4
+neighbor <neighbor_IP> prefix-list bogon_prefixes in
+
+```
 ## IOS-XR
 ```
 prefix-set BOGONS_V4
@@ -713,6 +735,26 @@ config router route-map
         end
     next
 end
+```
+## IOS-XE
+```
+ipv6 prefix-list bogon_prefixes seq 5 deny 100::/64 le 128
+ipv6 prefix-list bogon_prefixes seq 10 deny 2001:2::/48 le 128
+ipv6 prefix-list bogon_prefixes seq 15 deny 2001:10::/28 le 128
+ipv6 prefix-list bogon_prefixes seq 20 deny 2001:DB8::/32 le 128
+ipv6 prefix-list bogon_prefixes seq 25 deny 2002::/16 le 128
+ipv6 prefix-list bogon_prefixes seq 30 deny 3FFE::/16 le 128
+ipv6 prefix-list bogon_prefixes seq 35 deny 3FFF::/16 le 128
+ipv6 prefix-list bogon_prefixes seq 40 deny 5F00::/16 le 128
+ipv6 prefix-list bogon_prefixes seq 45 deny FC00::/7 le 128
+ipv6 prefix-list bogon_prefixes seq 50 deny FE80::/10 le 128
+ipv6 prefix-list bogon_prefixes seq 55 deny FEC0::/10 le 128
+ipv6 prefix-list bogon_prefixes seq 60 deny FF00::/8 le 128
+
+
+router bgp <ASN>
+address-family ipv6
+neighbor <neighbor_IP> prefix-list bogon_prefixes in
 ```
 ## OpenBGPD
 
