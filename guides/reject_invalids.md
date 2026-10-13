@@ -38,7 +38,16 @@ Ensure the `rpki-client` root crontab entry is enabled and runs every hour.
 Import the `rpki-client` generated config and instruct `bgpd` to reject RPKI invalid routes
 
 ```
-include "/var/db/rpki-client/openbgpd" # consume config from rpki-client
+# Consume config from rpki-client.
+include "/var/db/rpki-client/openbgpd"
+
+neighbor A.B.C.D {
+    remote-as XYZ
+    role peer      # For ASPA & RFC 9234 must specify a role.
+                   # One of 'customer', 'provider', or 'peer'
+}
+
+# Routing policy
 deny quick from ebgp avs invalid       # reject incoming ASPA-invalids
 deny quick from ebgp ovs invalid       # reject incoming ROA-invalids
 deny quick to ebgp ovs invalid         # don't export ROA-invalids
