@@ -7,16 +7,17 @@ permalink: /guides/reject_invalids/
 * TOC
 {:toc}
 
-# Reject RPKI Invalid BGP Routes
+# Reject RPKI ROA/ASPA Invalid BGP Routes
 
 ## Purpose
 
-A complete filter for any BGP configuration should reject RPKI invalid BGP routes.
+A complete filter for any BGP configuration should reject RPKI ROA/ASPA invalid BGP routes.
 
-Whether a route is RPKI *invalid* or not is determined following [RFC 6811](https://tools.ietf.org/html/rfc6811) and [RFC 8893](https://tools.ietf.org/html/rfc8893).
+Whether a route is *invalid* or not is determined following [RFC 6811](https://tools.ietf.org/html/rfc6811), [RFC 8893](https://tools.ietf.org/html/rfc8893), and [draft-ietf-sidrops-aspa-verification](https://datatracker.ietf.org/doc/draft-ietf-sidrops-aspa-verification/).
 
 It is considered *harmful* to manipulate BGP Path Attributes (for example LOCAL_PREF or COMMUNITY) based on the RPKI Origin Validation state.
-Making BGP Path Attributes dependent on RPKI Validation states introduces needless brittleness in the global routing system as explained [here](https://mailarchive.ietf.org/arch/msg/sidrops/dwQi9lgYKRVctdlMAHhtgYkzhSM/).
+Making BGP Path Attributes dependent on RPKI Validation states introduces needless brittleness in the global routing system as explained in this IETF [BCP](https://datatracker.ietf.org/doc/html/draft-ietf-sidrops-avoid-rpki-state-in-bgp).
+
 Additionally, the use of [RFC 8097](https://tools.ietf.org/html/rfc8097) is STRONGLY ABSOLUTELY NOT RECOMMENDED.
 RFC 8097 has caused issues for multi-vendor network operators.
 
@@ -37,12 +38,11 @@ Ensure the `rpki-client` root crontab entry is enabled and runs every hour.
 Import the `rpki-client` generated config and instruct `bgpd` to reject RPKI invalid routes
 
 ```
-include "/var/db/rpki-client/openbgpd" # consume VRPs from rpki-client
-deny quick from ebgp ovs invalid       # dont import invalids
-deny quick to ebgp ovs invalid         # dont export invalids
+include "/var/db/rpki-client/openbgpd" # consume config from rpki-client
+deny quick from ebgp avs invalid       # reject incoming ASPA-invalids
+deny quick from ebgp ovs invalid       # reject incoming ROA-invalids
+deny quick to ebgp ovs invalid         # don't export ROA-invalids
 ```
-
-It is REALLY NOT recommended to make set or modify any BGP Path Attributes based on the Origin Validation state (keyword: `ovs`).
 
 ## Junos
 
